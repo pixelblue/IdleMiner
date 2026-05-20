@@ -8,9 +8,9 @@
 
 ## Core Loop
 - Hover cursor over space objects to mine them (early game, manual)
-- Build structures on your asteroid to automate and scale
-- Refine raw resources into better materials
-- Use materials to grow a living, green base on your asteroid
+- This is time limited. You get transfered to the base again automatically.
+- Use Mined Resources to build structures on your asteroid to get more powerfull upgrades.
+- Go back to mining again
 
 ## Progression
 - Early: manual mining, place first Drone Spawner
@@ -25,4 +25,4 @@
 ## Resource Tiers
 - Tier 1: Raw Ore
 - Tier 2: Refined Metals
-- Tier 3: Biological / Living Materials
+- Tier 3: Structural elements which can be used for building
