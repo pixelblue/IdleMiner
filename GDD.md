@@ -7,8 +7,8 @@
 - Goal: craft and terraform your own asteroid and make it green
 
 ## Core Loop
-- Hover cursor over space objects to mine them (early game, manual)
-- This is time limited. You get transfered to the base again automatically.
+- Hover cursor over objects to mine them (early game, manual)
+- This is time limited. You get transferred to the base again automatically.
 - Use Mined Resources to refine materials which can be used to construct structures
 - Go back to mining again
 
@@ -20,12 +20,12 @@
 ### Progression 10min
 - Player starts in Asteroid field: "Hover over asteroids to start mining"
 - Timer runs 10 - 15seconds
+- Mined resources are collected to the Player's cursor
 - When timer runs out player get's automatically transported to the "Base"
-- Uses mined resources (which resourcers are those? And what to do with them exactly)
-- Player also needs to get more powerfull here. Probably
+- Uses mined resources on the first buildings
+- Player also needs to get more powerfull here. 
 - Player runs out of resources and needs to press "Mine" again
 - Player mines again
-- Timer runs out and 
 
 ## Key Structures
 - Drone Spawner
