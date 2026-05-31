@@ -1,0 +1,12 @@
+using UnityEngine;
+
+namespace Idler
+{
+    [CreateAssetMenu(fileName = "GameData", menuName = "Idler/GameData", order = 0)]
+    public class GameData : ScriptableObject
+    {
+        public LeveledProperty EnergyCostPerHit;
+        public LeveledProperty HitRate;
+        public LeveledProperty HitRadius;
+    }
+}

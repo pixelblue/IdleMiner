@@ -9,6 +9,7 @@ namespace ANS_Core.FSM
         public abstract void OnDeactivate();
     }
 
+    [DefaultExecutionOrder(-200)]
     public class FSM_StateManager : MonoBehaviour
     {
         [SerializeField] private bool showStateChange;
@@ -26,13 +27,17 @@ namespace ANS_Core.FSM
             isApplicationQuitting = true;
         }
 
-        private void Awake()
+        private void EnsureInitialized()
         {
+            if (allStates != null) return;
             allStates = GetComponentsInChildren<FSM_GameState>(true);
             foreach (FSM_GameState state in allStates)
-            {
                 state.gameObject.SetActive(false);
-            }
+        }
+
+        private void Awake()
+        {
+            EnsureInitialized();
         }
 
         private void OnEnable()
@@ -68,7 +73,7 @@ namespace ANS_Core.FSM
 
         public void ChangeState<T>() where T : FSM_GameState
         {
-            // call onDeactivate of last gamestate
+            EnsureInitialized();
             if (currentState != null)
             {
                 //Debug.Log ( "FSM_StateManager::deactivating state "  + currentState.GetType() );

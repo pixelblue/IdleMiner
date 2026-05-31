@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Brick;
 using UnityEngine;
 
 namespace ANS.Common
@@ -46,45 +45,12 @@ namespace ANS.Common
 
         private IObjectPool CreateTypedPool(Component comp, string poolName, int initialSize)
         {
+            /*
             // Try LightningController
             var lightningObj = comp.GetComponent<LightningController>();
             if (lightningObj != null)
                 return new ObjectPool<LightningController>(lightningObj, poolName, initialSize, this.transform);
-            
-            // Try PickupController
-            var pickupObj = comp.GetComponent<PickupController>();
-            if (pickupObj != null)
-                return new ObjectPool<PickupController>(pickupObj, poolName, initialSize, this.transform);
-            
-            // Try Projectile
-            var projectileObj = comp.GetComponent<Projectile>();
-            if (projectileObj != null)
-                return new ObjectPool<Projectile>(projectileObj, poolName, initialSize, this.transform);
-            
-            // Try BulletController
-            var bulletObj = comp.GetComponent<Bullet>();
-            if (bulletObj != null)
-                return new ObjectPool<Bullet>(bulletObj, poolName, initialSize, this.transform);
-            
-            // Try BombController
-            var bombObj = comp.GetComponent<BombController>();
-            if (bombObj != null)
-                return new ObjectPool<BombController>(bombObj, poolName, initialSize, this.transform);
-            
-            // Try HealthBarController
-            var healthBarObj = comp.GetComponent<HealthBarController>();
-            if (healthBarObj != null)
-                return new ObjectPool<HealthBarController>(healthBarObj, poolName, initialSize, this.transform);
-            
-            // Try HitableObject (covers all subclasses: Enemy, Bumper, Pickup, etc.)
-            var hitableObj = comp.GetComponent<HitableObject>();
-            if (hitableObj != null)
-                return new ObjectPool<HitableObject>(hitableObj, poolName, initialSize, this.transform);
-            
-            // Try FlyingScoreController
-            var flyingScoreObj = comp.GetComponent<FlyingScoreController>();
-            if (flyingScoreObj != null)
-                return new ObjectPool<FlyingScoreController>(flyingScoreObj, poolName, initialSize, this.transform);
+            */
             
             // Fallback: allow Transform pooling
             var tr = comp.GetComponent<Transform>();
