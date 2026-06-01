@@ -1,17 +1,16 @@
 namespace Idler
 {
-    public class State_UI_Building : State_UI_Base
+    public class State_Game_Init : State_Game_Base
     {
         public override void OnActivate()
         {
             base.OnActivate();
-            Ctrl.Screen_Building.Show();
+            Fsm.ChangeState<State_Game_Surface>();
         }
         
         public override void OnDeactivate()
         {
             base.OnDeactivate();
-            Ctrl.Screen_Building.Hide();
         }
     }
 }

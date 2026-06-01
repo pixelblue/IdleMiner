@@ -5,7 +5,7 @@ namespace Idler
             public override void OnActivate()
             {
                 base.OnActivate();
-                Fsm.ChangeState<State_UI_Building>();
+                Fsm.ChangeState<State_UI_Surface>();
             }
 
             public override void OnDeactivate()

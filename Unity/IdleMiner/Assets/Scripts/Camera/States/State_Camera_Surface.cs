@@ -2,7 +2,7 @@ using DG.Tweening;
 
 namespace Idler.States
 {
-    public class State_Camera_Building : State_Camera_Base
+    public class State_Camera_Surface : State_Camera_Base
     {
         public override void OnActivate()
         {

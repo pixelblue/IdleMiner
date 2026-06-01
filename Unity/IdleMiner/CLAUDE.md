@@ -60,6 +60,7 @@ pool.Release("prefabName", component);
 ## Code Style
 
 - Private fields use plain camelCase — no underscore prefix (e.g. `bool active`, not `bool _active`).
+- Add a short comment on non-obvious logic — math, physics tricks, tricky timing — but skip anything self-explanatory. One line is enough.
 
 ## Game Design Reference
 

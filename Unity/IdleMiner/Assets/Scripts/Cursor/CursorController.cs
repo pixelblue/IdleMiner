@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Idler
 {
-    public class CursorController : MonoBehaviour
+    public class CursorController : MonoBehaviour, ICursor
     {
         [SerializeField] private Vector2 mobileOffset;
         [SerializeField] private LeveledProperty hitRadius;
@@ -16,6 +16,8 @@ namespace Idler
         [SerializeField] private Image hitEffectImage;
 
         private ICamera camCtrl;
+        private IEvent eventCtrl;
+        private IMining miningCtrl;
         private PlayerInput playerInput;
         private RectTransform rectTransform;
         private RectTransform hitRectTransform;
@@ -28,8 +30,9 @@ namespace Idler
 
         private void Awake()
         {
-            Cursor.visible = false;
-            camCtrl = ServiceLocator.Current.Get<ICamera>();
+            camCtrl     = ServiceLocator.Current.Get<ICamera>();
+            eventCtrl   = ServiceLocator.Current.Get<IEvent>();
+            miningCtrl  = ServiceLocator.Current.Get<IMining>();
             rectTransform = GetComponent<RectTransform>();
             hitRectTransform = hitEffectImage.transform as RectTransform;
             canvas = GetComponentInParent<Canvas>();
@@ -65,8 +68,9 @@ namespace Idler
             hitTimer += Time.deltaTime;
             if (hitTimer > hitRate.Value)
             {
-                hitTimer = 0f;
                 if (currentHits.Count == 0) return;
+                if (!miningCtrl.ConsumeHit()) return; // no energy — skip tick
+                hitTimer = 0f;
 
                 transform.DOKill();
                 transform.localScale = Vector3.one * 0.9f;
@@ -153,6 +157,18 @@ namespace Idler
         {
             if (col.TryGetComponent<Interactable>(out var interactable))
                 interactable.OnCursorExit(this);
+        }
+
+        public void Activate()
+        {
+            Cursor.visible = false;
+            this.gameObject.SetActive(true);
+        }
+
+        public void Deactivate()
+        {
+            Cursor.visible = true;
+            this.gameObject.SetActive(false);
         }
     }
 }

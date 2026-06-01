@@ -1,18 +1,21 @@
-using DG.Tweening;
+using ANS.Common.ServiceLocator;
 
-namespace Idler.States
+namespace Idler
 {
-    public class State_Camera_Mining : State_Camera_Base
+    public class State_Game_Mining : State_Game_Base
     {
+        private IMining miningCtrl;
         public override void OnActivate()
         {
-            base.OnActivate();
-            Ctrl.Cam.DOOrthoSize(Ctrl.orthoSizeMining, 0.3f);
+            base.OnActivate(); 
+            miningCtrl = ServiceLocator.Current.Get<IMining>();
+            miningCtrl.Activate();
         }
         
         public override void OnDeactivate()
         {
             base.OnDeactivate();
+            miningCtrl.Deactivate();
         }
 
         protected override void RegisterEvents()
@@ -20,7 +23,7 @@ namespace Idler.States
             base.RegisterEvents();
             EventCtrl.MiningStopped += OnMiningStopped;
         }
-        
+
         protected override void UnregisterEvents()
         {
             base.UnregisterEvents();
@@ -29,7 +32,7 @@ namespace Idler.States
 
         private void OnMiningStopped()
         {
-            Fsm.ChangeState<State_Camera_Surface>();
+            Fsm.ChangeState<State_Game_Surface>();
         }
     }
 }

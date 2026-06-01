@@ -22,6 +22,9 @@ namespace Idler
             ServiceLocator.Current.Register<IEvent>(FindFirstObjectByType<EventManager>());
             ServiceLocator.Current.Register<IMainUI>(FindFirstObjectByType<MainUiController>());
             ServiceLocator.Current.Register<ICamera>(FindFirstObjectByType<CameraController>());
+            ServiceLocator.Current.Register<IMining>(FindFirstObjectByType<MiningController>());
+            ServiceLocator.Current.Register<ISurface>(FindFirstObjectByType<SurfaceController>());
+            ServiceLocator.Current.Register<ICursor>(FindFirstObjectByType<CursorController>());
         }
     }
 }
