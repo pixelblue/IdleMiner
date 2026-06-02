@@ -9,8 +9,6 @@ namespace Idler
     public class CursorController : MonoBehaviour, ICursor
     {
         [SerializeField] private Vector2 mobileOffset;
-        [SerializeField] private LeveledProperty hitRadius;
-        [SerializeField] private LeveledProperty hitRate;
         [SerializeField] private float castDepth = 5f;
         [SerializeField] private LayerMask castMask = ~0;
         [SerializeField] private Image hitEffectImage;
@@ -18,6 +16,7 @@ namespace Idler
         private ICamera camCtrl;
         private IEvent eventCtrl;
         private IMining miningCtrl;
+        private GameData gameData;
         private PlayerInput playerInput;
         private RectTransform rectTransform;
         private RectTransform hitRectTransform;
@@ -33,6 +32,7 @@ namespace Idler
             camCtrl     = ServiceLocator.Current.Get<ICamera>();
             eventCtrl   = ServiceLocator.Current.Get<IEvent>();
             miningCtrl  = ServiceLocator.Current.Get<IMining>();
+            gameData    = ServiceLocator.Current.Get<IGame>().Data;
             rectTransform = GetComponent<RectTransform>();
             hitRectTransform = hitEffectImage.transform as RectTransform;
             canvas = GetComponentInParent<Canvas>();
@@ -66,7 +66,7 @@ namespace Idler
         private void UpdateHitTick()
         {
             hitTimer += Time.deltaTime;
-            if (hitTimer > hitRate.Value)
+            if (hitTimer > gameData.HitRate.Value)
             {
                 if (currentHits.Count == 0) return;
                 if (!miningCtrl.ConsumeHit()) return; // no energy — skip tick
@@ -105,7 +105,7 @@ namespace Idler
         {
             var ray = camCtrl.Cam.ScreenPointToRay(screenPos);
             gizmoRay = ray;
-            var count = Physics.SphereCastNonAlloc(ray, hitRadius.Value, hitBuffer, castDepth, castMask);
+            var count = Physics.SphereCastNonAlloc(ray, gameData.HitRadius.Value, hitBuffer, castDepth, castMask);
 
             toRemove.Clear();
             foreach (var col in currentHits)
@@ -132,14 +132,14 @@ namespace Idler
         {
             if (rectTransform == null || camCtrl?.Cam == null) return;
             var pixelsPerUnit = UnityEngine.Screen.height / (2f * camCtrl.Cam.orthographicSize * canvas.scaleFactor);
-            var value = Vector2.one * (hitRadius.Value * 2f * pixelsPerUnit);
+            var value = Vector2.one * (gameData.HitRadius.Value * 2f * pixelsPerUnit);
             rectTransform.sizeDelta = value;
             hitRectTransform.sizeDelta = value;
         }
 
         private void OnDrawGizmos()
         {
-            var radius = hitRadius != null ? hitRadius.Value : 0.5f;
+            var radius = gameData != null ? gameData.HitRadius.Value : 0.5f;
             Gizmos.color = currentHits.Count > 0 ? Color.green : Color.cyan;
             var end = gizmoRay.origin + gizmoRay.direction * castDepth;
             Gizmos.DrawWireSphere(gizmoRay.origin, radius);

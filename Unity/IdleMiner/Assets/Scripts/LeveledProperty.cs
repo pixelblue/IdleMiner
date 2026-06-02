@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Idler
@@ -11,9 +12,9 @@ namespace Idler
         [SerializeField] private float upgradeCostBase;
         [SerializeField] private float upgradeCostMultiplier;
 
-        public int   CurrentLevel    { get; private set; }
+        [ShowInInspector, ReadOnly] public int   CurrentLevel { get; private set; }
+        [ShowInInspector, ReadOnly] public float Value        => GetValue(CurrentLevel);
         public int   MaxLevel        => maxLevel;
-        public float Value           => GetValue(CurrentLevel);
         public float NextUpgradeCost => GetUpgradeCost(CurrentLevel);
 
         // Returns false if already at max level

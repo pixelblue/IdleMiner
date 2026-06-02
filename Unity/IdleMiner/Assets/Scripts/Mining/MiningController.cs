@@ -7,7 +7,7 @@ namespace Idler
     public class MiningController : MonoBehaviour, IMining
     {
         public float CurrentEnergy { get; private set; }
-        public float MaxEnergy => gameData.maxEnergy.Value;
+        public float MaxEnergy => gameData.energy.Value;
 
         public event Action<float, float> OnEnergyChanged;
 

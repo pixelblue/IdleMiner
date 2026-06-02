@@ -6,7 +6,7 @@ namespace Idler
 {
     public class Screen_Mining : Screen
     {
-        [SerializeField] private Slider energySlider;
+        [SerializeField] private Image energySlider;
 
         private IMining miningCtrl;
 
@@ -26,7 +26,7 @@ namespace Idler
         {
             if (energySlider == null) return;
             // Normalise to 0-1 for the slider
-            energySlider.value = max > 0 ? current / max : 0f;
+            energySlider.fillAmount = max > 0 ? current / max : 0f;
         }
     }
 }

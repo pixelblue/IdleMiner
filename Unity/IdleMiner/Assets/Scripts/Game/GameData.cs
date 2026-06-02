@@ -5,7 +5,7 @@ namespace Idler
     [CreateAssetMenu(fileName = "GameData", menuName = "Idler/GameData", order = 0)]
     public class GameData : ScriptableObject
     {
-        public LeveledProperty maxEnergy;
+        public LeveledProperty energy;
         public LeveledProperty EnergyCostPerHit;
         public LeveledProperty HitRate;
         public LeveledProperty HitRadius;

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f9bd138884054d488f2ef624ff8c662, type: 3}
-  m_Name: EnergyPerHit
+  m_Name: MaxEnergy
   m_EditorClassIdentifier: Assembly-CSharp::Idler.LeveledProperty
-  baseValue: 0.1
-  increment: -0.1
+  baseValue: 1
+  increment: 0.2
   maxLevel: 20
   upgradeCostBase: 50
   upgradeCostMultiplier: 1.5

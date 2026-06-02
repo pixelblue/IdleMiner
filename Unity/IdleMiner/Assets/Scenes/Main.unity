@@ -471,7 +471,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &282505164
 Transform:
   m_ObjectHideFlags: 0
@@ -515,7 +515,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &385063608
 Transform:
   m_ObjectHideFlags: 0
@@ -559,7 +559,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &392392137
 Transform:
   m_ObjectHideFlags: 0
@@ -1574,7 +1574,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ANS_Core.FSM.FSM_StateManager
   showStateChange: 0
   currentState: {fileID: 0}
-  initialState: {fileID: 0}
+  initialState: {fileID: 282505165}
 --- !u!1 &1353679469
 GameObject:
   m_ObjectHideFlags: 0
@@ -1665,7 +1665,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Idler.GameController
   <Data>k__BackingField: {fileID: 11400000, guid: 16bf0285d563a435ea9b0060b1841473, type: 2}
-  <Fsm>k__BackingField: {fileID: 0}
+  <Fsm>k__BackingField: {fileID: 1314510785}
 --- !u!1 &1539936320
 GameObject:
   m_ObjectHideFlags: 0
@@ -1718,8 +1718,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Idler.CursorController
   mobileOffset: {x: 0, y: 0}
-  hitRadius: {fileID: 11400000, guid: 4fe4ff336b2234cf8b2e4de8782e79d5, type: 2}
-  hitRate: {fileID: 11400000, guid: 7fc3ea0b51d824b6a911e7432bcc8545, type: 2}
   castDepth: 50
   castMask:
     serializedVersion: 2
@@ -1812,6 +1810,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeff25f257a04de09882defd410618f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Idler.Screen_Mining
+  energySlider: {fileID: 884153018}
 --- !u!1 &1670347704
 GameObject:
   m_ObjectHideFlags: 0
