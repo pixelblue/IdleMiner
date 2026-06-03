@@ -5,13 +5,30 @@ namespace Idler
         public override void OnActivate()
         {
             base.OnActivate();
-            Ctrl.Screen_Mining.Show();
+            Ctrl.ShowScreen(Ctrl.Screen_Mining);
         }
 
         public override void OnDeactivate()
         {
             base.OnDeactivate();
             Ctrl.Screen_Mining.Hide();
+        }
+
+        protected override void RegisterEvents()
+        {
+            base.RegisterEvents();
+            EventCtrl.MiningStopped += OnMiningStopped;
+        }
+
+        protected override void UnregisterEvents()
+        {
+            base.UnregisterEvents();
+            EventCtrl.MiningStopped -= OnMiningStopped;
+        }
+
+        private void OnMiningStopped()
+        {
+            Fsm.ChangeState<State_UI_Surface>();
         }
     }
 }

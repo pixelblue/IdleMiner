@@ -5,6 +5,6 @@ namespace Idler
 {
     public interface IMainUI : IGameService
     {
-
+        void Initialize();
     }
 }

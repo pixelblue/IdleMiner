@@ -8,6 +8,7 @@ namespace Idler.States
         {
             base.OnActivate();
             Ctrl.Cam.DOOrthoSize(Ctrl.orthoSizeBuilding, 0.3f);
+            Ctrl.scaleTarget.DOScale(Ctrl.OrigScaleTarget, 0.3f);
         }
 
         public override void OnDeactivate()

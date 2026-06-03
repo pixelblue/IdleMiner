@@ -8,6 +8,8 @@ namespace Idler.States
         {
             base.OnActivate();
             Ctrl.Cam.DOOrthoSize(Ctrl.orthoSizeMining, 0.3f);
+            var miningScale = Ctrl.OrigScaleTarget * (Ctrl.orthoSizeMining / Ctrl.orthoSizeBuilding);
+            Ctrl.scaleTarget.DOScale(miningScale, 0.3f);
         }
         
         public override void OnDeactivate()

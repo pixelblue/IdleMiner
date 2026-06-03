@@ -29,7 +29,7 @@ namespace ANS_Core.FSM
 
         private void EnsureInitialized()
         {
-            if (allStates != null) return;
+            //if (allStates != null) return;
             allStates = GetComponentsInChildren<FSM_GameState>(true);
             foreach (FSM_GameState state in allStates)
                 state.gameObject.SetActive(false);
@@ -43,7 +43,7 @@ namespace ANS_Core.FSM
         private void OnEnable()
         {
             isApplicationQuitting = false;
-            // disable all states just to be sure
+            EnsureInitialized();
 
             if (initialState == null)
             {

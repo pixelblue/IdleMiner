@@ -45,13 +45,13 @@ namespace Idler
             cursor.Deactivate();
         }
 
-        public bool ConsumeHit()
+        public void ConsumeHit()
         {
             var cost = gameData.EnergyCostPerHit.Value;
-            if (CurrentEnergy < cost) return false;
             CurrentEnergy -= cost;
             OnEnergyChanged?.Invoke(CurrentEnergy, MaxEnergy);
-            return true;
+            
+            if (CurrentEnergy <= 0.0f) eventCtrl.InvokeMiningStopped();
         }
 
         private void RefillEnergy()

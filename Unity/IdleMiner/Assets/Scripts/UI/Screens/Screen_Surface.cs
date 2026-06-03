@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Idler
 {
-    public class Screen_Building : Screen
+    public class Screen_Surface : Screen
     {
         [SerializeField] private Button mininButton;
 

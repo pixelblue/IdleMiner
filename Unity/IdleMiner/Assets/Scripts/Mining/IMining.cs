@@ -9,7 +9,7 @@ namespace Idler
         float MaxEnergy { get; }
 
         // Deducts EnergyCostPerHit; returns false if energy is insufficient
-        bool ConsumeHit();
+        void ConsumeHit();
 
         event Action<float, float> OnEnergyChanged; // (current, max)
 

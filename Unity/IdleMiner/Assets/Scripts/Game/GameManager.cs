@@ -1,3 +1,4 @@
+using System;
 using ANS_Core.FSM;
 using ANS.Common.ServiceLocator;
 using UnityEngine;
@@ -8,6 +9,11 @@ namespace Idler
     {
         [field: SerializeField] public GameData Data { get; private set; }
         [field: SerializeField] public FSM_StateManager Fsm { get; private set; }
+
+        private void Start()
+        {
+            Fsm.enabled = true;
+        }
     }
     
 }

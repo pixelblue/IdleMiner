@@ -6,5 +6,6 @@ namespace Idler
     public interface ICamera : IGameService
     {
         Camera Cam { get; }
+        void Initialize();
     }
 }

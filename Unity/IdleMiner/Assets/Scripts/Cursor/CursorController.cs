@@ -25,6 +25,7 @@ namespace Idler
         private readonly List<Collider> toRemove = new();
         private readonly RaycastHit[] hitBuffer = new RaycastHit[16];
         private float hitTimer;
+        private float worldHitRadius;
         private Ray gizmoRay;
 
         private void Awake()
@@ -69,7 +70,7 @@ namespace Idler
             if (hitTimer > gameData.HitRate.Value)
             {
                 if (currentHits.Count == 0) return;
-                if (!miningCtrl.ConsumeHit()) return; // no energy — skip tick
+                miningCtrl.ConsumeHit();
                 hitTimer = 0f;
 
                 transform.DOKill();
@@ -105,7 +106,7 @@ namespace Idler
         {
             var ray = camCtrl.Cam.ScreenPointToRay(screenPos);
             gizmoRay = ray;
-            var count = Physics.SphereCastNonAlloc(ray, gameData.HitRadius.Value, hitBuffer, castDepth, castMask);
+            var count = Physics.SphereCastNonAlloc(ray, worldHitRadius, hitBuffer, castDepth, castMask);
 
             toRemove.Clear();
             foreach (var col in currentHits)
@@ -131,15 +132,17 @@ namespace Idler
         private void UpdateSize()
         {
             if (rectTransform == null || camCtrl?.Cam == null) return;
+            var screenDiameter = gameData.HitRadius.Value * 2f;
+            rectTransform.sizeDelta = Vector2.one * screenDiameter;
+            hitRectTransform.sizeDelta = Vector2.one * screenDiameter;
+            // keep the world-space cast radius in sync with the fixed screen size
             var pixelsPerUnit = UnityEngine.Screen.height / (2f * camCtrl.Cam.orthographicSize * canvas.scaleFactor);
-            var value = Vector2.one * (gameData.HitRadius.Value * 2f * pixelsPerUnit);
-            rectTransform.sizeDelta = value;
-            hitRectTransform.sizeDelta = value;
+            worldHitRadius = gameData.HitRadius.Value / pixelsPerUnit;
         }
 
         private void OnDrawGizmos()
         {
-            var radius = gameData != null ? gameData.HitRadius.Value : 0.5f;
+            var radius = gameData != null ? worldHitRadius : 0.5f;
             Gizmos.color = currentHits.Count > 0 ? Color.green : Color.cyan;
             var end = gizmoRay.origin + gizmoRay.direction * castDepth;
             Gizmos.DrawWireSphere(gizmoRay.origin, radius);
