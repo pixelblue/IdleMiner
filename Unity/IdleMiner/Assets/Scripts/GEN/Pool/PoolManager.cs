@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Idler;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace ANS.Common
 {
@@ -50,6 +51,11 @@ namespace ANS.Common
             var resourceObj = comp.GetComponent<ResourceController>();
             if (resourceObj != null)
                 return new ObjectPool<ResourceController>(resourceObj, poolName, initialSize, this.transform);
+            
+            // Try Image
+            var imageObj = comp.GetComponent<Image>();
+            if (imageObj != null)
+                return new ObjectPool<Image>(imageObj, poolName, initialSize, this.transform);
             
             // Fallback: allow Transform pooling
             var tr = comp.GetComponent<Transform>();

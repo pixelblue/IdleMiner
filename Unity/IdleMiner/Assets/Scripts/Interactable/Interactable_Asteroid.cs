@@ -52,8 +52,7 @@ namespace Idler
             {
                 resourceCtrl.Add(resource, amount);
                 var newResource = (ResourceController)PoolCtrl.Spawn(MiningCtrl.ResourcePrefab.name, transform.position);
-                newResource.Initialize(resource, amount);
-                
+                newResource.Initialize(resource, amount, orbitTransform);
             });
         }
     }
