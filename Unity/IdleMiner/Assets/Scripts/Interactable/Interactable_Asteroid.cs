@@ -1,4 +1,5 @@
 using System;
+using ANS.Common.ServiceLocator;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -6,13 +7,22 @@ namespace Idler
 {
     public class Interactable_Asteroid : Interactable
     {
+        [SerializeField] private ResourcePool resourcePool;
         [SerializeField] private Transform geoTrans;
         [SerializeField] private float rotationSpeed = 10f;
         [SerializeField] private Transform orbitTransform;
         
         private Vector3 randomAxis;
-        
-        void OnEnable()
+        private ICamera camCtrl;
+        private IResource resourceCtrl;
+
+        private void Awake()
+        {
+            camCtrl      = ServiceLocator.Current.Get<ICamera>();
+            resourceCtrl = ServiceLocator.Current.Get<IResource>();
+        }
+
+        private void OnEnable()
         {
             // rotate randomly
             randomAxis = new Vector3(UnityEngine.Random.value, UnityEngine.Random.value,UnityEngine.Random.value).normalized;
@@ -22,7 +32,7 @@ namespace Idler
         private void Update()
         {
             geoTrans.Rotate(randomAxis, rotationSpeed * Time.deltaTime);
-            orbitTransform.LookAt(Camera.main.transform);
+            orbitTransform.forward = -camCtrl.Cam.transform.forward;
         }
 
         public override void OnCursorEnter(CursorController cursor)
@@ -37,7 +47,7 @@ namespace Idler
 
         public override void OnCursorHit(CursorController cursor)
         {
-            
+            resourcePool.Roll((resource, amount) => resourceCtrl.Add(resource, amount));
         }
     }
 }

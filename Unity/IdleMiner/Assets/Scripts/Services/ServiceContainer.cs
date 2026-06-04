@@ -25,6 +25,7 @@ namespace Idler
             ServiceLocator.Current.Register<IMining>(FindFirstObjectByType<MiningController>());
             ServiceLocator.Current.Register<ISurface>(FindFirstObjectByType<SurfaceController>());
             ServiceLocator.Current.Register<ICursor>(FindFirstObjectByType<CursorController>());
+            ServiceLocator.Current.Register<IResource>(FindFirstObjectByType<ResourceManager>());
         }
     }
 }
