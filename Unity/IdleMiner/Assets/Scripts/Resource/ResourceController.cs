@@ -27,7 +27,9 @@ namespace Idler
         private void LateUpdate()
         {
             if (uiImage == null) return;
-            uiImage.rectTransform.position = camCtrl.Cam.WorldToScreenPoint(transform.position);
+            var screenPos = camCtrl.Cam.WorldToScreenPoint(transform.position);
+            screenPos.z = 0f;
+            uiImage.rectTransform.position = screenPos;
         }
 
         public void Initialize(ResourceData data, float amount, Transform orbitTransform)
