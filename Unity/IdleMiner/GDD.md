@@ -94,5 +94,4 @@ mindmap
     Constructor
       Construction Speed
       Construction Slots
-` `` 
 ```
