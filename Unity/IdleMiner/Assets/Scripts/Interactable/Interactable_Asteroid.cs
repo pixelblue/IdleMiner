@@ -16,8 +16,9 @@ namespace Idler
         private ICamera camCtrl;
         private IResource resourceCtrl;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             camCtrl      = ServiceLocator.Current.Get<ICamera>();
             resourceCtrl = ServiceLocator.Current.Get<IResource>();
         }
@@ -47,7 +48,13 @@ namespace Idler
 
         public override void OnCursorHit(CursorController cursor)
         {
-            resourcePool.Roll((resource, amount) => resourceCtrl.Add(resource, amount));
+            resourcePool.Drop((resource, amount) =>
+            {
+                resourceCtrl.Add(resource, amount);
+                var newResource = (ResourceController)PoolCtrl.Spawn(MiningCtrl.ResourcePrefab.name, transform.position);
+                newResource.Initialize(resource, amount);
+                
+            });
         }
     }
 }

@@ -19,6 +19,7 @@ namespace Idler
 
             // Register all services needed
             ServiceLocator.Current.Register<IEvent>(FindFirstObjectByType<EventManager>());
+            ServiceLocator.Current.Register<IPool>(FindFirstObjectByType<PoolManager>());
             ServiceLocator.Current.Register<IGame>(FindFirstObjectByType<GameManager>());
             ServiceLocator.Current.Register<IMainUI>(FindFirstObjectByType<MainUiController>());
             ServiceLocator.Current.Register<ICamera>(FindFirstObjectByType<CameraController>());

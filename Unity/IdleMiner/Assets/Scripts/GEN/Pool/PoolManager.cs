@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Idler;
 using UnityEngine;
 
 namespace ANS.Common
@@ -45,12 +46,10 @@ namespace ANS.Common
 
         private IObjectPool CreateTypedPool(Component comp, string poolName, int initialSize)
         {
-            /*
-            // Try LightningController
-            var lightningObj = comp.GetComponent<LightningController>();
-            if (lightningObj != null)
-                return new ObjectPool<LightningController>(lightningObj, poolName, initialSize, this.transform);
-            */
+            // Try ResourceController
+            var resourceObj = comp.GetComponent<ResourceController>();
+            if (resourceObj != null)
+                return new ObjectPool<ResourceController>(resourceObj, poolName, initialSize, this.transform);
             
             // Fallback: allow Transform pooling
             var tr = comp.GetComponent<Transform>();

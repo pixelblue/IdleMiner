@@ -9,7 +9,7 @@ namespace Idler
     {
         [SerializeField] private ResourceDrop[] drops;
 
-        public void Roll(Action<ResourceData, float> onDrop)
+        public void Drop(Action<ResourceData, float> onDrop)
         {
             foreach (var drop in drops)
             {

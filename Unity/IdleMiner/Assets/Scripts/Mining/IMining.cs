@@ -5,6 +5,7 @@ namespace Idler
 {
     public interface IMining : IGameService
     {
+        ResourceController ResourcePrefab { get; }
         float CurrentEnergy { get; }
         float MaxEnergy { get; }
 

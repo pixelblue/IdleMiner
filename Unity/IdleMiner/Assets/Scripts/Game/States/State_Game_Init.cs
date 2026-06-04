@@ -1,3 +1,4 @@
+using ANS.Common;
 using ANS.Common.ServiceLocator;
 
 namespace Idler
@@ -8,6 +9,7 @@ namespace Idler
         {
             base.OnActivate();
 
+            ServiceLocator.Current.Get<IPool>().CreatePools();
             ServiceLocator.Current.Get<ICamera>().Initialize();
             ServiceLocator.Current.Get<IMainUI>().Initialize();
             

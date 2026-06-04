@@ -68,6 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d976cba6f2fa4f2caa6bb956013529ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Idler.Interactable_Asteroid
+  resourcePool: {fileID: 11400000, guid: 4793ab4a0a9ed4b6ea775a41ee6b995d, type: 2}
   geoTrans: {fileID: 8397877772210403094}
   rotationSpeed: 30
   orbitTransform: {fileID: 1998280929196875797}

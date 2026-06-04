@@ -616,7 +616,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ff3a78e217b4437192d3d468256528e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ANS.Common.PoolManager
-  poolCategories: []
+  poolCategories:
+  - category: Resources
+    entries:
+    - prefab: {fileID: 3035609206721327394, guid: c52b6d91522e8474bbcbc92cdb5e002e, type: 3}
+      initialSize: 5
 --- !u!4 &529167348
 Transform:
   m_ObjectHideFlags: 0
@@ -1172,6 +1176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adee8771d359b47aca51af70eceea866, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MiningController
+  <ResourcePrefab>k__BackingField: {fileID: 7746402062350949713, guid: c52b6d91522e8474bbcbc92cdb5e002e, type: 3}
 --- !u!4 &955267562
 Transform:
   m_ObjectHideFlags: 0
@@ -2278,6 +2283,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Asteroid (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7408880621004578734, guid: 6e6f9c346264541d9a31b4137339f1fc, type: 3}
+      propertyPath: resourcePool
+      value: 
+      objectReference: {fileID: 11400000, guid: 4793ab4a0a9ed4b6ea775a41ee6b995d, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
