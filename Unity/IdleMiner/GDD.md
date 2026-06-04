@@ -33,16 +33,66 @@
 - 00:30: Uses mined resources on the first buildings 
 - 00:40: Player runs out of resources and needs to press "Mine" again
 - 00:45: Player mines again
-- 00:50: Player now has enough resources for the first Generator
+- 00:50: Player now has enough resources for the first Drone Spawner
+- 01:30: Player keeps mining until enough resources for the first Refinery
 
 ## Key Structures
-- Generator (creates energy for all other buildings)
-- Drone Spawner (creates drones that automate mining)
-- Resource Container (stores mined resources, can be upgraded for more capacity)
-- Refinery (creates refined metals from raw ore)
-- Constructor (creates constructed elements from refined metals, used for building)
+### Command Center (single bigggest structure)
+The Command Center is the main building of the player's base. 
+It's purpose is for player upgrades which are
+- Hit Radius
+- Max Energy
+- Hit Rate
+
+### Drone Spawner (Multiple buildings can be placed)
+Automates the mining process by sending out drones to mine resources.
+- Drones amount
+- Drones mining speed
+- Drones Resource capacity
+
+### Refinery (Multiple buildings can be placed)
+Takes mined resources and refines them into more valuable materials.
+Outputs refined metals which need to be put into a constructor
+- Refining speed
+- Refinery slots
+
+### Bots Spawner (Multiple buildings can be placed)
+Automates collecting spawned resources from the Refinery and puts them into the constructor
+- Bots amount
+- Bots speed
+- Bots Resource capacity
+
+### Constructor (not sure if single or multiple ones)
+Takes refined metals and constructs buildings and other things like vehicles
+- Construction speed
+- Construction slots
 
 ## Resource Tiers
 - Tier 1: Raw Ore (manualy minded or automated by drones)
 - Tier 2: Refined Metals (A refinery creates refined metals from raw Ore)
 - Tier 3: Constructed elements which can be used for buildings (Constructor)
+
+
+```mermaid
+mindmap
+  root((IdleMiner))
+    Command Center
+      Hit Radius
+      Max Energy
+      Hit Rate
+    Drone Spawner
+      Drone Amount
+      Mining Speed
+      Resource Capacity
+    Refinery
+      Refining Speed
+      Refinery Slots
+    Bots Spawner
+      Bot Amount
+      Bot Speed
+      Resource Capacity
+    Constructor
+      Construction Speed
+      Construction Slots
+` `` 
+```
