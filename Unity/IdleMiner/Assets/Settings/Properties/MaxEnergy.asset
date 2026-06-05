@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f9bd138884054d488f2ef624ff8c662, type: 3}
   m_Name: MaxEnergy
   m_EditorClassIdentifier: Assembly-CSharp::Idler.LeveledProperty
-  baseValue: 1
+  baseValue: 0.4
   increment: 0.2
   maxLevel: 20
   upgradeCostBase: 50

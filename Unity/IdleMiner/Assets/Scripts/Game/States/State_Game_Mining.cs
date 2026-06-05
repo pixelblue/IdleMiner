@@ -4,18 +4,18 @@ namespace Idler
 {
     public class State_Game_Mining : State_Game_Base
     {
-        private IMining miningCtrl;
+        private IMap mapCtrl;
         public override void OnActivate()
         {
             base.OnActivate(); 
-            miningCtrl = ServiceLocator.Current.Get<IMining>();
-            miningCtrl.Activate();
+            mapCtrl = ServiceLocator.Current.Get<IMap>();
+            mapCtrl.MiningCtrl.Activate();
         }
         
         public override void OnDeactivate()
         {
             base.OnDeactivate();
-            miningCtrl.Deactivate();
+            mapCtrl.MiningCtrl.Deactivate();
         }
 
         protected override void RegisterEvents()

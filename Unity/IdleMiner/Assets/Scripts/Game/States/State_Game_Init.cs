@@ -13,6 +13,9 @@ namespace Idler
             ServiceLocator.Current.Get<ICamera>().Initialize();
             ServiceLocator.Current.Get<IMainUI>().Initialize();
             
+            var mapCtrl = ServiceLocator.Current.Get<IMap>();
+            mapCtrl.SurfaceCtrl.Initialize();
+            
             Fsm.ChangeState<State_Game_Surface>();
         }
         

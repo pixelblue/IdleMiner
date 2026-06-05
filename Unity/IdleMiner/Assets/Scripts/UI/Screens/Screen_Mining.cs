@@ -8,18 +8,18 @@ namespace Idler
     {
         [SerializeField] private Image energySlider;
 
-        private IMining miningCtrl;
+        private IMap mapCtrl;
 
         private void OnEnable()
         {
-            miningCtrl ??= ServiceLocator.Current.Get<IMining>();
-            miningCtrl.OnEnergyChanged += OnEnergyChanged;
-            OnEnergyChanged(miningCtrl.CurrentEnergy, miningCtrl.MaxEnergy);
+            mapCtrl ??= ServiceLocator.Current.Get<IMap>();
+            mapCtrl.MiningCtrl.OnEnergyChanged += OnEnergyChanged;
+            OnEnergyChanged(mapCtrl.MiningCtrl.CurrentEnergy, mapCtrl.MiningCtrl.MaxEnergy);
         }
 
         private void OnDisable()
         {
-            miningCtrl.OnEnergyChanged -= OnEnergyChanged;
+            mapCtrl.MiningCtrl.OnEnergyChanged -= OnEnergyChanged;
         }
 
         private void OnEnergyChanged(float current, float max)

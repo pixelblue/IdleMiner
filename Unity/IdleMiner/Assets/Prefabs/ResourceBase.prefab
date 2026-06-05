@@ -121,6 +121,7 @@ Transform:
   - {fileID: 1954710526064047532}
   - {fileID: 3061435271246321266}
   - {fileID: 3899546989826136969}
+  - {fileID: 1898734015148158264}
   m_Father: {fileID: 9146924948738861574}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6319181094642602029
@@ -180,10 +181,59 @@ MonoBehaviour:
   m_GameObject: {fileID: 3035609206721327394}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 617ea9edcc95d4c31b4aba1facbc7cf2, type: 3}
+  m_Script: {fileID: 11500000, guid: e3c4f65232414d87af6ceb86518a60fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Idler.ResourceController
+  uiPrefab: {fileID: 8603502542687147504, guid: ba5d178000bdb45d185becc823c9043f, type: 3}
+  boundsShape: 0
+  boundsCenter: {x: 0, y: 0, z: 0}
+  boundsRadius: 1
+  boundsSize: {x: 1, y: 1, z: 1}
   <Fsm>k__BackingField: {fileID: 6319181094642602029}
+--- !u!1 &4192496733470624180
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1898734015148158264}
+  - component: {fileID: 1213308259136925673}
+  m_Layer: 0
+  m_Name: State_Resource_Drop
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1898734015148158264
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4192496733470624180}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3445778714353588860}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1213308259136925673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4192496733470624180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e12688aac165a8c47bc2f19654480685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Idler.State_Resource_Drop
 --- !u!1 &7495243487433441860
 GameObject:
   m_ObjectHideFlags: 0

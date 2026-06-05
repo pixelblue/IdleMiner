@@ -61,6 +61,7 @@ pool.Release("prefabName", component);
 
 - Private fields use plain camelCase — no underscore prefix (e.g. `bool active`, not `bool _active`).
 - Add a short comment on non-obvious logic — math, physics tricks, tricky timing — but skip anything self-explanatory. One line is enough.
+- Keep classes small and focused — **200 lines maximum**. If a class grows beyond that, split responsibilities into separate classes.
 
 ## Game Design Reference
 

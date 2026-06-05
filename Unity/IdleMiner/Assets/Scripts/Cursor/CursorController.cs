@@ -1,42 +1,36 @@
 using System.Collections.Generic;
 using ANS.Common.ServiceLocator;
-using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Idler
 {
     public class CursorController : MonoBehaviour, ICursor
     {
         [SerializeField] private Vector2 mobileOffset;
-        [SerializeField] private float castDepth = 5f;
-        [SerializeField] private LayerMask castMask = ~0;
-        [SerializeField] private Image hitEffectImage;
-
+        [field: SerializeField] public CursorResourceController cursorResourceCtrl;
+        
+        public IMap MapCtrl { get; private set; }
+        public GameData GameData { get; private set; }
+        public HashSet<Interactable> TouchingInteractables { get; private set; } = new();
+        public Ray CursorRay => gizmoRay;
+        
         private ICamera camCtrl;
         private IEvent eventCtrl;
-        private IMining miningCtrl;
-        private GameData gameData;
         private PlayerInput playerInput;
         private RectTransform rectTransform;
-        private RectTransform hitRectTransform;
         private Canvas canvas;
-        private readonly HashSet<Collider> currentHits = new();
-        private readonly List<Collider> toRemove = new();
-        private readonly RaycastHit[] hitBuffer = new RaycastHit[16];
-        private float hitTimer;
         private float worldHitRadius;
         private Ray gizmoRay;
+        private readonly List<Interactable> toRemove = new();
 
         private void Awake()
         {
-            camCtrl     = ServiceLocator.Current.Get<ICamera>();
-            eventCtrl   = ServiceLocator.Current.Get<IEvent>();
-            miningCtrl  = ServiceLocator.Current.Get<IMining>();
-            gameData    = ServiceLocator.Current.Get<IGame>().Data;
-            rectTransform = GetComponent<RectTransform>();
-            hitRectTransform = hitEffectImage.transform as RectTransform;
-            canvas = GetComponentInParent<Canvas>();
+            camCtrl    = ServiceLocator.Current.Get<ICamera>();
+            eventCtrl  = ServiceLocator.Current.Get<IEvent>();
+            GameData   = ServiceLocator.Current.Get<IGame>().Data;
+            MapCtrl    = ServiceLocator.Current.Get<IMap>();
+            rectTransform    = GetComponent<RectTransform>();
+            canvas           = GetComponentInParent<Canvas>();
             UpdateSize();
         }
 
@@ -44,15 +38,12 @@ namespace Idler
         {
             playerInput = new PlayerInput();
             playerInput.Enable();
-            hitTimer = 0f;
+            TouchingInteractables.Clear();
         }
 
         private void OnDisable()
         {
             playerInput.Disable();
-            foreach (var col in currentHits)
-                OnColliderExit(col);
-            currentHits.Clear();
         }
 
         private void Update()
@@ -60,33 +51,29 @@ namespace Idler
             var screenPos = GetScreenPosition();
             UpdateSize();
             UpdatePosition(screenPos);
-            UpdateCast(screenPos);
-            UpdateHitTick();
+            UpdateCast();
         }
-
-        private void UpdateHitTick()
+        
+        private void UpdateCast()
         {
-            hitTimer += Time.deltaTime;
-            if (hitTimer > gameData.HitRate.Value)
-            {
-                if (currentHits.Count == 0) return;
-                miningCtrl.ConsumeHit();
-                hitTimer = 0f;
+            var ray = camCtrl.Cam.ScreenPointToRay(playerInput.Player.ScreenPosition.ReadValue<Vector2>());
+            gizmoRay = ray;
 
-                transform.DOKill();
-                transform.localScale = Vector3.one * 0.9f;
-                transform.DOScale(Vector3.one, 0.1f);
-                hitEffectImage.DOKill();
-                hitEffectImage.color = new Color(hitEffectImage.color.r, hitEffectImage.color.g, hitEffectImage.color.b,
-                    1.0f);
-                hitEffectImage.DOFade(0.0f, 0.1f);
-                hitEffectImage.transform.DOKill();
-                hitEffectImage.transform.localScale = Vector3.one;
-                hitEffectImage.transform.DOScale(Vector3.one * 1.5f, 0.1f);
-                foreach (var col in currentHits)
-                    if (col.TryGetComponent<Interactable>(out var interactable))
-                        interactable.OnCursorHit(this);
+            // exits — collect first to avoid modifying the set while iterating
+            toRemove.Clear();
+            foreach (var interactable in TouchingInteractables)
+                if (!interactable.IntersectsRay(ray, worldHitRadius))
+                    toRemove.Add(interactable);
+            foreach (var interactable in toRemove)
+            {
+                TouchingInteractables.Remove(interactable);
+                interactable.OnCursorExit(this);
             }
+
+            // enters — HashSet.Add returns true only on first insertion
+            foreach (var interactable in MapCtrl.AllInteractables)
+                if (interactable.IntersectsRay(ray, worldHitRadius) && TouchingInteractables.Add(interactable))
+                    interactable.OnCursorEnter(this);
         }
 
         private Vector2 GetScreenPosition()
@@ -101,65 +88,15 @@ namespace Idler
         {
             rectTransform.position = new Vector3(screenPos.x, screenPos.y, rectTransform.position.z);
         }
-
-        private void UpdateCast(Vector2 screenPos)
-        {
-            var ray = camCtrl.Cam.ScreenPointToRay(screenPos);
-            gizmoRay = ray;
-            var count = Physics.SphereCastNonAlloc(ray, worldHitRadius, hitBuffer, castDepth, castMask);
-
-            toRemove.Clear();
-            foreach (var col in currentHits)
-            {
-                var stillHit = false;
-                for (var i = 0; i < count; i++)
-                    if (hitBuffer[i].collider == col) { stillHit = true; break; }
-                if (!stillHit) toRemove.Add(col);
-            }
-            foreach (var col in toRemove)
-            {
-                currentHits.Remove(col);
-                OnColliderExit(col);
-            }
-
-            for (var i = 0; i < count; i++)
-            {
-                if (currentHits.Add(hitBuffer[i].collider))
-                    OnColliderEnter(hitBuffer[i].collider);
-            }
-        }
-
+        
         private void UpdateSize()
         {
             if (rectTransform == null || camCtrl?.Cam == null) return;
-            var screenDiameter = gameData.HitRadius.Value * 2f;
+            var screenDiameter = GameData.HitRadius.Value * 2f;
             rectTransform.sizeDelta = Vector2.one * screenDiameter;
-            hitRectTransform.sizeDelta = Vector2.one * screenDiameter;
-            // keep the world-space cast radius in sync with the fixed screen size
+            // keep world-space radius in sync with the screen-space cursor size
             var pixelsPerUnit = UnityEngine.Screen.height / (2f * camCtrl.Cam.orthographicSize * canvas.scaleFactor);
-            worldHitRadius = gameData.HitRadius.Value / pixelsPerUnit;
-        }
-
-        private void OnDrawGizmos()
-        {
-            var radius = gameData != null ? worldHitRadius : 0.5f;
-            Gizmos.color = currentHits.Count > 0 ? Color.green : Color.cyan;
-            var end = gizmoRay.origin + gizmoRay.direction * castDepth;
-            Gizmos.DrawWireSphere(gizmoRay.origin, radius);
-            Gizmos.DrawWireSphere(end, radius);
-            Gizmos.DrawLine(gizmoRay.origin, end);
-        }
-
-        protected virtual void OnColliderEnter(Collider col)
-        {
-            if (col.TryGetComponent<Interactable>(out var interactable))
-                interactable.OnCursorEnter(this);
-        }
-
-        protected virtual void OnColliderExit(Collider col)
-        {
-            if (col.TryGetComponent<Interactable>(out var interactable))
-                interactable.OnCursorExit(this);
+            worldHitRadius = GameData.HitRadius.Value / pixelsPerUnit;
         }
 
         public void Activate()

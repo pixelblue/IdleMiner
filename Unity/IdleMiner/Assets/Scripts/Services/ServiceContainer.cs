@@ -23,8 +23,7 @@ namespace Idler
             ServiceLocator.Current.Register<IGame>(FindFirstObjectByType<GameManager>());
             ServiceLocator.Current.Register<IMainUI>(FindFirstObjectByType<MainUiController>());
             ServiceLocator.Current.Register<ICamera>(FindFirstObjectByType<CameraController>());
-            ServiceLocator.Current.Register<IMining>(FindFirstObjectByType<MiningController>());
-            ServiceLocator.Current.Register<ISurface>(FindFirstObjectByType<SurfaceController>());
+            ServiceLocator.Current.Register<IMap>(FindFirstObjectByType<MapController>());
             ServiceLocator.Current.Register<ICursor>(FindFirstObjectByType<CursorController>());
             ServiceLocator.Current.Register<IResource>(FindFirstObjectByType<ResourceManager>());
         }

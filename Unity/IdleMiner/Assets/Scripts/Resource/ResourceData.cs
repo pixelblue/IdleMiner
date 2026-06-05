@@ -9,7 +9,5 @@ namespace Idler
         public string resourceName;
         public Sprite icon;
         public float value = 1.0f;
-
-        [ReadOnly] public float amount;
     }
 }

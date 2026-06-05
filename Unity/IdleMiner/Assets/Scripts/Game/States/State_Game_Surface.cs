@@ -4,19 +4,19 @@ namespace Idler
 {
     public class State_Game_Surface : State_Game_Base
     {
-        private ISurface surfaceCtrl;
+        private IMap mapCtrl;
         
         public override void OnActivate()
         {
             base.OnActivate();
-            surfaceCtrl = ServiceLocator.Current.Get<ISurface>();
-            surfaceCtrl.Activate();
+            mapCtrl = ServiceLocator.Current.Get<IMap>();
+            mapCtrl.SurfaceCtrl.Activate();
         }
         
         public override void OnDeactivate()
         {
             base.OnDeactivate();
-            surfaceCtrl.Deactivate();
+            mapCtrl.SurfaceCtrl.Deactivate();
         }
 
         protected override void RegisterEvents()

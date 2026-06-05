@@ -47,15 +47,15 @@ namespace ANS.Common
 
         private IObjectPool CreateTypedPool(Component comp, string poolName, int initialSize)
         {
-            // Try ResourceController
-            var resourceObj = comp.GetComponent<ResourceController>();
+            // Try Interactable_Resource
+            var resourceObj = comp.GetComponent<Interactable_Resource>();
             if (resourceObj != null)
-                return new ObjectPool<ResourceController>(resourceObj, poolName, initialSize, this.transform);
+                return new ObjectPool<Interactable_Resource>(resourceObj, poolName, initialSize, this.transform);
             
-            // Try Image
-            var imageObj = comp.GetComponent<Image>();
-            if (imageObj != null)
-                return new ObjectPool<Image>(imageObj, poolName, initialSize, this.transform);
+            // Try InteractableUI
+            var interactableUIObj = comp.GetComponent<InteractableUI>();
+            if (interactableUIObj != null)
+                return new ObjectPool<InteractableUI>(interactableUIObj, poolName, initialSize, this.transform);
             
             // Fallback: allow Transform pooling
             var tr = comp.GetComponent<Transform>();

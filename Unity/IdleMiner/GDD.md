@@ -20,7 +20,7 @@
 - Mouse hover with a radius does Mining or building or resource deployment.
 
 ## Progression
-- Early: manual mining, place first Generator
+- Early: manual mining, drop first resources at the resource container
 - Mid: drones automate mining, Refinery unlocks
 - Mid: Constructor unlocks, allowing for more complex buildings
 - Late: asteroid transforms from bare rock to lush green world
@@ -30,10 +30,12 @@
 - 00:05: Player also needs to collect the mined resources
 - 00:15: Timer runs 10 - 15seconds
 - 00:15: When timer runs out player get's automatically transported to the "Base"
-- 00:30: Uses mined resources on the first buildings 
+- 00:30: Uses mined resources to drop at the resource container 
 - 00:40: Player runs out of resources and needs to press "Mine" again
 - 00:45: Player mines again
-- 00:50: Player now has enough resources for the first Drone Spawner
+- 00:50: Player now has enough resources to build first Drone Spawner
+- 01:00: Player has to press "Build" to build the first Drone Spawner. Bots spawn to drop resources from the container
+- 01:30: Bots complete the drone spawner
 - 01:30: Player keeps mining until enough resources for the first Refinery
 
 ## Key Structures
