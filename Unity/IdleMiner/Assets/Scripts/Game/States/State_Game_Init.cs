@@ -16,7 +16,9 @@ namespace Idler
             var mapCtrl = ServiceLocator.Current.Get<IMap>();
             mapCtrl.SurfaceCtrl.Initialize();
             
-            Fsm.ChangeState<State_Game_Surface>();
+            EventCtrl.InvokeMiningStarted();
+            mapCtrl.SurfaceCtrl.Deactivate();
+            Fsm.ChangeState<State_Game_Mining>();
         }
         
         public override void OnDeactivate()

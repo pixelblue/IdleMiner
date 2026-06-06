@@ -14,7 +14,7 @@ namespace Idler
             foreach (var drop in drops)
             {
                 if (Random.value <= drop.chance)
-                    onDrop(drop.resource, Random.Range(drop.minAmount, drop.maxAmount));
+                    onDrop(drop.resource, drop.resource.value);
             }
         }
     }

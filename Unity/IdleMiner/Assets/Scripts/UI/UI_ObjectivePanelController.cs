@@ -31,6 +31,8 @@ namespace Idler
                 allObjectives[i].Initialize(objectiveData);
                 i++;
             }
+
+            levelText.text = (objectiveCtrl.CurrentLevel + 1).ToString();
         }
     }
 }

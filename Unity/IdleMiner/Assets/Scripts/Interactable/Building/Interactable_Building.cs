@@ -31,7 +31,7 @@ namespace Idler
                 resourceMgr.Add(req.resource, -req.amount);
 
             gameObject.SetActive(true);
-            ServiceLocator.Current.Get<IEvent>().InvokeBuildingConstructed(buildingData);
+            EventCtrl.InvokeBuildingConstructed(buildingData);
         }
 
         public void ShowUI()

@@ -25,6 +25,7 @@ namespace Idler
         protected IMap MapCtrl;
         protected IMainUI MainUI;
         protected ICamera CamCtrl;
+        protected IEvent EventCtrl;
 
         protected virtual void Awake()
         {
@@ -32,6 +33,7 @@ namespace Idler
             MapCtrl = ServiceLocator.Current.Get<IMap>();
             MainUI = ServiceLocator.Current.Get<IMainUI>();
             CamCtrl = ServiceLocator.Current.Get<ICamera>();
+            EventCtrl = ServiceLocator.Current.Get<IEvent>();
         }
 
         protected virtual void OnEnable()

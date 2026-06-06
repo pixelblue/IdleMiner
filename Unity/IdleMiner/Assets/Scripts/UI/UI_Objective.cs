@@ -35,7 +35,7 @@ namespace Idler
         {
             this.objectiveData = objectiveData;
             descriptionText.text = objectiveData.description;
-            if (objectiveData.targetAmount > 1)
+            if (objectiveData.targetAmount >= 1)
             {
                 counterText.text = $"0 / {objectiveData.targetAmount}";
                 slider.maxValue = objectiveData.targetAmount;
@@ -52,7 +52,7 @@ namespace Idler
                     var progress = Mathf.Min(amount, objectiveData.targetAmount);
                     counterText.text = $"{progress} / {objectiveData.targetAmount}";
                     slider.value = progress;
-                    if (objectiveData.targetAmount >= amount)
+                    if (amount >= objectiveData.targetAmount)
                     {
                         slider.gameObject.SetActive(false);
                         completedText.gameObject.SetActive(true);

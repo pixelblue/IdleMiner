@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4aa9a0cbf80744b498bdc2d2bc58c03, type: 3}
-  m_Name: Objective_30Carbon
+  m_Name: Objective_5Carbon
   m_EditorClassIdentifier: Assembly-CSharp::Idler.ObjectiveData
-  description: Gather 30 Carbon
+  description: Gather 7 Carbon
   type: 0
   targetResource: {fileID: 11400000, guid: bf1cbd8635c6446cebe322811ffad02d, type: 2}
   targetBuilding: {fileID: 0}
-  targetAmount: 30
+  targetAmount: 7

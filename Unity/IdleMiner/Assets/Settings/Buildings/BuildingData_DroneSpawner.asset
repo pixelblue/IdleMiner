@@ -15,4 +15,4 @@ MonoBehaviour:
   buildingName: Drone Spawner
   cost:
   - resource: {fileID: 11400000, guid: bf1cbd8635c6446cebe322811ffad02d, type: 2}
-    amount: 100
+    amount: 30

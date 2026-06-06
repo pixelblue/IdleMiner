@@ -31,6 +31,7 @@ namespace Idler
 
         public void Add(ResourceData resource, float amount)
         {
+            print("adding amount of " + amount);
             inventory.TryGetValue(resource, out var current);
             inventory[resource] = current + amount;
             eventCtrl.InvokeResourceChanged(resource, inventory[resource]);
