@@ -8,7 +8,7 @@ namespace Idler
     {
         [field: SerializeField] public MiningController MiningCtrl { get; private set; }
         [field: SerializeField] public SurfaceController SurfaceCtrl { get; private set; }
-        [field: SerializeField] public Interactable_Resource ResourcePrefab { get; set; }
+        [field: SerializeField] public ResourceController ResourcePrefab { get; private set; }
 
         public List<Interactable> AllInteractables { get; private set; } = new List<Interactable>();
 

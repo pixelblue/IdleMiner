@@ -13,6 +13,7 @@ namespace Idler
         public GameData GameData { get; private set; }
         public HashSet<Interactable> TouchingInteractables { get; private set; } = new();
         public Ray CursorRay => gizmoRay;
+        public Vector2 ScreenPosition { get; private set; }
         
         private ICamera camCtrl;
         private IEvent eventCtrl;
@@ -86,17 +87,17 @@ namespace Idler
 
         private void UpdatePosition(Vector2 screenPos)
         {
+            ScreenPosition = screenPos;
             rectTransform.position = new Vector3(screenPos.x, screenPos.y, rectTransform.position.z);
         }
         
         private void UpdateSize()
         {
             if (rectTransform == null || camCtrl?.Cam == null) return;
-            var screenDiameter = GameData.HitRadius.Value * 2f;
-            rectTransform.sizeDelta = Vector2.one * screenDiameter;
-            // keep world-space radius in sync with the screen-space cursor size
-            var pixelsPerUnit = UnityEngine.Screen.height / (2f * camCtrl.Cam.orthographicSize * canvas.scaleFactor);
-            worldHitRadius = GameData.HitRadius.Value / pixelsPerUnit;
+            rectTransform.sizeDelta = Vector2.one * (GameData.HitRadius.Value * 2f);
+            // Convert canvas-unit radius to world-unit radius so raycasting matches the visual
+            var canvasUnitsPerWorldUnit = UnityEngine.Screen.height / (2f * camCtrl.Cam.orthographicSize * canvas.scaleFactor);
+            worldHitRadius = GameData.HitRadius.Value / canvasUnitsPerWorldUnit;
         }
 
         public void Activate()

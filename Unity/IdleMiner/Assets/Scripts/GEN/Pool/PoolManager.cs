@@ -47,10 +47,10 @@ namespace ANS.Common
 
         private IObjectPool CreateTypedPool(Component comp, string poolName, int initialSize)
         {
-            // Try Interactable_Resource
-            var resourceObj = comp.GetComponent<Interactable_Resource>();
+            // Try ResourceController
+            var resourceObj = comp.GetComponent<ResourceController>();
             if (resourceObj != null)
-                return new ObjectPool<Interactable_Resource>(resourceObj, poolName, initialSize, this.transform);
+                return new ObjectPool<ResourceController>(resourceObj, poolName, initialSize, this.transform);
             
             // Try InteractableUI
             var interactableUIObj = comp.GetComponent<InteractableUI>();

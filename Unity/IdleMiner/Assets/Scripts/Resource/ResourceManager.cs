@@ -11,29 +11,29 @@ namespace Idler
     {
         [SerializeField] private Image resourceImagePrefab;
 
-        public event Action<ResourceData, float> OnResourceChanged;
-
         public IReadOnlyDictionary<ResourceData, float> Inventory => inventory;
         private readonly Dictionary<ResourceData, float> inventory = new();
 
-        private readonly List<Interactable_Resource> activeResources = new();
-        public IReadOnlyList<Interactable_Resource> ActiveResources => activeResources;
+        private readonly List<ResourceController> activeResources = new();
+        public IReadOnlyList<ResourceController> ActiveResources => activeResources;
 
         private IPool poolCtrl;
+        private IEvent eventCtrl;
 
         private void Awake()
         {
             poolCtrl = ServiceLocator.Current.Get<IPool>();
+            eventCtrl = ServiceLocator.Current.Get<IEvent>();
         }
 
-        public void Register(Interactable_Resource resource) => activeResources.Add(resource);
-        public void Unregister(Interactable_Resource resource) => activeResources.Remove(resource);
+        public void Register(ResourceController resource) => activeResources.Add(resource);
+        public void Unregister(ResourceController resource) => activeResources.Remove(resource);
 
         public void Add(ResourceData resource, float amount)
         {
             inventory.TryGetValue(resource, out var current);
             inventory[resource] = current + amount;
-            OnResourceChanged?.Invoke(resource, inventory[resource]);
+            eventCtrl.InvokeResourceChanged(resource, inventory[resource]);
         }
 
         public float Get(ResourceData resource)

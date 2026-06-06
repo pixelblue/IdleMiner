@@ -52,8 +52,8 @@ namespace Idler
         {
             resourcePool.Drop((resource, amount) =>
             {
-                var newResource = (Interactable_Resource)PoolCtrl.Spawn(MapCtrl.ResourcePrefab.name, transform.position);
-                newResource.Initialize(resource, amount, orbitTransform);
+                var newResource = (ResourceController)PoolCtrl.Spawn(MapCtrl.ResourcePrefab.name, Vector3.zero);
+                newResource.Initialize(resource, amount);
                 transform.DOKill();
                 transform.localScale = Vector3.one * 1.2f;
                 transform.DOScale(Vector3.one, 0.2f);

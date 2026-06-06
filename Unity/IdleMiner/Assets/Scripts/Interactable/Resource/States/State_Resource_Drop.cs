@@ -17,11 +17,10 @@ namespace Idler
             base.OnActivate();
             resourceCtrl ??= ServiceLocator.Current.Get<IResource>();
 
-            var rect     = Ctrl.InteractableUICtrl.RectTransform;
+            var rect     = Ctrl.RectTransform;
             var startPos = rect.position;
             var endPos   = Ctrl.DropTarget.position;
 
-            Ctrl.LockUIPosition = true;
             DOVirtual.Float(0f, 1f, duration, t =>
             {
                 var pos  = Vector3.Lerp(startPos, endPos, t);
@@ -33,8 +32,6 @@ namespace Idler
             .OnComplete(() =>
             {
                 resourceCtrl.Add(Ctrl.ResourceData, Ctrl.Amount);
-                Ctrl.LockUIPosition = false;
-                Ctrl.DespawnUIElement();
                 PoolCtrl.Release(Util.GetNameWithoutClone(Ctrl.gameObject.name), Ctrl);
             });
         }
@@ -42,8 +39,7 @@ namespace Idler
         public override void OnDeactivate()
         {
             base.OnDeactivate();
-            DOTween.Kill(Ctrl.InteractableUICtrl?.RectTransform);
-            Ctrl.LockUIPosition = false;
+            DOTween.Kill(Ctrl.RectTransform);
         }
     }
 }

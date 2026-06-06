@@ -10,10 +10,8 @@ namespace Idler
 
         void Add(ResourceData resource, float amount);
         float Get(ResourceData resource);
-        event Action<ResourceData, float> OnResourceChanged; // resource, new total
-
-        void Register(Interactable_Resource resource);
-        void Unregister(Interactable_Resource resource);
-        IReadOnlyList<Interactable_Resource> ActiveResources { get; }
+        void Register(ResourceController resource);
+        void Unregister(ResourceController resource);
+        IReadOnlyList<ResourceController> ActiveResources { get; }
     }
 }

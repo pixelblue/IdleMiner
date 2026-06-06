@@ -6,7 +6,7 @@ namespace Idler
 {
     public class CursorResourceController : MonoBehaviour
     {
-        public List<Interactable_Resource> HoldingResources { get; private set; } = new();
+        public List<ResourceController> HoldingResources { get; private set; } = new();
 
         private IResource resourceCtrl;
         private float timer;
@@ -55,7 +55,7 @@ namespace Idler
             dropPosition = null;
         }
 
-        public void AddResource(Interactable_Resource resource)
+        public void AddResource(ResourceController resource)
         {
             HoldingResources.Add(resource);
         }

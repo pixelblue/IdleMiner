@@ -7,13 +7,13 @@ namespace Idler
 {
     public class State_Resource_Base : FSM_GameState
     {
-        protected Interactable_Resource Ctrl {get; private set;}
+        protected ResourceController Ctrl {get; private set;}
         protected FSM_StateManager Fsm {get; private set;}
         protected IPool PoolCtrl {get; private set;}
         
         private void Awake()
         {
-            Ctrl = GetComponentInParent<Interactable_Resource>();
+            Ctrl = GetComponentInParent<ResourceController>();
             PoolCtrl = ServiceLocator.Current.Get<IPool>();
             Fsm = Ctrl.Fsm;
         }

@@ -7,7 +7,7 @@ namespace Idler
 {
     public class MiningController : MonoBehaviour
     {
-        [field: SerializeField] public Interactable_Resource ResourcePrefab { get; private set; }
+        [field: SerializeField] public ResourceController ResourcePrefab { get; private set; }
         public float CurrentEnergy { get; private set; }
         public float MaxEnergy => gameData.energy.Value;
 

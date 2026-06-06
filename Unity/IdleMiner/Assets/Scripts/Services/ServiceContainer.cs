@@ -26,6 +26,7 @@ namespace Idler
             ServiceLocator.Current.Register<IMap>(FindFirstObjectByType<MapController>());
             ServiceLocator.Current.Register<ICursor>(FindFirstObjectByType<CursorController>());
             ServiceLocator.Current.Register<IResource>(FindFirstObjectByType<ResourceManager>());
+            ServiceLocator.Current.Register<IObjectives>(FindFirstObjectByType<ObjectivesManager>());
         }
     }
 }
