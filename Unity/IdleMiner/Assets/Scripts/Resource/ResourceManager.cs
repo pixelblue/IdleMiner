@@ -22,8 +22,21 @@ namespace Idler
 
         private void Awake()
         {
-            poolCtrl = ServiceLocator.Current.Get<IPool>();
+            poolCtrl  = ServiceLocator.Current.Get<IPool>();
             eventCtrl = ServiceLocator.Current.Get<IEvent>();
+        }
+
+        public void Initialize()
+        {
+            var data = ServiceLocator.Current.Get<IGame>().Data;
+            Constants.RawOre.Carbon  = data.carbon;
+            Constants.RawOre.Gold    = data.gold;
+            Constants.RawOre.Copper  = data.copper;
+
+            Constants.RefinedMetal.Steel  = data.steel;
+            Constants.RefinedMetal.Bronze = data.bronze;
+
+            Constants.Constructed.DroneCore = data.droneCore;
         }
 
         public void Register(ResourceController resource) => activeResources.Add(resource);
@@ -31,7 +44,6 @@ namespace Idler
 
         public void Add(ResourceData resource, float amount)
         {
-            print("adding amount of " + amount);
             inventory.TryGetValue(resource, out var current);
             inventory[resource] = current + amount;
             eventCtrl.InvokeResourceChanged(resource, inventory[resource]);

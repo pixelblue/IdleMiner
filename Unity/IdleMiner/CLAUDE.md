@@ -63,6 +63,16 @@ pool.Release("prefabName", component);
 - Add a short comment on non-obvious logic — math, physics tricks, tricky timing — but skip anything self-explanatory. One line is enough.
 - Keep classes small and focused — **200 lines maximum**. If a class grows beyond that, split responsibilities into separate classes.
 
+### Constants & Resource Types
+
+`Assets/Scripts/Constants.cs` holds two things:
+- `Constants` — a static class for miscellaneous string/numeric constants
+- `Resource` — a static class providing named access to `ResourceData` ScriptableObjects without needing SO references at every call site. Use it anywhere to reference a specific resource by type:
+  ```csharp
+  resourceCtrl.Add(Resource.RawOre.Carbon, 10f);
+  ```
+  The fields are populated in `ResourceManager.Awake()` from the SO references stored on `GameData`. **Add new resource types** by: (1) adding a `ResourceData` field to `GameData`, (2) adding a matching `static ResourceData` field inside the correct `Resource` subclass, and (3) wiring it in `ResourceManager.InitializeResourceTypes()`.
+
 ## Game Design Reference
 
 Full design intent is in `GDD.md`. Key loop: hover-to-mine → collect resources → build structures → automate with drones → terraform asteroid. Three resource tiers: Raw Ore → Refined Metals → Constructed Elements. Core structures to implement: Generator, Drone Spawner, Resource Container, Refinery, Constructor.

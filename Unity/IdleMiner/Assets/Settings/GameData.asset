@@ -16,3 +16,9 @@ MonoBehaviour:
   EnergyCostPerHit: {fileID: 11400000, guid: 84091d19fcb90457aa8d76dd9b9b49df, type: 2}
   HitRate: {fileID: 11400000, guid: 7fc3ea0b51d824b6a911e7432bcc8545, type: 2}
   HitRadius: {fileID: 11400000, guid: 4fe4ff336b2234cf8b2e4de8782e79d5, type: 2}
+  carbon: {fileID: 11400000, guid: bf1cbd8635c6446cebe322811ffad02d, type: 2}
+  gold: {fileID: 0}
+  copper: {fileID: 0}
+  steel: {fileID: 0}
+  bronze: {fileID: 0}
+  droneCore: {fileID: 0}

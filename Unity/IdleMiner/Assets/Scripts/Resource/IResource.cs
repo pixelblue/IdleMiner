@@ -13,5 +13,6 @@ namespace Idler
         void Register(ResourceController resource);
         void Unregister(ResourceController resource);
         IReadOnlyList<ResourceController> ActiveResources { get; }
+        void Initialize();
     }
 }

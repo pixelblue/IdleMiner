@@ -12,6 +12,7 @@ namespace Idler
             ServiceLocator.Current.Get<IPool>().CreatePools();
             ServiceLocator.Current.Get<ICamera>().Initialize();
             ServiceLocator.Current.Get<IMainUI>().Initialize();
+            ServiceLocator.Current.Get<IResource>().Initialize();
             
             var mapCtrl = ServiceLocator.Current.Get<IMap>();
             mapCtrl.SurfaceCtrl.Initialize();

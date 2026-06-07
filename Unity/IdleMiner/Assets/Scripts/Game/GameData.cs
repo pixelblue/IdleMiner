@@ -9,5 +9,18 @@ namespace Idler
         public LeveledProperty EnergyCostPerHit;
         public LeveledProperty HitRate;
         public LeveledProperty HitRadius;
+
+        [Header("Raw Ore")]
+        public ResourceData carbon;
+        public ResourceData gold;
+        public ResourceData copper;
+
+        [Header("Refined Metal")]
+        public ResourceData steel;
+        public ResourceData bronze;
+
+        [Header("Constructed")]
+        public ResourceData droneCore;
+
     }
 }
