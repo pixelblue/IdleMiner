@@ -5,8 +5,8 @@
 
 - Idle/incremental game with an isometric top-down view
 - No player character — player controls only the mouse cursor
-- Mine asteroids, satellites and space debris to gather resources
-- Goal: craft and terraform your own asteroid and make it green
+- Mine resources like asteroids, satellites and space debris
+- Goal: Unlock a ever growing space station on a asteroid
 
 ## Core Loop
 - Hover cursor over objects to mine
@@ -20,16 +20,15 @@
 - Mouse hover with a radius does Mining or building or resource deployment.
 
 ## Progression
-- Early: manual mining, drop first resources at the resource container
+- Early: manual mining, drop first resources at the base
 - Mid: drones automate mining, Refinery unlocks
 - Mid: Constructor unlocks, allowing for more complex buildings
 - Late: asteroid transforms from bare rock to lush green world
 
 ### Progression 10min
-- 00:00: Player starts in Asteroid field: "Hover over asteroids to start mining"
-- 00:05: Player also needs to collect the mined resources
-- 00:15: Timer runs 10 - 15seconds
-- 00:15: When timer runs out player get's automatically transported to the "Base"
+- 00:00: Player starts on a Empty Asteroid. With a broken energy generator
+- 00:05: Player needs to tap 10 times on the energy generator to get it working again.
+- 00:20: First buildings get revealed, but they are locked. Player needs to mine resources to unlock them
 - 00:30: Uses mined resources to drop at the resource container 
 - 00:40: Player runs out of resources and needs to press "Mine" again
 - 00:45: Player mines again
