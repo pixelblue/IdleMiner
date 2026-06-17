@@ -4,8 +4,11 @@
 ### A cozy incremental farming game in space
 
 - Idle/incremental game with an isometric top-down view
+- Use "Tower Wizard" and "Farminatta" as a inspiration
 - No player character — player controls only the mouse cursor
 - Mine resources like asteroids, satellites and space debris
+- Use bots and drones to speed up mining
+- Camera should zoom out on every new stage of the game to give a feeling of scale and power
 - Goal: Unlock a ever growing space station on a asteroid
 
 ## Core Loop
@@ -14,10 +17,17 @@
 - Go back to mining again
 
 ## Core Features
-- Mining costs energy. If the player doesn't mine, no energy is depleted.
-    Which allows them for discovery and it is less stressfull
-- Camera needs to be panable on a isometric plane, but not zoomable. This allows for a more focused experience and less overwhelming for the player
-- Mouse hover with a radius does Mining or building or resource deployment.
+- Mining of interactable Objects
+- Hire bots / drones to mine resources automatically
+- Camera needs to be panable and zoomable on a isometric plane
+- Mouse hover with a radius does Mining or resource deployment
+- Mouse can also speed up mining by holding down the left mouse button
+
+## Major Progression Stages
+- Repair the energy generator
+- UNLOCK Energy generator (cam zoom out)
+- Mine more energy to purchase a drone
+
 
 ## Progression
 - Early: manual mining, drop first resources at the base
