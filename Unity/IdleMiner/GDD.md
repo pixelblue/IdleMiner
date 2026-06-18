@@ -9,7 +9,7 @@
 - Mine resources like asteroids, satellites and space debris
 - Use bots and drones to speed up mining
 - Camera should zoom out on every new stage of the game to give a feeling of scale and power
-- Goal: Unlock a ever growing space station on a asteroid
+- Goal: Provide your spaceship with resources to fly to the next stage
 
 ## Core Loop
 - Hover cursor over objects to mine
@@ -24,59 +24,68 @@
 - Mouse can also speed up mining by holding down the left mouse button
 
 ## Major Progression Stages
-- Repair the energy generator
-- UNLOCK Energy generator (cam zoom out)
-- Mine more energy to purchase a drone
+### Stage 1:
+#### Required Resources:
+    - Energy
+- Repair the Base (tapping on it) 
+- Base repaired (cam zoom out)
+### Stage 2:
+#### Required Resources:
+    - Energy
+- Tap Base more to purchase bots with energy resource
+- Purchase a bot
+- Mine until enough energy to go to next stage
+- Base grows again (cam zoom out)
+### Stage 3:
+#### Required Resources:
+    - Energy
+    - Carbon
+- A Resource Container building is revealed
+- Base Grows again (cam zoom out)
+### Stage 4:
+#### Required Resources:
+    - Energy
+    - Refined Carbon
+- A Refinery building is revealed
+- Hire Bots using energy
+- Base Grows again (cam zoom out)
+### Stage 5: 
+#### Required Resources:
+    - Energy
+    - Constructed Cables
+- A Constructor building is revealed
+- Hire bots to speed up construction
+- Base Grows again (cam zoom out)
 
-
-## Progression
-- Early: manual mining, drop first resources at the base
-- Mid: drones automate mining, Refinery unlocks
-- Mid: Constructor unlocks, allowing for more complex buildings
-- Late: asteroid transforms from bare rock to lush green world
-
-### Progression 10min
-- 00:00: Player starts on a Empty Asteroid. With a broken energy generator
-- 00:05: Player needs to tap 10 times on the energy generator to get it working again.
-- 00:20: First buildings get revealed, but they are locked. Player needs to mine resources to unlock them
-- 00:30: Uses mined resources to drop at the resource container 
-- 00:40: Player runs out of resources and needs to press "Mine" again
-- 00:45: Player mines again
-- 00:50: Player now has enough resources to build first Drone Spawner
-- 01:00: Player has to press "Build" to build the first Drone Spawner. Bots spawn to drop resources from the container
-- 01:30: Bots complete the drone spawner
-- 01:30: Player keeps mining until enough resources for the first Refinery
 
 ## Key Structures
 ### Command Center (single bigggest structure)
 The Command Center is the main building of the player's base. 
-It's purpose is for player upgrades which are
-- Hit Radius
-- Max Energy
-- Hit Rate
+It holds the main objectives for the player which resources to collect for the next stage. Player can upgrad here.
+#### Upgrades:
+    - Hit Radius
+    - Max Energy
+    - Hit Rate
+    - Hit Value
 
-### Drone Spawner (Multiple buildings can be placed)
-Automates the mining process by sending out drones to mine resources.
-- Drones amount
-- Drones mining speed
-- Drones Resource capacity
+### Resource Container
+Takes mined resources and stores them in a container
+#### Upgrades:
+    - Storage speed
+    - Storage slots
 
-### Refinery (Multiple buildings can be placed)
+### Refinery
 Takes mined resources and refines them into more valuable materials.
 Outputs refined metals which need to be put into a constructor
-- Refining speed
-- Refinery slots
+#### Upgrades:
+    - Refining speed
+    - Refinery slots
 
-### Bots Spawner (Multiple buildings can be placed)
-Automates collecting spawned resources from the Refinery and puts them into the constructor
-- Bots amount
-- Bots speed
-- Bots Resource capacity
-
-### Constructor (not sure if single or multiple ones)
+### Constructor
 Takes refined metals and constructs buildings and other things like vehicles
-- Construction speed
-- Construction slots
+#### Upgrades:
+    - Construction speed
+    - Construction slots
 
 ## Resource Tiers
 - Tier 1: Raw Ore (manualy minded or automated by drones)
