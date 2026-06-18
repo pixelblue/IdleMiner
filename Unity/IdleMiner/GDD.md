@@ -23,7 +23,7 @@
 - Mouse hover with a radius does Mining or resource deployment
 - Mouse can also speed up mining by holding down the left mouse button
 
-## Major Progression Stages
+## Major Progression Stages for the Base
 ### Stage 1:
 #### Required Resources:
     - Energy
