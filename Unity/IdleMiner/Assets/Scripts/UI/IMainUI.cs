@@ -5,7 +5,8 @@ namespace Idler
 {
     public interface IMainUI : IGameService
     {
-        Transform ResourceContainer { get; }
+        Transform InteractablesContainer { get; }
+        Transform ResourcesContainer { get; }
         CursorController CursorCtrl { get; }
         void Initialize();
     }

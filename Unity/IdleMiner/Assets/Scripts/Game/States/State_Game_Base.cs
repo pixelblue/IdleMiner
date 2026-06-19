@@ -8,13 +8,13 @@ namespace Idler
     {
         protected GameManager Ctrl { get; private set; }
         protected FSM_StateManager Fsm { get; private set; }
-        protected IEvent EventCtrl { get; private set; }
+        protected IEventManager EventManagerCtrl { get; private set; }
         
         private void Awake()
         {
             Ctrl = GetComponentInParent<GameManager>();
             Fsm = Ctrl.Fsm;
-            EventCtrl = ServiceLocator.Current.Get<IEvent>();
+            EventManagerCtrl = ServiceLocator.Current.Get<IEventManager>();
         }
 
         public override void OnActivate()

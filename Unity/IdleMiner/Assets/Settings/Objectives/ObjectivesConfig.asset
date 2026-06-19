@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Idler.ObjectivesConfig
   levels:
   - {fileID: 11400000, guid: 4d652665b823748e5ae7a02c56f3d780, type: 2}
+  - {fileID: 11400000, guid: 3fccecab22d44634693fe084861063a6, type: 2}

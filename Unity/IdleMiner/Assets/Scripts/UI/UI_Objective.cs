@@ -13,52 +13,47 @@ namespace Idler
         [SerializeField] private TMP_Text completedText;
         [SerializeField] private Slider slider;
 
-        private IEvent eventCtrl;
+        private IEventManager eventManagerCtrl;
         private ObjectiveData objectiveData;
 
         private void Awake()
         {
-            eventCtrl = ServiceLocator.Current.Get<IEvent>();
+            eventManagerCtrl = ServiceLocator.Current.Get<IEventManager>();
         }
 
         private void OnEnable()
         {
-            eventCtrl.ResourceChanged += OnResourceChanged;
+            eventManagerCtrl.ObjectiveProgress += OnObjectiveProgress;
         }
 
         private void OnDisable()
         {
-            eventCtrl.ResourceChanged -= OnResourceChanged;
+            eventManagerCtrl.ObjectiveProgress -= OnObjectiveProgress;
         }
         
         public void Initialize(ObjectiveData objectiveData)
         {
             this.objectiveData = objectiveData;
             descriptionText.text = objectiveData.description;
-            if (objectiveData.targetAmount >= 1)
-            {
-                counterText.text = $"0 / {objectiveData.targetAmount}";
-                slider.maxValue = objectiveData.targetAmount;
-                slider.value = 0;
-            }
+            slider.maxValue = objectiveData.targetAmount;
+            UpdateDisplay(objectiveData.CurrentAmount);
         }
 
-        private void OnResourceChanged(ResourceData resourceData, float amount)
+        private void OnObjectiveProgress(ObjectiveData data, float currentAmount)
         {
-            if (objectiveData.type == ObjectiveType.CollectResource)
-            {
-                if (objectiveData.targetResource == resourceData)
-                {
-                    var progress = Mathf.Min(amount, objectiveData.targetAmount);
-                    counterText.text = $"{progress} / {objectiveData.targetAmount}";
-                    slider.value = progress;
-                    if (amount >= objectiveData.targetAmount)
-                    {
-                        slider.gameObject.SetActive(false);
-                        completedText.gameObject.SetActive(true);
-                    }
-                }
-            }
+            if (data != objectiveData) return;
+            UpdateDisplay(currentAmount);
+        }
+
+        private void UpdateDisplay(float amount)
+        {
+            var progress = Mathf.Min(amount, objectiveData.targetAmount);
+            counterText.text = $"{progress} / {objectiveData.targetAmount}";
+            slider.value = progress;
+
+            bool completed = amount >= objectiveData.targetAmount;
+            slider.gameObject.SetActive(!completed);
+            completedText.gameObject.SetActive(completed);
         }
     }
 }

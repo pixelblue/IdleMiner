@@ -24,9 +24,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | `GEN.InputDevice` | Input abstraction layer |
 | `Idler` | Game-specific logic (services, UI, states) |
 
-Scripts live in `Assets/Scripts/` and split into two top-level folders:
-- `GEN/` — reusable engine scaffolding (not game-specific)
-- `Services/`, `UI/` — game-specific code
+Scripts live in `Assets/Scripts/` with two top-level folders:
+- `GEN/` — reusable engine scaffolding (Common, Editor, Extensions, FSM, InputDevice, Pool, Types, Utilities)
+- Game-specific folders: `Building/`, `Camera/`, `Cursor/`, `Event/`, `Game/`, `Interactable/`, `Map/`, `Objectives/`, `Resource/`, `Services/`, `UI/`
 
 ### Service Locator Pattern
 
@@ -36,18 +36,32 @@ ServiceLocator.Current.Get<IPool>();
 ```
 New services: implement `IGameService`, register in `ServiceContainer.Initialize()`.
 
+**All registered services:**
+
+| Interface | Implementation | Purpose |
+|---|---|---|
+| `IEvent` | `EventManager` | Game-wide events |
+| `IPool` | `PoolManager` | Object pooling |
+| `IGame` | `GameManager` | Game state root + `GameData` holder |
+| `IMainUI` | `MainUiController` | UI root + screen management |
+| `ICamera` | `CameraController` | Camera FSM |
+| `IMap` | `MapController` | Tracks all active `Interactable` instances |
+| `ICursor` | `CursorController` | Cursor position + hit detection |
+| `IResource` | `ResourceManager` | Inventory management |
+| `IObjectives` | `ObjectivesManager` | Level/objective progression |
+
 ### Finite State Machine
 
-`FSM_StateManager` (`GEN/FSM/FSM_StateManager.cs`) manages game/UI states. States are child GameObjects that extend `FSM_GameState` (abstract: `OnActivate` / `OnDeactivate`). The manager discovers all states in its children on Awake. Transition via `ChangeState<T>()`. The UI uses this FSM via `State_UI_Base` in `Assets/Scripts/UI/States/`.
+`FSM_StateManager` (`GEN/FSM/FSM_StateManager.cs`) manages game/UI states at `[DefaultExecutionOrder(-200)]`. States are child GameObjects that extend `FSM_GameState` (abstract: `OnActivate` / `OnDeactivate`). The manager discovers all states in its children on Awake. Transition via `ChangeState<T>()`. The FSM is used for game states, UI states, camera states, and per-interactable states (resource drops, drone spawner phases).
 
 ### Object Pool
 
-`PoolManager` (`GEN/Pool/PoolManager.cs`) implements `IPool` and is registered as a service. Pools are pre-configured in the Inspector via `PoolCategory[]` arrays, then created by calling `CreatePools()`. Spawn/release by string name:
+`PoolManager` (`GEN/Pool/PoolManager.cs`) implements `IPool` and is registered as a service. Pools are pre-configured in the Inspector via `PoolCategory[]` arrays, then created by calling `CreatePools()` (triggered in `State_Game_Init.OnActivate()`). Spawn/release by string name:
 ```csharp
 pool.Spawn("prefabName", position);
 pool.Release("prefabName", component);
 ```
-`ObjectPool<T>` is the generic typed implementation; `PoolManager.CreateTypedPool()` is a safe factory — add new supported component types there (no reflection).
+`ObjectPool<T>` is the generic typed implementation; `PoolManager.CreateTypedPool()` is a safe factory — add new supported component types there (no reflection). The pool strips "(Clone)" suffixes internally.
 
 ### Input System
 
@@ -56,6 +70,85 @@ pool.Release("prefabName", component);
 ### Singleton
 
 `Singleton<T>` (`GEN/Common/Singleton.cs`) is a `MonoBehaviour` base for scene-bound singletons. Prefer `ServiceLocator` for systems that need decoupled access.
+
+### Interactable System
+
+`Interactable` (`Assets/Scripts/Interactable/Interactable.cs`) is the base class for all hover-able world objects. On `Initialize()` it registers with `MapController.AllInteractables` and spawns a pooled `InteractableUI` element. Collision uses custom raycasting (not Unity physics colliders):
+
+- **Sphere**: center + radius in world space
+- **Box**: OBB test in local space, properly accounting for rotation and non-uniform scale
+
+`CursorController` reads all interactables from `IMap` every frame, tests each against the cursor ray, then fires `OnCursorEnter()`, `OnCursorExit()`, `OnCursorHit(CursorController cursor)` on the interactable.
+
+**Concrete implementations:**
+- `Interactable_Minable` — asteroids; `OnCursorHit` triggers a drop from its `ResourcePool` SO
+- `Interactable_Building` — structures; checks `BuildingData.CanAfford()` and calls `Construct()` on click
+- `Interactable_BuildingDroneSpawner` — extends Building with an internal Init→Locked→Unlocked→Spawning FSM
+- `Interactable_BuildingResourceContainer` — resource storage building
+
+### Event System
+
+`EventManager` implements `IEvent` and provides game-wide pub/sub:
+
+```csharp
+IEvent events = ServiceLocator.Current.Get<IEvent>();
+events.MiningStarted    += OnMiningStarted;
+events.InvokeMiningStarted();
+events.InvokeResourceChanged(resource, newAmount);
+events.InvokeBuildingConstructed(buildingData);
+```
+
+Events: `MiningStarted`, `MiningStopped`, `ResourceChanged(ResourceData, float)`, `BuildingConstructed(BuildingData)`. `ObjectivesManager` listens to these to track objective progress.
+
+### Resource System
+
+`ResourceManager` (IResource) manages the inventory as `Dictionary<ResourceData, float>`:
+```csharp
+resourceMgr.Add(Resource.RawOre.Carbon, 10f);   // fires IEvent.ResourceChanged
+resourceMgr.Get(Resource.RefinedMetal.Steel);    // returns 0 if missing
+```
+
+**Resource Tiers:**
+- **Raw Ore**: Carbon, Gold, Copper — mined from asteroids
+- **Refined Metal**: Steel, Bronze — produced by Refinery
+- **Constructed**: DroneCore — produced by Constructor
+
+`ResourcePool` (ScriptableObject) defines probabilistic loot: an array of `ResourceDrop { resource, chance, value }`. `Interactable_Minable` holds one and draws from it on each cursor hit.
+
+`ResourceController` is the pooled world UI prefab that represents a dropped resource. It runs a two-state FSM: FollowCursor → Drop (moves to `MainUI.ResourceContainer`).
+
+### Objectives & Progression
+
+`ObjectivesManager` (IObjectives) tracks level advancement via `ObjectivesConfig` SO. Each level has up to 3 active objectives of type `CollectResource` or `BuildStructure`. Progress is seeded — only amounts gained *after* an objective activates count. Events:
+
+```
+OnObjectiveProgress(ObjectiveData, float progress)
+OnObjectiveCompleted(ObjectiveData)
+OnLevelReadyToAdvance()
+OnLevelAdvanced(int newLevel)
+```
+
+### ScriptableObject Patterns
+
+**`GameData`** — root SO held by `GameManager`. Contains all `ResourceData` SO refs and `LeveledProperty` stats (energy capacity, energy cost per hit, hit rate, hit radius).
+
+**`LeveledProperty`** — upgradeable stat with exponential cost scaling:
+```csharp
+prop.Value           // current value
+prop.NextUpgradeCost // cost to upgrade
+prop.Upgrade()       // increments CurrentLevel
+```
+
+**`BuildingData`** — holds build cost (`ResourceRequirement[]`), `CanAfford()`, and `Consume()`.
+
+### UI / Screen System
+
+`MainUiController` (IMainUI) is the UI root. It holds an `FSM_StateManager` for UI states and exposes:
+- `ResourceContainer` (Transform) — parent for pooled `ResourceController` UI
+- `CursorCtrl` — cursor reference for screen-space positioning
+- `ShowScreen(Screen)` — activates a Screen
+
+`Screen` base class (`Assets/Scripts/UI/Screens/`) has `Show()` / `Hide()` (toggle active). `InteractableUI` is a pooled per-interactable overlay that tracks world→screen position in `LateUpdate` (unless `LockUIPosition` is set).
 
 ## Code Style
 

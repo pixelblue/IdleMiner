@@ -1,5 +1,9 @@
 using ANS.Common.ServiceLocator;
 using ANS_Core.FSM;
+using ANS_Core.Utilities;
+using ANS.Common;
+using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,47 +11,46 @@ namespace Idler
 {
     public class ResourceController : MonoBehaviour
     {
-        [field: SerializeField] public FSM_StateManager Fsm { get; private set; }
         [SerializeField] private Image icon;
+        [SerializeField] private TMP_Text amountText;
 
-        public RectTransform RectTransform { get; private set; }
-        public ResourceData ResourceData { get; private set; }
-        public float Amount { get; private set; }
-        public RectTransform DropTarget { get; private set; }
-
-        private IResource resourceMgr;
+        private RectTransform rectTransform;
+        private IResourceManager resourceManagerMgr;
         private IMainUI mainUI;
+        private ICamera cameraCtrl;
+        private IPool poolCtrl;
 
         private void Awake()
         {
-            RectTransform = GetComponent<RectTransform>();
-            resourceMgr   = ServiceLocator.Current.Get<IResource>();
+            rectTransform = GetComponent<RectTransform>();
+            resourceManagerMgr   = ServiceLocator.Current.Get<IResourceManager>();
             mainUI        = ServiceLocator.Current.Get<IMainUI>();
+            cameraCtrl    = ServiceLocator.Current.Get<ICamera>();
+            poolCtrl      = ServiceLocator.Current.Get<IPool>();
         }
 
-        private void OnDisable()
+        public void Initialize(Collider coll, ResourceData data, float amount)
         {
-            resourceMgr.Unregister(this);
-        }
-
-        public void Initialize(ResourceData data, float amount)
-        {
-            ResourceData = data;
-            Amount       = amount;
             icon.sprite  = data.icon;
+            amountText.text = ((int)amount).ToString();
 
-            transform.SetParent(mainUI.ResourceContainer, true);
-            RectTransform.position = new Vector3(mainUI.CursorCtrl.ScreenPosition.x, mainUI.CursorCtrl.ScreenPosition.y, 0f);
+            transform.SetParent(mainUI.ResourcesContainer, true);
+            
+            var b = coll.bounds;
+            var randomWorld = new Vector3(
+                Random.Range(b.min.x, b.max.x),
+                Random.Range(b.min.y, b.max.y),
+                Random.Range(b.min.z, b.max.z));
+            var screenPos = cameraCtrl.Cam.WorldToScreenPoint(randomWorld);
+            rectTransform.position = new Vector3(screenPos.x, screenPos.y, 0f);
+            
+            rectTransform.DOAnchorPos(rectTransform.anchoredPosition + Vector2.up * 50f, 0.5f).OnComplete(() =>
+            {
+                poolCtrl.Release(Util.GetNameWithoutClone(this.gameObject.name), this);
+            });
+            
+            resourceManagerMgr.Add(data, amount);
 
-            resourceMgr.Register(this);
-            mainUI.CursorCtrl.cursorResourceCtrl.AddResource(this);
-            Fsm.ChangeState<State_Resource_FollowCursor>();
-        }
-
-        public void StartDrop(RectTransform target)
-        {
-            DropTarget = target;
-            Fsm.ChangeState<State_Resource_Drop>();
         }
     }
 }

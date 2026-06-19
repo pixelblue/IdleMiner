@@ -9,12 +9,12 @@
 
         public override void OnCursorEnter(CursorController cursor)
         {
-            cursor.cursorResourceCtrl.StartResourceDrop(InteractableUICtrl.RectTransform);
+            //cursor.cursorResourceCtrl.StartResourceDrop(InteractableUICtrl.RectTransform);
         }
 
         public override void OnCursorExit(CursorController cursor)
         {
-            cursor.cursorResourceCtrl.StopResourceDrop();
+            //cursor.cursorResourceCtrl.StopResourceDrop();
         }
         public override void OnCursorHit(CursorController cursor) { }
     }

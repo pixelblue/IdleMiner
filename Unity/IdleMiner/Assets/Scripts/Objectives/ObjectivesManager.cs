@@ -8,82 +8,53 @@ namespace Idler
 {
     public class ObjectivesManager : MonoBehaviour, IObjectives
     {
-        [SerializeField] private ObjectivesConfig config;
-
         public int CurrentLevel { get; private set; }
         public ObjectiveLevelData CurrentLevelData => config.levels[CurrentLevel];
         public bool IsCurrentLevelComplete => ActiveObjectives().All(IsComplete);
-
-        public event Action<ObjectiveData, float> OnObjectiveProgress;
-        public event Action<ObjectiveData> OnObjectiveCompleted;
-        public event Action OnLevelReadyToAdvance;
-        public event Action<int> OnLevelAdvanced;
-
-        private readonly Dictionary<ObjectiveData, float> progress = new();
-        private readonly Dictionary<ResourceData, float> lastInventory = new();
-
-        private IResource resourceMgr;
-        private IEvent eventMgr;
+        
+        private ObjectivesConfig config;
+        private IEventManager eventManagerMgr;
 
         private void Awake()
         {
-            resourceMgr = ServiceLocator.Current.Get<IResource>();
-            eventMgr    = ServiceLocator.Current.Get<IEvent>();
-            LoadLevel(0);
+            config   = ServiceLocator.Current.Get<IGame>().Data.objectives;
+            eventManagerMgr = ServiceLocator.Current.Get<IEventManager>();
         }
 
-        public float GetProgress(ObjectiveData objective) =>
-            progress.TryGetValue(objective, out var p) ? p : 0f;
+        private void OnEnable()
+        {
+            eventManagerMgr.ResourceChanged += OnResourceChanged;
+        }
+
+        private void OnDisable()
+        {
+            eventManagerMgr.ResourceChanged -= OnResourceChanged;
+        }
+
+        public float GetProgress(ObjectiveData objective) => objective.CurrentAmount;
 
         public bool IsComplete(ObjectiveData objective) =>
-            GetProgress(objective) >= objective.targetAmount;
+            objective.CurrentAmount >= objective.targetAmount;
 
         public void AdvanceLevel()
         {
             if (!IsCurrentLevelComplete) return;
             if (CurrentLevel >= config.levels.Length - 1) return;
 
-            UnsubscribeEvents();
             LoadLevel(CurrentLevel + 1);
-            OnLevelAdvanced?.Invoke(CurrentLevel);
+            eventManagerMgr.InvokeLevelAdvanced(CurrentLevel);
         }
 
         private void LoadLevel(int index)
         {
             CurrentLevel = index;
-            progress.Clear();
-            lastInventory.Clear();
-
-            var objectives = ActiveObjectives();
-            foreach (var obj in objectives)
-                progress[obj] = 0f;
-
-            // seed lastInventory from current state so pre-existing amounts don't count
-            foreach (var obj in objectives.Where(o => o.type == ObjectiveType.CollectResource && o.targetResource != null))
-                lastInventory[obj.targetResource] = resourceMgr.Get(obj.targetResource);
-
-            SubscribeEvents();
+            foreach (var obj in ActiveObjectives())
+                obj.CurrentAmount = 0f;
         }
 
-        private void SubscribeEvents()
+        private void OnResourceChanged(ResourceData resource, float delta)
         {
-            eventMgr.ResourceChanged += OnResourceChanged;
-            eventMgr.BuildingConstructed   += OnBuildingConstructed;
-        }
-
-        private void UnsubscribeEvents()
-        {
-            eventMgr.ResourceChanged -= OnResourceChanged;
-            eventMgr.BuildingConstructed   -= OnBuildingConstructed;
-        }
-
-        private void OnDestroy() => UnsubscribeEvents();
-
-        private void OnResourceChanged(ResourceData resource, float newTotal)
-        {
-            lastInventory.TryGetValue(resource, out var prev);
-            var delta = Mathf.Max(0f, newTotal - prev);
-            lastInventory[resource] = newTotal;
+            if (delta <= 0f) return;
 
             foreach (var obj in ActiveObjectives())
             {
@@ -93,34 +64,48 @@ namespace Idler
             }
         }
 
-        private void OnBuildingConstructed(BuildingData building)
-        {
-            foreach (var obj in ActiveObjectives())
-            {
-                if (obj.type != ObjectiveType.BuildStructure) continue;
-                if (obj.targetBuilding != building) continue;
-                AdvanceProgress(obj, 1f);
-            }
-        }
-
         private void AdvanceProgress(ObjectiveData obj, float delta)
         {
             if (IsComplete(obj)) return;
 
-            progress[obj] = Mathf.Min(progress[obj] + delta, obj.targetAmount);
-            OnObjectiveProgress?.Invoke(obj, progress[obj]);
+            obj.CurrentAmount = Mathf.Min(obj.CurrentAmount + delta, obj.targetAmount);
+            eventManagerMgr.InvokeObjectiveProgress(obj, obj.CurrentAmount);
 
             if (IsComplete(obj))
-            {
-                OnObjectiveCompleted?.Invoke(obj);
                 CheckLevelCompletion();
-            }
         }
 
         private void CheckLevelCompletion()
         {
             if (IsCurrentLevelComplete)
-                OnLevelReadyToAdvance?.Invoke();
+                eventManagerMgr.InvokeLevelObjectivesCompleted();
+        }
+
+        public void Save(SaveData data)
+        {
+            data.currentLevel = CurrentLevel;
+            var objectives = ActiveObjectives().ToArray();
+            // pre-populate entries so each objective can find itself by name
+            data.objectives = new ObjectiveSaveEntry[objectives.Length];
+            for (int i = 0; i < objectives.Length; i++)
+                data.objectives[i] = new ObjectiveSaveEntry { objectiveName = objectives[i].name };
+            foreach (var obj in objectives)
+                obj.Save(data);
+        }
+
+        public void Load(SaveData data)
+        {
+            LoadLevel(data.currentLevel);
+            foreach (var level in config.levels)
+                foreach (var obj in level.objectives)
+                    obj.Load(data);
+        }
+
+        public void Reset()
+        {
+            foreach (var obj in ActiveObjectives())
+                obj.Reset();
+            LoadLevel(0);
         }
 
         // Returns the active objectives for the current level, clamped to max 3.

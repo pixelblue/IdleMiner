@@ -1,58 +1,62 @@
-using System;
 using System.Collections.Generic;
-using ANS.Common;
 using ANS.Common.ServiceLocator;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Idler
 {
-    public class ResourceManager : MonoBehaviour, IResource
+    public class ResourceManager : MonoBehaviour, IResourceManager
     {
-        [SerializeField] private Image resourceImagePrefab;
-
-        public IReadOnlyDictionary<ResourceData, float> Inventory => inventory;
-        private readonly Dictionary<ResourceData, float> inventory = new();
-
-        private readonly List<ResourceController> activeResources = new();
-        public IReadOnlyList<ResourceController> ActiveResources => activeResources;
-
-        private IPool poolCtrl;
-        private IEvent eventCtrl;
+        private IEventManager eventManagerCtrl;
+        private ResourceData[] allResources;
 
         private void Awake()
         {
-            poolCtrl  = ServiceLocator.Current.Get<IPool>();
-            eventCtrl = ServiceLocator.Current.Get<IEvent>();
-        }
+            eventManagerCtrl = ServiceLocator.Current.Get<IEventManager>();
 
-        public void Initialize()
-        {
             var data = ServiceLocator.Current.Get<IGame>().Data;
-            Constants.RawOre.Carbon  = data.carbon;
-            Constants.RawOre.Gold    = data.gold;
-            Constants.RawOre.Copper  = data.copper;
-
-            Constants.RefinedMetal.Steel  = data.steel;
-            Constants.RefinedMetal.Bronze = data.bronze;
-
-            Constants.Constructed.DroneCore = data.droneCore;
+            var combined = new List<ResourceData>();
+            combined.AddRange(data.rawResources);
+            combined.AddRange(data.refinedResources);
+            combined.AddRange(data.constructedResources);
+            allResources = combined.FindAll(r => r != null).ToArray();
         }
-
-        public void Register(ResourceController resource) => activeResources.Add(resource);
-        public void Unregister(ResourceController resource) => activeResources.Remove(resource);
 
         public void Add(ResourceData resource, float amount)
         {
-            inventory.TryGetValue(resource, out var current);
-            inventory[resource] = current + amount;
-            eventCtrl.InvokeResourceChanged(resource, inventory[resource]);
+            resource.CurrentAmount += amount;
+            eventManagerCtrl.InvokeResourceChanged(resource, amount);
         }
 
-        public float Get(ResourceData resource)
+        public float Get(ResourceData resource) => resource.CurrentAmount;
+
+        public ResourceData[] GetAll() => allResources;
+
+        public bool HasAny()
         {
-            inventory.TryGetValue(resource, out var amount);
-            return amount;
+            foreach (var r in allResources)
+                if (r.CurrentAmount > 0f) return true;
+            return false;
+        }
+
+        public void Save(SaveData data)
+        {
+            data.resources = new ResourceSaveEntry[allResources.Length];
+            for (int i = 0; i < allResources.Length; i++)
+                data.resources[i] = new ResourceSaveEntry { resourceName = allResources[i].name };
+            foreach (var r in allResources)
+                r.Save(data);
+        }
+
+        public void Load(SaveData data)
+        {
+            foreach (var r in allResources)
+                r.Load(data);
+        }
+
+        public void Reset()
+        {
+            foreach (var r in allResources)
+                r.Reset();
         }
     }
 }

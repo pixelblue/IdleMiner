@@ -9,12 +9,13 @@ namespace Idler
     {
         [SerializeField] private Button showDebugPanelButton;
         [SerializeField] private GameObject debugPanel;
+        [SerializeField] private ResourceData carbonResource;
 
-        private IResource resourceCtrl;
+        private IResourceManager resourceManagerCtrl;
 
         private void Awake()
         {
-            resourceCtrl = ServiceLocator.Current.Get<IResource>();
+            resourceManagerCtrl = ServiceLocator.Current.Get<IResourceManager>();
         }
 
         private void OnEnable()
@@ -34,8 +35,7 @@ namespace Idler
         
         public void AddCarbon(float amount)
         {
-            resourceCtrl.Add(Constants.RawOre.Carbon, amount);
-            //resourceCtrl.Add(ResourceData.Carbon, amount);
+            resourceManagerCtrl.Add(carbonResource, amount);
         }
     }
 }

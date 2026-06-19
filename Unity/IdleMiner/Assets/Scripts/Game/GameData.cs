@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Idler
@@ -10,17 +11,10 @@ namespace Idler
         public LeveledProperty HitRate;
         public LeveledProperty HitRadius;
 
-        [Header("Raw Ore")]
-        public ResourceData carbon;
-        public ResourceData gold;
-        public ResourceData copper;
+        public List<ResourceData> rawResources;
+        public List<ResourceData> refinedResources;
+        public List<ResourceData> constructedResources;
 
-        [Header("Refined Metal")]
-        public ResourceData steel;
-        public ResourceData bronze;
-
-        [Header("Constructed")]
-        public ResourceData droneCore;
-
+        public ObjectivesConfig objectives;
     }
 }

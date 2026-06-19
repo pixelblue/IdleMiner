@@ -18,14 +18,15 @@ namespace Idler
             ServiceLocator.Initialize();
 
             // Register all services needed
-            ServiceLocator.Current.Register<IEvent>(FindFirstObjectByType<EventManager>());
+            ServiceLocator.Current.Register<IEventManager>(FindFirstObjectByType<EventManager>());
             ServiceLocator.Current.Register<IPool>(FindFirstObjectByType<PoolManager>());
+            ServiceLocator.Current.Register<ISaveLoadManager>(FindFirstObjectByType<SaveLoadManager>());
             ServiceLocator.Current.Register<IGame>(FindFirstObjectByType<GameManager>());
             ServiceLocator.Current.Register<IMainUI>(FindFirstObjectByType<MainUiController>());
             ServiceLocator.Current.Register<ICamera>(FindFirstObjectByType<CameraController>());
             ServiceLocator.Current.Register<IMap>(FindFirstObjectByType<MapController>());
             ServiceLocator.Current.Register<ICursor>(FindFirstObjectByType<CursorController>());
-            ServiceLocator.Current.Register<IResource>(FindFirstObjectByType<ResourceManager>());
+            ServiceLocator.Current.Register<IResourceManager>(FindFirstObjectByType<ResourceManager>());
             ServiceLocator.Current.Register<IObjectives>(FindFirstObjectByType<ObjectivesManager>());
         }
     }

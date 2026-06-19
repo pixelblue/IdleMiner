@@ -35,18 +35,13 @@ namespace Idler
                 var hasTouchedMinableObject = false;
                 foreach (var interactable in cursorCtrl.TouchingInteractables)
                 {
-                    // only hit minable objects
-                    if (interactable is Interactable_Minable)
-                    {
-                        hasTouchedMinableObject = true;
-                        interactable.OnCursorHit(cursorCtrl);
-                    }
+                    hasTouchedMinableObject = true;
+                    interactable.OnCursorHit(cursorCtrl);
                 }
 
                 if (hasTouchedMinableObject)
                 {
                     hitTimer = 0.0f;
-                    cursorCtrl.MapCtrl.MiningCtrl.ConsumeHit();
                 }
             }
         }

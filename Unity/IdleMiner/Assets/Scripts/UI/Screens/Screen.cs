@@ -6,11 +6,11 @@ namespace Idler
 {
     public class Screen : MonoBehaviour
     {
-        public IEvent eventCtrl;
+        public IEventManager eventManagerCtrl;
         
         private void Awake()
         {
-            eventCtrl = ServiceLocator.Current.Get<IEvent>();
+            eventManagerCtrl = ServiceLocator.Current.Get<IEventManager>();
         }
 
         public virtual void Show()

@@ -13,29 +13,30 @@ namespace Idler
         [SerializeField] private Image resourceIcon;
 
         public ResourceData ResourceData { get; private set; }
-        private IEvent eventCtrl;
-        private IResource resourceCtrl;
+        private IEventManager eventManagerCtrl;
+        private IResourceManager resourceCtrl;
         
         private void Awake()
         {
-            eventCtrl = ServiceLocator.Current.Get<IEvent>();
-            resourceCtrl = ServiceLocator.Current.Get<IResource>();
+            eventManagerCtrl = ServiceLocator.Current.Get<IEventManager>();
+            resourceCtrl = ServiceLocator.Current.Get<IResourceManager>();
         }
 
         private void OnEnable()
         {
-            eventCtrl.ResourceChanged += OnResourceChanged;
+            eventManagerCtrl.ResourceChanged += OnResourceChanged;
         }
 
         private void OnDisable()
         {
-            eventCtrl.ResourceChanged -= OnResourceChanged;
+            eventManagerCtrl.ResourceChanged -= OnResourceChanged;
         }
 
         public void Initialize(ResourceData resourceData, float amount)
         {
             this.ResourceData = resourceData;
-
+            resourceCtrl = ServiceLocator.Current.Get<IResourceManager>();
+            
             resourceIcon.sprite = resourceData.icon;
             resourceNameText.text = resourceData.resourceName;
             UpdateValues();

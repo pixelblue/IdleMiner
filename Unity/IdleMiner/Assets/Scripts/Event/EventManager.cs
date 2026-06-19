@@ -3,16 +3,16 @@ using UnityEngine;
 
 namespace Idler
 {
-    public class EventManager : MonoBehaviour, IEvent
+    public class EventManager : MonoBehaviour, IEventManager
     {
-        public event Action MiningStarted;
-        public event Action MiningStopped;
-        public event Action<BuildingData> BuildingConstructed;
         public event Action<ResourceData, float> ResourceChanged;
-        
-        public void InvokeMiningStarted() => MiningStarted?.Invoke();
-        public void InvokeMiningStopped() => MiningStopped?.Invoke();
-        public void InvokeBuildingConstructed(BuildingData building) => BuildingConstructed?.Invoke(building);
+        public event Action<ObjectiveData, float> ObjectiveProgress;
+        public event Action LevelObjectivesCompleted;
+        public event Action<int> LevelAdvanced;
+
         public void InvokeResourceChanged(ResourceData resource, float amount) => ResourceChanged?.Invoke(resource, amount);
+        public void InvokeObjectiveProgress(ObjectiveData objective, float currentAmount) => ObjectiveProgress?.Invoke(objective, currentAmount);
+        public void InvokeLevelObjectivesCompleted() => LevelObjectivesCompleted?.Invoke();
+        public void InvokeLevelAdvanced(int level) => LevelAdvanced?.Invoke(level);
     }
 }

@@ -8,18 +8,14 @@ namespace Idler
         public override void OnActivate()
         {
             base.OnActivate();
-
+            
+            ServiceLocator.Current.Get<ISaveLoadManager>().LoadAll();
+            ServiceLocator.Current.Get<IMap>().Initialize();
             ServiceLocator.Current.Get<IPool>().CreatePools();
             ServiceLocator.Current.Get<ICamera>().Initialize();
             ServiceLocator.Current.Get<IMainUI>().Initialize();
-            ServiceLocator.Current.Get<IResource>().Initialize();
-            
-            var mapCtrl = ServiceLocator.Current.Get<IMap>();
-            mapCtrl.SurfaceCtrl.Initialize();
-            
-            EventCtrl.InvokeMiningStarted();
-            mapCtrl.SurfaceCtrl.Deactivate();
-            Fsm.ChangeState<State_Game_Mining>();
+
+            Fsm.ChangeState<State_Game_Idle>();
         }
         
         public override void OnDeactivate()

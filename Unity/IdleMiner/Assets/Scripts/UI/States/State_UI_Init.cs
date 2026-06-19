@@ -5,7 +5,8 @@ namespace Idler
             public override void OnActivate()
             {
                 base.OnActivate();
-                Fsm.ChangeState<State_UI_Surface>();
+                Ctrl.ResourcePanel.Initialize();
+                Ctrl.ObjectivePanel.Initialize();
             }
 
             public override void OnDeactivate()

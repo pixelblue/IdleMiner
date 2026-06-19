@@ -8,13 +8,13 @@ namespace Idler
     {
         protected FSM_StateManager Fsm { get; private set; }
         protected MainUiController Ctrl { get; private set; }
-        protected IEvent EventCtrl { get; private set; }
+        protected IEventManager EventManagerCtrl { get; private set; }
 
         protected virtual void Awake()
         {
             Ctrl = GetComponentInParent<MainUiController>();
             Fsm = Ctrl.Fsm;
-            EventCtrl = ServiceLocator.Current.Get<IEvent>();
+            EventManagerCtrl = ServiceLocator.Current.Get<IEventManager>();
             Initialize();
         }
 

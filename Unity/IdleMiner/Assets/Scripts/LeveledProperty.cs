@@ -6,6 +6,7 @@ namespace Idler
     [CreateAssetMenu(fileName = "LeveledProperty", menuName = "Idler/LeveledProperty")]
     public class LeveledProperty : ScriptableObject
     {
+        public string propertyName;
         [SerializeField] private float baseValue;
         [SerializeField] private float increment;
         [SerializeField] private int   maxLevel;

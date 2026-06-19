@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: ObjectiveLevel_01
   m_EditorClassIdentifier: Assembly-CSharp::Idler.ObjectiveLevelData
   objectives:
-  - {fileID: 11400000, guid: d141db44c0bf84ea1828d30d1ed923a0, type: 2}
-  - {fileID: 11400000, guid: 48a416c7d826b4be8aad8f8a96c7c821, type: 2}
+  - {fileID: 11400000, guid: 1ca9f359c5d4a2d46b40ba1535abefb7, type: 2}
