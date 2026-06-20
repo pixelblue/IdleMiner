@@ -32,8 +32,8 @@
 ### Stage 2:
 #### Required Resources:
     - Energy
-- Tap Base more to purchase bots with energy resource
-- Purchase a bot
+- Tap Base more to purchase more hit value with energy resource
+- Purchases a bunch of hit value upgrades
 - Mine until enough energy to go to next stage
 - Base grows again (cam zoom out)
 ### Stage 3:

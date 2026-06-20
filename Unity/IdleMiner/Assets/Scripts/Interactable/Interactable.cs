@@ -19,8 +19,7 @@ namespace Idler
         
         public InteractableUI InteractableUICtrl { get; private set; }
         public OutlineController OutlineCtrl { get; private set; }
-        // when true, LateUpdate won't override UI position (e.g. while a DOTween is running)
-        public bool LockUIPosition { get; set; }
+        public int CurrentLevel { get; set; }
 
         protected IPool PoolCtrl;
         protected IMap MapCtrl;
@@ -28,6 +27,7 @@ namespace Idler
         protected ICamera CamCtrl;
         protected IEventManager eventManagerCtrl;
         protected IObjectives ObjectivesCtrl;
+        protected IGame GameCtrl;
         
         private bool isCursorHovering = false;
 
@@ -39,6 +39,7 @@ namespace Idler
             CamCtrl = ServiceLocator.Current.Get<ICamera>();
             ObjectivesCtrl = ServiceLocator.Current.Get<IObjectives>();
             eventManagerCtrl = ServiceLocator.Current.Get<IEventManager>();
+            GameCtrl = ServiceLocator.Current.Get<IGame>();
             
             OutlineCtrl = GetComponent<OutlineController>();
             SpawnUIElement();
@@ -71,6 +72,11 @@ namespace Idler
             
         }
 
+        protected void GetCollider()
+        {
+            Coll = GetComponentInChildren<Collider>();
+        }
+
         protected virtual void Select()
         {
             if (OutlineCtrl != null)
@@ -92,7 +98,7 @@ namespace Idler
             if(uiPrefab == null) return null;
             InteractableUICtrl = Instantiate(uiPrefab) as InteractableUI;
             InteractableUICtrl.Hide();
-            InteractableUICtrl.transform.SetParent(MainUI.InteractablesContainer, true);
+            InteractableUICtrl.transform.SetParent(MainUI.InteractablesContainer, false);
             return InteractableUICtrl;
         }
         

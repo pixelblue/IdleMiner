@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Idler
 {
-    public interface IGame : IGameService
+    public interface IGame : IGameService, ISaveLoad
     {
         GameData Data { get; }
     }

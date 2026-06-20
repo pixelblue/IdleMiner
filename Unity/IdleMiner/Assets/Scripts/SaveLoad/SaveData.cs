@@ -9,6 +9,7 @@ namespace Idler
         public int currentLevel = 0;
         public ObjectiveSaveEntry[] objectives = Array.Empty<ObjectiveSaveEntry>();
         public ResourceSaveEntry[] resources = Array.Empty<ResourceSaveEntry>();
+        public LeveledPropertySaveEntry[] leveledProperties = Array.Empty<LeveledPropertySaveEntry>();
     }
 
     [Serializable]
@@ -23,5 +24,12 @@ namespace Idler
     {
         public string resourceName;
         public float currentAmount;
+    }
+
+    [Serializable]
+    public class LeveledPropertySaveEntry
+    {
+        public string propertyName;
+        public int level;
     }
 }

@@ -12,12 +12,14 @@ namespace Idler
 
         private IObjectives objectivesCtrl;
         private IResourceManager resourceCtrl;
+        private IGame gameCtrl;
         private string SavePath => Path.Combine(Application.persistentDataPath, "save.json");
 
         private void Awake()
         {
             objectivesCtrl = ServiceLocator.Current.Get<IObjectives>();
             resourceCtrl   = ServiceLocator.Current.Get<IResourceManager>();
+            gameCtrl       = ServiceLocator.Current.Get<IGame>();
         }
 
         private void OnApplicationFocus(bool hasFocus)
@@ -38,6 +40,7 @@ namespace Idler
         public void SaveAll()
         {
             Data.saveVersion = saveVersion;
+            gameCtrl.Save(Data);
             resourceCtrl.Save(Data);
             objectivesCtrl.Save(Data);
             File.WriteAllText(SavePath, JsonUtility.ToJson(Data, prettyPrint: true));
@@ -49,12 +52,14 @@ namespace Idler
             if (!File.Exists(SavePath))
             {
                 Debug.Log("[SaveLoadManager] No save file found, resetting all.");
+                gameCtrl.Reset();
                 resourceCtrl.Reset();
                 objectivesCtrl.Reset();
                 return;
             }
             Debug.Log("Loading from " + SavePath);
             Data = JsonUtility.FromJson<SaveData>(File.ReadAllText(SavePath));
+            gameCtrl.Load(Data);
             resourceCtrl.Load(Data);
             objectivesCtrl.Load(Data);
         }
@@ -62,6 +67,7 @@ namespace Idler
         public void ResetAll()
         {
             Data = new SaveData();
+            gameCtrl.Reset();
             resourceCtrl.Reset();
             objectivesCtrl.Reset();
             if (File.Exists(SavePath)) File.Delete(SavePath);

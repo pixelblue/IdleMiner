@@ -13,5 +13,3 @@ MonoBehaviour:
   m_Name: InteractableData_BaseStation
   m_EditorClassIdentifier: Assembly-CSharp::Idler.InteractableData
   interactableName: Base Station
-  allProperties:
-  - {fileID: 11400000, guid: 4fe4ff336b2234cf8b2e4de8782e79d5, type: 2}

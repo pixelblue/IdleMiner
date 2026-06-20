@@ -10,13 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f9bd138884054d488f2ef624ff8c662, type: 3}
-  m_Name: HitRate
+  m_Name: BaseStationBots
   m_EditorClassIdentifier: Assembly-CSharp::Idler.LeveledProperty
-  propertyName: Hit Rate
-  propertyInfo: 
+  propertyName: Bots
+  propertyInfo: Small little helpers
+  propertyIcon: {fileID: 21300000, guid: 6df8d2125e6b5d74988476aacd137806, type: 3}
   costResource: {fileID: 11400000, guid: 5e11feb784b8b83479890b6527e86506, type: 2}
-  baseValue: 0.5
-  increment: -0.1
-  maxLevel: 20
+  unlockAtLevel: 1
+  baseValue: 1
+  increment: 1
+  maxLevel: 50
   upgradeCostBase: 20
   upgradeCostMultiplier: 1.5

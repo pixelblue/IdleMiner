@@ -44,7 +44,7 @@ namespace Idler
 
         private void UpdateValues()
         {
-            resourceAmountText.text = resourceCtrl.Get(ResourceData).ToString();
+            resourceAmountText.text = Mathf.Ceil(resourceCtrl.Get(ResourceData)).ToString();
         }
 
         private void OnResourceChanged(ResourceData resourceData, float amount)

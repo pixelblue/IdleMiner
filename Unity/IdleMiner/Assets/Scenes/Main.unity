@@ -1518,9 +1518,9 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1066769207}
   - {fileID: 1768421000}
   - {fileID: 349251441}
-  - {fileID: 1066769207}
   - {fileID: 1539936321}
   - {fileID: 1345813436}
   m_Father: {fileID: 959107678}
@@ -1561,7 +1561,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
+  m_ScaleFactor: 0.5
   m_ReferenceResolution: {x: 1080, y: 1920}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
@@ -3290,11 +3290,11 @@ RectTransform:
   - {fileID: 1069425733}
   m_Father: {fileID: 559484858}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 20, y: -622}
-  m_SizeDelta: {x: 300, y: 500}
-  m_Pivot: {x: 0, y: 1}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 20, y: 0}
+  m_SizeDelta: {x: 220, y: 500}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1066769210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4480,6 +4480,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Idler.CursorController
   showGizmos: 0
   mobileOffset: {x: 0, y: 0}
+  image: {fileID: 1539936323}
 --- !u!114 &1539936323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4768,6 +4769,7 @@ Transform:
   - {fileID: 1876405378}
   - {fileID: 471653666}
   - {fileID: 1118580546}
+  - {fileID: 1723313041}
   m_Father: {fileID: 420162793}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1675619250
@@ -4801,7 +4803,7 @@ MonoBehaviour:
   allStages:
   - {fileID: 1876405377}
   - {fileID: 471653665}
-  resourcePool: {fileID: 11400000, guid: 86449c9382f4fe9498ac3efdcbefc5ac, type: 2}
+  resourceToDrop: {fileID: 11400000, guid: 5e11feb784b8b83479890b6527e86506, type: 2}
 --- !u!1 &1684351665
 GameObject:
   m_ObjectHideFlags: 0
@@ -4882,6 +4884,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -30}
   m_SizeDelta: {x: 0, y: -60}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1723313040
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1723313041}
+  m_Layer: 3
+  m_Name: BotSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1723313041
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1723313040}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1675619249}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1738552749
 GameObject:
   m_ObjectHideFlags: 0

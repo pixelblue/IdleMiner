@@ -32,9 +32,10 @@ namespace Idler
         public void Initialize(Collider coll, ResourceData data, float amount)
         {
             icon.sprite  = data.icon;
-            amountText.text = ((int)amount).ToString();
+            amountText.text = Mathf.Ceil(amount).ToString();
 
             transform.SetParent(mainUI.ResourcesContainer, true);
+            transform.localScale = Vector3.one;
             
             var b = coll.bounds;
             var randomWorld = new Vector3(

@@ -10,19 +10,22 @@ namespace Idler
     public class InteractableUI : MonoBehaviour
     {
         [SerializeField] private TMP_Text nameText;
-        [SerializeField] private UI_LeveledProperty leveledPropertyPrefab;
-        [SerializeField] private Transform leveledPropertiesContainer;
+        [field: SerializeField] public UI_LeveledProperty LeveledPropertyPrefab;
+        [field: SerializeField] public Transform LeveledPropertiesContainer;
         
         public RectTransform RectTransform { get; set; }
-        private Interactable interactable;
+        public IGame GameCtrl { get; private set; }
+        public Interactable Interactable { get; private set; }
+        
         private ICamera cameraCtrl;
         private ImageEvents imageEvents;
         private InteractableData data;
         
         private void Awake()
         {
-            RectTransform = GetComponent<RectTransform>();
+            GameCtrl = ServiceLocator.Current.Get<IGame>();
             cameraCtrl = ServiceLocator.Current.Get<ICamera>();
+            RectTransform = GetComponent<RectTransform>();
             imageEvents = GetComponentInChildren<ImageEvents>();
         }
 
@@ -44,7 +47,7 @@ namespace Idler
         {
             if (this.gameObject.activeInHierarchy == false) return;
 
-            var attachPoint = cameraCtrl.Cam.WorldToScreenPoint(interactable.UiAttachPoint.position);
+            var attachPoint = cameraCtrl.Cam.WorldToScreenPoint(Interactable.UiAttachPoint.position);
             attachPoint.z = 0f;
             this.transform.position = attachPoint;
         }
@@ -57,27 +60,29 @@ namespace Idler
 
         private void OnPointerExit()
         {
-            interactable.TryDeselect();
+            Interactable.TryDeselect();
         }
 
         public virtual void Show(Interactable interactable)
         {
-            this.interactable = interactable;
+            this.Interactable = interactable;
             this.data = interactable.Data;
             this.gameObject.SetActive(true);
 
             nameText.text = data.interactableName;
 
-            foreach (Transform trans in leveledPropertiesContainer)
+            foreach (Transform trans in LeveledPropertiesContainer)
             {
                 Destroy(trans.gameObject);
             }
 
-            foreach (var leveledProperty in data.allProperties)
-            {
-                var newLeveledProperty = Instantiate(leveledPropertyPrefab, leveledPropertiesContainer);
-                newLeveledProperty.Initialize(leveledProperty);
-            }
+            CreateProperties();
+
+        }
+
+        protected virtual void CreateProperties()
+        {
+            
         }
 
         public virtual void Hide()

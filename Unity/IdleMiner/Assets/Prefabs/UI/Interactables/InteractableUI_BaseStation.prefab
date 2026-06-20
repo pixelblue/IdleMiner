@@ -274,8 +274,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 35, y: 35}
-  m_SizeDelta: {x: -70, y: -70}
+  m_AnchoredPosition: {x: 0, y: 35}
+  m_SizeDelta: {x: 0, y: -70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1384152024435243407
 CanvasRenderer:
@@ -773,7 +773,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 768, y: 730}
-  m_SizeDelta: {x: 450, y: 500}
+  m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &3850183639423691753
 MonoBehaviour:
@@ -788,8 +788,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Idler.InteractableUI_BaseStation
   nameText: {fileID: 4377271342532753267}
-  leveledPropertyPrefab: {fileID: 4477685779593034516, guid: 83ceee95a07e1204c8e2b4f47fdc10b3, type: 3}
-  leveledPropertiesContainer: {fileID: 1885060401800066690}
+  LeveledPropertyPrefab: {fileID: 4477685779593034516, guid: 83ceee95a07e1204c8e2b4f47fdc10b3, type: 3}
+  LeveledPropertiesContainer: {fileID: 1885060401800066690}
 --- !u!1 &7826343684829025477
 GameObject:
   m_ObjectHideFlags: 0
@@ -924,26 +924,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4473473576519370854, guid: 83ceee95a07e1204c8e2b4f47fdc10b3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6271580539111675022, guid: 83ceee95a07e1204c8e2b4f47fdc10b3, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6271580539111675022, guid: 83ceee95a07e1204c8e2b4f47fdc10b3, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6271580539111675022, guid: 83ceee95a07e1204c8e2b4f47fdc10b3, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6271580539111675022, guid: 83ceee95a07e1204c8e2b4f47fdc10b3, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6271580539111675022, guid: 83ceee95a07e1204c8e2b4f47fdc10b3, type: 3}
-      propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6271580539111675022, guid: 83ceee95a07e1204c8e2b4f47fdc10b3, type: 3}

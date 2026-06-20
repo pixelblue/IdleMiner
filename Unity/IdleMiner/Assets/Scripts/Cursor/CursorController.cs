@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using ANS.Common.ServiceLocator;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Idler
 {
@@ -8,6 +10,7 @@ namespace Idler
     {
         [SerializeField] private bool showGizmos;
         [SerializeField] private Vector2 mobileOffset;
+        [SerializeField] private Image image;
         
         public GameData GameData { get; private set; }
         public HashSet<Interactable> TouchingInteractables { get; private set; } = new();
@@ -23,6 +26,8 @@ namespace Idler
         private int interactableLayer;
         private readonly List<Interactable> toRemove = new();
         private static readonly RaycastHit[] HitBuffer = new RaycastHit[32];
+        private PointerEventData uiPointerData;
+        private readonly List<RaycastResult> uiRaycastResults = new();
 
         private void Awake()
         {
@@ -31,6 +36,7 @@ namespace Idler
             rectTransform = GetComponent<RectTransform>();
             canvas        = GetComponentInParent<Canvas>();
             interactableLayer = 1 << LayerMask.NameToLayer(Constants.Layers.Interactable);
+            uiPointerData = new PointerEventData(EventSystem.current);
             UpdateSize();
         }
 
@@ -52,6 +58,7 @@ namespace Idler
             UpdateSize();
             UpdatePosition(screenPos);
             UpdateCast();
+            UpdateImageVisibility(screenPos);
         }
         
         private void UpdateCast()
@@ -100,6 +107,25 @@ namespace Idler
             rectTransform.position = new Vector3(screenPos.x, screenPos.y, rectTransform.position.z);
         }
         
+        private void UpdateImageVisibility(Vector2 screenPos)
+        {
+            uiPointerData.position = screenPos;
+            uiRaycastResults.Clear();
+            EventSystem.current.RaycastAll(uiPointerData, uiRaycastResults);
+
+            bool overOtherUI = false;
+            foreach (var result in uiRaycastResults)
+            {
+                if (!result.gameObject.transform.IsChildOf(transform))
+                {
+                    overOtherUI = true;
+                    break;
+                }
+            }
+
+            image.enabled = !overOtherUI;
+        }
+
         private void UpdateSize()
         {
             if (rectTransform == null || camCtrl?.Cam == null) return;

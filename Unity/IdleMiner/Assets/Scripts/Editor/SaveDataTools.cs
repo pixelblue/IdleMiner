@@ -17,12 +17,8 @@ namespace Idler.Editor
                 return;
             }
 
-            if (EditorUtility.DisplayDialog("Delete Save Data",
-                    $"Delete save file at:\n{SavePath}?", "Delete", "Cancel"))
-            {
-                File.Delete(SavePath);
-                Debug.Log("Save file deleted.");
-            }
+            File.Delete(SavePath);
+            Debug.Log($"Save file deleted: {SavePath}");
         }
     }
 }

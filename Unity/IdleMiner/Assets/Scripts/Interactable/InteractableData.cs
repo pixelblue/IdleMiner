@@ -7,6 +7,5 @@ namespace Idler
     public class InteractableData : ScriptableObject
     {
         public string interactableName;
-        public List<LeveledProperty> allProperties;
     }
 }
