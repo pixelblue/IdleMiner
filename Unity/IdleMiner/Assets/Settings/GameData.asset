@@ -18,6 +18,7 @@ MonoBehaviour:
   HitRadius: {fileID: 11400000, guid: 4fe4ff336b2234cf8b2e4de8782e79d5, type: 2}
   HitValue: {fileID: 11400000, guid: 46c4225a932ed40dbbddb73dac531aa7, type: 2}
   BaseStationBots: {fileID: 11400000, guid: a7c6f803e885e462789e6b950b9aed92, type: 2}
+  BotHitValue: {fileID: 11400000, guid: 1022c0711b0c9429ca763d69573a3261, type: 2}
   rawResources:
   - {fileID: 11400000, guid: 5e11feb784b8b83479890b6527e86506, type: 2}
   - {fileID: 11400000, guid: bf1cbd8635c6446cebe322811ffad02d, type: 2}

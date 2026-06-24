@@ -52,6 +52,16 @@ namespace ANS.Common
             if (resourceObj != null)
                 return new ObjectPool<ResourceController>(resourceObj, poolName, initialSize, this.transform);
             
+            // Try BotController
+            var botObj = comp.GetComponent<BotController>();
+            if (botObj != null)
+                return new ObjectPool<BotController>(botObj, poolName, initialSize, this.transform);
+            
+            // Try BulletController
+            var bulletObj = comp.GetComponent<BulletController>();
+            if (bulletObj != null)
+                return new ObjectPool<BulletController>(bulletObj, poolName, initialSize, this.transform);
+            
             // Try InteractableUI
             var interactableUIObj = comp.GetComponent<InteractableUI>();
             if (interactableUIObj != null)

@@ -1,3 +1,4 @@
+using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ namespace Idler
     [CreateAssetMenu(fileName = "LeveledProperty", menuName = "Idler/LeveledProperty")]
     public class LeveledProperty : ScriptableObject, ISaveLoad
     {
+        public event Action<int> LevelChanged;
         public string propertyName;
         [Multiline] public string propertyInfo;
         public Sprite propertyIcon;
@@ -28,6 +30,7 @@ namespace Idler
         {
             if (CurrentLevel >= maxLevel) return false;
             CurrentLevel++;
+            LevelChanged?.Invoke(CurrentLevel);
             return true;
         }
 

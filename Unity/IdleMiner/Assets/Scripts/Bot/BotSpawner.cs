@@ -1,4 +1,8 @@
+using System;
+using ANS.Common;
+using ANS.Common.ServiceLocator;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Idler
 {
@@ -6,6 +10,41 @@ namespace Idler
     {
         [SerializeField] private BotController botPrefab;
         [SerializeField] private Transform botContainer;
+        [SerializeField] private float speed = 20.0f;
+        [SerializeField] private Vector2 randomRadius;
+
+        private IPool poolCtrl;
+        public Interactable Interactable { get; private set; }
         
+        private void Awake()
+        {
+            poolCtrl = ServiceLocator.Current.Get<IPool>();
+        }
+
+        public void Initialize(Interactable interactable)
+        {
+            this.Interactable = interactable;
+        }
+
+        private void Update()
+        {
+            botContainer.transform.RotateAround(Vector3.up, speed * Time.deltaTime);
+            
+            if(Keyboard.current.bKey.wasPressedThisFrame) AddBot(1);
+        }
+
+        public void AddBot(int botsToAdd)
+        {
+            for (int i = 0; i < botsToAdd; i++)
+            {
+                var botCtrl = poolCtrl.Spawn(botPrefab.name, Vector3.zero) as BotController;
+                botCtrl.Initialize(this);
+                botCtrl.transform.SetParent(botContainer);
+                var radius = UnityEngine.Random.Range(randomRadius.x, randomRadius.y);
+                var randomPos = UnityEngine.Random.onUnitSphere * radius;
+                randomPos.y = 0f;
+                botCtrl.transform.localPosition = randomPos;
+            }
+        }
     }
 }

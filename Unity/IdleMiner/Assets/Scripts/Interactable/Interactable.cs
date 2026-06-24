@@ -25,7 +25,7 @@ namespace Idler
         protected IMap MapCtrl;
         protected IMainUI MainUI;
         protected ICamera CamCtrl;
-        protected IEventManager eventManagerCtrl;
+        protected IEventManager EventCtrl;
         protected IObjectives ObjectivesCtrl;
         protected IGame GameCtrl;
         
@@ -38,7 +38,7 @@ namespace Idler
             MainUI = ServiceLocator.Current.Get<IMainUI>();
             CamCtrl = ServiceLocator.Current.Get<ICamera>();
             ObjectivesCtrl = ServiceLocator.Current.Get<IObjectives>();
-            eventManagerCtrl = ServiceLocator.Current.Get<IEventManager>();
+            EventCtrl = ServiceLocator.Current.Get<IEventManager>();
             GameCtrl = ServiceLocator.Current.Get<IGame>();
             
             OutlineCtrl = GetComponent<OutlineController>();
@@ -69,7 +69,10 @@ namespace Idler
 
         public virtual void OnCursorHit(CursorController cursor)
         {
-            
+        }
+        
+        public virtual void OnBotHit()
+        {
         }
 
         protected void GetCollider()

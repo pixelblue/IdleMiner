@@ -83,12 +83,12 @@ namespace Idler
             
             if(interactable.CurrentLevel < data.unlockAtLevel)
             {
-                canvasGroup.alpha = 0.3f;
+                this.gameObject.SetActive(false);
                 DisableBuyButton();
             }
             else
             {
-                canvasGroup.alpha = 1f;
+                this.gameObject.SetActive(true);
             }
         }
 

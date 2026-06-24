@@ -13,6 +13,7 @@ namespace Idler
         public LeveledProperty HitRadius;
         public LeveledProperty HitValue;
         public LeveledProperty BaseStationBots;
+        public LeveledProperty BotHitValue;
 
         [Header("Resources")]
         public List<ResourceData> rawResources;
@@ -23,6 +24,6 @@ namespace Idler
         public ObjectivesConfig objectives;
 
         public LeveledProperty[] AllProperties() =>
-            new[] { energy, EnergyCostPerHit, HitRate, HitRadius, HitValue };
+            new[] { energy, EnergyCostPerHit, HitRate, HitRadius, HitValue, BaseStationBots, BotHitValue };
     }
 }

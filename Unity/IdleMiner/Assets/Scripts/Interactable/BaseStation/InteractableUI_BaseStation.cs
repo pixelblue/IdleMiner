@@ -11,6 +11,9 @@
             
             var botsProp = Instantiate(LeveledPropertyPrefab, LeveledPropertiesContainer);
             botsProp.Initialize(GameCtrl.Data.BaseStationBots, Interactable);
+            
+            var botsHitValueProp = Instantiate(LeveledPropertyPrefab, LeveledPropertiesContainer);
+            botsHitValueProp.Initialize(GameCtrl.Data.BotHitValue, Interactable);
         }
     }
 }
