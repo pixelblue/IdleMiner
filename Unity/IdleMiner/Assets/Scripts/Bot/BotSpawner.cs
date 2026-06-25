@@ -28,7 +28,7 @@ namespace Idler
 
         private void Update()
         {
-            botContainer.transform.RotateAround(Vector3.up, speed * Time.deltaTime);
+            botContainer.transform.Rotate(Vector3.up, speed * Time.deltaTime);
             
             if(Keyboard.current.bKey.wasPressedThisFrame) AddBot(1);
         }

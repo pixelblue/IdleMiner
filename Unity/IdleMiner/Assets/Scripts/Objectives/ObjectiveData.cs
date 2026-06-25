@@ -1,5 +1,3 @@
-using Sirenix.OdinInspector;
-using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 namespace Idler

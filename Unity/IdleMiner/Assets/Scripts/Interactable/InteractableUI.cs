@@ -1,9 +1,6 @@
-﻿using System;
-using ANS.Common.ServiceLocator;
+﻿using ANS.Common.ServiceLocator;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Idler
 {
@@ -82,7 +79,11 @@ namespace Idler
 
         protected virtual void CreateProperties()
         {
-            
+            foreach (var prop in Interactable.Properties)
+            {
+                var propUI = Instantiate(LeveledPropertyPrefab, LeveledPropertiesContainer);
+                propUI.Initialize(prop, Interactable);
+            }
         }
 
         public virtual void Hide()

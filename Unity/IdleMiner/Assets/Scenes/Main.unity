@@ -3091,7 +3091,7 @@ Transform:
   m_GameObject: {fileID: 961739749}
   serializedVersion: 2
   m_LocalRotation: {x: 0.36964378, y: 0.23911765, z: -0.09904577, w: 0.8923991}
-  m_LocalPosition: {x: -9.6, y: 15.4, z: -12}
+  m_LocalPosition: {x: -5.622198, y: 15.4, z: -9.03174}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4836,7 +4836,7 @@ MonoBehaviour:
   <Data>k__BackingField: {fileID: 11400000, guid: 1f3015cb2059b654e964de215afbed72, type: 2}
   Coll: {fileID: 1834560282}
   <UiAttachPoint>k__BackingField: {fileID: 1118580546}
-  uiPrefab: {fileID: 3850183639423691753, guid: 422a65737e07e804e80613e20aed0173, type: 3}
+  uiPrefab: {fileID: 8820451596525409586, guid: 422a65737e07e804e80613e20aed0173, type: 3}
   allStages:
   - {fileID: 1876405377}
   - {fileID: 471653665}

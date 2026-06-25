@@ -7,8 +7,6 @@ namespace Idler
     public class GameData : ScriptableObject
     {
         [Header("Properties")]
-        public LeveledProperty energy;
-        public LeveledProperty EnergyCostPerHit;
         public LeveledProperty HitRate;
         public LeveledProperty HitRadius;
         public LeveledProperty HitValue;
@@ -24,6 +22,6 @@ namespace Idler
         public ObjectivesConfig objectives;
 
         public LeveledProperty[] AllProperties() =>
-            new[] { energy, EnergyCostPerHit, HitRate, HitRadius, HitValue, BaseStationBots, BotHitValue };
+            new[] {HitRate, HitRadius, HitValue, BaseStationBots, BotHitValue };
     }
 }

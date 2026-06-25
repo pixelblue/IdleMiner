@@ -16,7 +16,7 @@ MonoBehaviour:
   propertyInfo: Small little helpers
   propertyIcon: {fileID: 21300000, guid: 6df8d2125e6b5d74988476aacd137806, type: 3}
   costResource: {fileID: 11400000, guid: 5e11feb784b8b83479890b6527e86506, type: 2}
-  unlockAtLevel: 1
+  unlockAtLevel: 2
   baseValue: 1
   increment: 1
   maxLevel: 50

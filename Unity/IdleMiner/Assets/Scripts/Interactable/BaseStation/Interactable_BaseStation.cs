@@ -37,13 +37,16 @@ namespace Idler
             base.Initialize();
 
             foreach (var obj in allStages)
-            {
                 obj.SetActive(false);
-            }
-            
+
             allStages[ObjectivesCtrl.CurrentLevel].SetActive(true);
             CurrentLevel = ObjectivesCtrl.CurrentLevel;
             botSpawner.Initialize(this);
+
+            Properties.Clear();
+            Properties.Add(GameCtrl.Data.HitValue);
+            Properties.Add(GameCtrl.Data.BaseStationBots);
+            Properties.Add(GameCtrl.Data.BotHitValue);
         }
         
         private void OnLevelAdvanced(int level)

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using ANS_Core.Utilities;
 using ANS.Common;
 using ANS.Common.ServiceLocator;
@@ -20,6 +21,7 @@ namespace Idler
         public InteractableUI InteractableUICtrl { get; private set; }
         public OutlineController OutlineCtrl { get; private set; }
         public int CurrentLevel { get; set; }
+        public List<LeveledProperty> Properties { get; } = new();
 
         protected IPool PoolCtrl;
         protected IMap MapCtrl;

@@ -1,5 +1,4 @@
 using System;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Idler
@@ -13,15 +12,15 @@ namespace Idler
         public Sprite propertyIcon;
         public ResourceData costResource;
         public int unlockAtLevel;
-        [SerializeField] private float baseValue;
-        [SerializeField] private float increment;
-        [SerializeField] private int   maxLevel;
-        [SerializeField] private float upgradeCostBase;
-        [SerializeField] private float upgradeCostMultiplier;
+        public float baseValue;
+        public float increment;
+        public int   maxLevel;
+        public float upgradeCostBase;
+        public float upgradeCostMultiplier;
 
-        [ShowInInspector, ReadOnly] public int   CurrentLevel { get; private set; }
-        [ShowInInspector, ReadOnly] public float Value        => GetValue(CurrentLevel);
-        [ShowInInspector, ReadOnly] public float MaxValue     => GetValue(maxLevel);
+        public int   CurrentLevel { get; private set; }
+        public float Value        => GetValue(CurrentLevel);
+        public float MaxValue     => GetValue(maxLevel);
         public int   MaxLevel        => maxLevel;
         public float NextUpgradeCost => GetUpgradeCost(CurrentLevel);
 

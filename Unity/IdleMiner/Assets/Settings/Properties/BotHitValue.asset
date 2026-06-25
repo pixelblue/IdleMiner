@@ -16,7 +16,7 @@ MonoBehaviour:
   propertyInfo: The value each bot will give you
   propertyIcon: {fileID: 0}
   costResource: {fileID: 11400000, guid: 5e11feb784b8b83479890b6527e86506, type: 2}
-  unlockAtLevel: 2
+  unlockAtLevel: 3
   baseValue: 1
   increment: 1
   maxLevel: 20
