@@ -4,17 +4,12 @@
 ### A cozy incremental farming game in space
 
 - Idle/incremental game with an isometric top-down view
-- Use "Tower Wizard" and "Farminatta" as a inspiration
+- Use "Tower Wizard" as a inspiration
 - No player character — player controls only the mouse cursor
-- Mine resources like asteroids, satellites and space debris
+- Mine resources like rocks, asteroids, satellites and space debris
 - Use bots and drones to speed up mining
-- Camera should zoom out on every new stage of the game to give a feeling of scale and power
+- Gameplay is split in stages. Each stage reveals new buildings and new resources to mine
 - Goal: Provide your spaceship with resources to fly to the next stage
-
-## Core Loop
-- Hover cursor over objects to mine
-- Use mined resources for base building
-- Go back to mining again
 
 ## Core Features
 - Mining of interactable Objects
