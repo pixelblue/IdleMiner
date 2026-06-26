@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Idler
 {
-    [CreateAssetMenu(fileName = "InteractableData", menuName = "Idler/Interactables/InteractableData")]
+    [CreateAssetMenu(fileName = "Interactable_", menuName = "Idler/Interactables/InteractableData")]
     public class InteractableData : ScriptableObject
     {
         public string interactableName;

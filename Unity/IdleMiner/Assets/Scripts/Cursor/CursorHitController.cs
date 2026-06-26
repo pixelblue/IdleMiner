@@ -21,7 +21,8 @@ namespace Idler
 
         private void Update()
         {
-            var screenDiameter = cursorCtrl.GameData.HitRadius.Value * 2f;
+            if (cursorCtrl.GlobalPropertyStats == null) return;
+            var screenDiameter = cursorCtrl.GlobalPropertyStats.HitRadius.Value * 2f;
             hitRectTransform.sizeDelta = Vector2.one * screenDiameter;
             UpdateHitTimer();
         }
@@ -30,7 +31,7 @@ namespace Idler
         {
             if (cursorCtrl.TouchingInteractables.Count == 0) return;
             hitTimer += Time.deltaTime;
-            if (hitTimer >= cursorCtrl.GameData.HitRate.Value)
+            if (hitTimer >= cursorCtrl.GlobalPropertyStats.HitRate.Value)
             {
                 var hasTouchedMinableObject = false;
                 foreach (var interactable in cursorCtrl.TouchingInteractables)

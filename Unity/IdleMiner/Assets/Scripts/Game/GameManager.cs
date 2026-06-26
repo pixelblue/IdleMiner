@@ -10,6 +10,14 @@ namespace Idler
         [field: SerializeField] public GameData Data { get; private set; }
         [field: SerializeField] public FSM_StateManager Fsm { get; private set; }
 
+        public GlobalPropertyStats Stats { get; private set; }
+
+        public void InitializeStats()
+        {
+            Stats = new GlobalPropertyStats();
+            Stats.Initialize(Data);
+        }
+
         private void Start()
         {
             Fsm.enabled = true;
@@ -17,24 +25,24 @@ namespace Idler
 
         public void Save(SaveData data)
         {
-            var props = Data.AllProperties();
-            data.leveledProperties = new LeveledPropertySaveEntry[props.Length];
-            for (int i = 0; i < props.Length; i++)
-                data.leveledProperties[i] = new LeveledPropertySaveEntry { propertyName = props[i].propertyName };
-            foreach (var prop in props)
-                prop.Save(data);
+            var states = Stats.All();
+            data.leveledProperties = new LeveledPropertySaveEntry[states.Length];
+            for (int i = 0; i < states.Length; i++)
+                data.leveledProperties[i] = new LeveledPropertySaveEntry { propertyName = states[i].Definition.propertyName };
+            foreach (var state in states)
+                state.Save(data.leveledProperties);
         }
 
         public void Load(SaveData data)
         {
-            foreach (var prop in Data.AllProperties())
-                prop.Load(data);
+            foreach (var state in Stats.All())
+                state.Load(data.leveledProperties);
         }
 
         public void Reset()
         {
-            foreach (var prop in Data.AllProperties())
-                prop.Reset();
+            foreach (var state in Stats.All())
+                state.Reset();
         }
     }
     

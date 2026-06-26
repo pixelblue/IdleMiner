@@ -25,6 +25,7 @@ namespace Idler
 
         public void Initialize()
         {
+            CursorCtrl.Initialize();
             Fsm.enabled = true;
         }
     }

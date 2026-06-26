@@ -12,7 +12,7 @@ namespace Idler
         [SerializeField] private Vector2 mobileOffset;
         [SerializeField] private Image image;
         
-        public GameData GameData { get; private set; }
+        public GlobalPropertyStats GlobalPropertyStats { get; private set; }
         public HashSet<Interactable> TouchingInteractables { get; private set; } = new();
         public Ray CursorRay => gizmoRay;
         public Vector2 ScreenPosition { get; private set; }
@@ -32,12 +32,11 @@ namespace Idler
         private void Awake()
         {
             camCtrl       = ServiceLocator.Current.Get<ICamera>();
-            GameData      = ServiceLocator.Current.Get<IGame>().Data;
             rectTransform = GetComponent<RectTransform>();
             canvas        = GetComponentInParent<Canvas>();
             interactableLayer = 1 << LayerMask.NameToLayer(Constants.Layers.Interactable);
             uiPointerData = new PointerEventData(EventSystem.current);
-            UpdateSize();
+            //UpdateSize();
         }
 
         private void OnEnable()
@@ -50,6 +49,11 @@ namespace Idler
         private void OnDisable()
         {
             playerInput.Disable();
+        }
+
+        public void Initialize()
+        {
+            GlobalPropertyStats     = ServiceLocator.Current.Get<IGame>().Stats;
         }
 
         private void Update()
@@ -129,10 +133,10 @@ namespace Idler
         private void UpdateSize()
         {
             if (rectTransform == null || camCtrl?.Cam == null) return;
-            rectTransform.sizeDelta = Vector2.one * (GameData.HitRadius.Value * 2f);
+            rectTransform.sizeDelta = Vector2.one * (GlobalPropertyStats.HitRadius.Value * 2f);
             // Convert canvas-unit radius to world-unit radius so raycasting matches the visual
             var canvasUnitsPerWorldUnit = UnityEngine.Screen.height / (2f * camCtrl.Cam.orthographicSize * canvas.scaleFactor);
-            worldHitRadius = GameData.HitRadius.Value / canvasUnitsPerWorldUnit;
+            worldHitRadius = GlobalPropertyStats.HitRadius.Value / canvasUnitsPerWorldUnit;
         }
 
         public void Activate()

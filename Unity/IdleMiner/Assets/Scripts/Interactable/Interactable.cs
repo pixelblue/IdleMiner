@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using ANS_Core.Utilities;
 using ANS.Common;
 using ANS.Common.ServiceLocator;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -16,12 +14,13 @@ namespace Idler
         [field: SerializeField] public Collider Coll;
         [field: SerializeField] public Transform UiAttachPoint { get; private set; }
         [SerializeField] private InteractableUI uiPrefab;
+        [SerializeField] private string id; // unique per scene object, used for save/load
 
         
+        public PropertyState[] Properties { get; protected set; }
         public InteractableUI InteractableUICtrl { get; private set; }
         public OutlineController OutlineCtrl { get; private set; }
         public int CurrentLevel { get; set; }
-        public List<LeveledProperty> Properties { get; } = new();
 
         protected IPool PoolCtrl;
         protected IMap MapCtrl;
@@ -35,14 +34,15 @@ namespace Idler
 
         protected virtual void Awake()
         {
-            PoolCtrl   = ServiceLocator.Current.Get<IPool>();
-            MapCtrl = ServiceLocator.Current.Get<IMap>();
-            MainUI = ServiceLocator.Current.Get<IMainUI>();
-            CamCtrl = ServiceLocator.Current.Get<ICamera>();
+            PoolCtrl       = ServiceLocator.Current.Get<IPool>();
+            MapCtrl        = ServiceLocator.Current.Get<IMap>();
+            MainUI         = ServiceLocator.Current.Get<IMainUI>();
+            CamCtrl        = ServiceLocator.Current.Get<ICamera>();
             ObjectivesCtrl = ServiceLocator.Current.Get<IObjectives>();
-            EventCtrl = ServiceLocator.Current.Get<IEventManager>();
-            GameCtrl = ServiceLocator.Current.Get<IGame>();
-            
+            EventCtrl      = ServiceLocator.Current.Get<IEventManager>();
+            GameCtrl       = ServiceLocator.Current.Get<IGame>();
+
+            Properties  = System.Array.Empty<PropertyState>();
             OutlineCtrl = GetComponent<OutlineController>();
             SpawnUIElement();
         }

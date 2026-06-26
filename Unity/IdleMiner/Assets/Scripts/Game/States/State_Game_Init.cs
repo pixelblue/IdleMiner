@@ -8,7 +8,8 @@ namespace Idler
         public override void OnActivate()
         {
             base.OnActivate();
-            
+
+            ServiceLocator.Current.Get<IGame>().InitializeStats();
             ServiceLocator.Current.Get<ISaveLoadManager>().LoadAll();
             ServiceLocator.Current.Get<IMap>().Initialize();
             ServiceLocator.Current.Get<IPool>().CreatePools();

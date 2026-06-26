@@ -6,12 +6,12 @@ namespace Idler
     [CreateAssetMenu(fileName = "GameData", menuName = "Idler/GameData", order = 0)]
     public class GameData : ScriptableObject
     {
-        [Header("Properties")]
-        public LeveledProperty HitRate;
-        public LeveledProperty HitRadius;
-        public LeveledProperty HitValue;
-        public LeveledProperty BaseStationBots;
-        public LeveledProperty BotHitValue;
+        [Header("Interactables")]
+        public InteractableData[] allInteractables;
+
+        [Header("Global Properties")]
+        public PropertyDefinition HitRate;
+        public PropertyDefinition HitRadius;
 
         [Header("Resources")]
         public List<ResourceData> rawResources;
@@ -20,8 +20,5 @@ namespace Idler
 
         [Header("Objectives")]
         public ObjectivesConfig objectives;
-
-        public LeveledProperty[] AllProperties() =>
-            new[] {HitRate, HitRadius, HitValue, BaseStationBots, BotHitValue };
     }
 }

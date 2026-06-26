@@ -9,7 +9,7 @@ namespace Idler.Editor
         private static readonly string[] Headers =
             { "Name", "Info", "Icon", "Cost Resource", "Unlock Lvl", "Base Value", "Increment", "Max Level", "Cost Base", "Cost Mult", "Max Value" };
 
-        private LeveledProperty[] properties;
+        private PropertyDefinition[] properties;
         private SerializedObject[] serializedObjects;
         private Vector2 scrollPos;
 
@@ -36,13 +36,13 @@ namespace Idler.Editor
 
         private void LoadProperties()
         {
-            var guids = AssetDatabase.FindAssets("t:LeveledProperty");
-            properties = new LeveledProperty[guids.Length];
+            var guids = AssetDatabase.FindAssets("t:PropertyDefinition");
+            properties = new PropertyDefinition[guids.Length];
             serializedObjects = new SerializedObject[guids.Length];
             for (int i = 0; i < guids.Length; i++)
             {
                 var path = AssetDatabase.GUIDToAssetPath(guids[i]);
-                properties[i] = AssetDatabase.LoadAssetAtPath<LeveledProperty>(path);
+                properties[i] = AssetDatabase.LoadAssetAtPath<PropertyDefinition>(path);
                 serializedObjects[i] = new SerializedObject(properties[i]);
             }
         }

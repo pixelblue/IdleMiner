@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4634c74953b2ded4d8c7b5d58f6937bd, type: 3}
+  m_Name: InteractableData_BaseStation
+  m_EditorClassIdentifier: Assembly-CSharp::Idler.BaseStationData
+  interactableName: 
+  hitValue: {fileID: 11400000, guid: 3b1bd8e93c42f7648a588d19cad25c26, type: 2}
+  baseStationBots: {fileID: 11400000, guid: 2297fbc79913c8e438cb429a99220f8e, type: 2}
+  botHitValue: {fileID: 11400000, guid: 61eac5437583232499a64e6f0bc0ca8e, type: 2}

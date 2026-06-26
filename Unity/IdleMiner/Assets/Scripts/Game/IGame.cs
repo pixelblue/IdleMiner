@@ -6,5 +6,7 @@ namespace Idler
     public interface IGame : IGameService, ISaveLoad
     {
         GameData Data { get; }
+        GlobalPropertyStats Stats { get; }
+        void InitializeStats();
     }
 }

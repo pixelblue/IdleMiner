@@ -53,34 +53,37 @@
 - Base Grows again (cam zoom out)
 
 
-## Key Structures
-### Command Center (single bigggest structure)
-The Command Center is the main building of the player's base. 
+## Key Structures (Interactable Objects)
+### Base Station (single bigggest structure)
+The Base Station is the main building of the player's base. 
 It holds the main objectives for the player which resources to collect for the next stage. Player can upgrad here.
-#### Upgrades:
-    - Hit Radius
-    - Max Energy
-    - Hit Rate
+- #### Upgrades:
     - Hit Value
+    - Bots
 
-### Resource Container
-Takes mined resources and stores them in a container
-#### Upgrades:
-    - Storage speed
-    - Storage slots
-
-### Refinery
+### Refinery -> Multiple
 Takes mined resources and refines them into more valuable materials.
 Outputs refined metals which need to be put into a constructor
-#### Upgrades:
+- #### Upgrades:
     - Refining speed
     - Refinery slots
 
-### Constructor
+### Constructor -> Multiple
 Takes refined metals and constructs buildings and other things like vehicles
-#### Upgrades:
+- #### Upgrades:
     - Construction speed
     - Construction slots
+
+### Drone Spawner -> Multiple
+Creates Drones which can mine resources automatically
+- #### Upgrades:
+    - Drone Amount
+    - Drone Speed
+
+### Mineable Object -> Multiple
+Those can be multiple different types of objects, like rocks, asteroids, satellites and so on
+- #### Upgrades:
+    - Resource slots
 
 ## Resource Tiers
 - Tier 1: Raw Ore (manualy minded or automated by drones)

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**IdleMiner** is a cozy incremental/idle farming game set in space, built with Unity 6 (6000.3.10f1). The player mines asteroids by hovering a cursor over them, gathers resources, and builds structures to eventually terraform an asteroid into a lush world. There is no player character — only mouse/cursor interaction.
+**IdleMiner** is a cozy incremental/idle farming game set in space, built with Unity 6 (6000.3.10f1). The player mines asteroids by hovering a cursor over them, gathers resources, and builds structures to supply their spaceship for the next stage. There is no player character — only mouse/cursor interaction. Inspired by "Tower Wizard."
 
 ## Unity & Build
 
@@ -26,7 +26,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Scripts live in `Assets/Scripts/` with two top-level folders:
 - `GEN/` — reusable engine scaffolding (Common, Editor, Extensions, FSM, InputDevice, Pool, Types, Utilities)
-- Game-specific folders: `Building/`, `Camera/`, `Cursor/`, `Event/`, `Game/`, `Interactable/`, `Map/`, `Objectives/`, `Resource/`, `Services/`, `UI/`
+- Game-specific folders: `Bot/`, `Building/`, `Camera/`, `Cursor/`, `Debug/`, `Event/`, `Game/`, `Interactable/`, `Map/`, `Objectives/`, `Resource/`, `SaveLoad/`, `Services/`, `UI/`
 
 ### Service Locator Pattern
 
@@ -40,7 +40,7 @@ New services: implement `IGameService`, register in `ServiceContainer.Initialize
 
 | Interface | Implementation | Purpose |
 |---|---|---|
-| `IEvent` | `EventManager` | Game-wide events |
+| `IEventManager` | `EventManager` | Game-wide events |
 | `IPool` | `PoolManager` | Object pooling |
 | `IGame` | `GameManager` | Game state root + `GameData` holder |
 | `IMainUI` | `MainUiController` | UI root + screen management |
@@ -80,25 +80,31 @@ pool.Release("prefabName", component);
 
 `CursorController` reads all interactables from `IMap` every frame, tests each against the cursor ray, then fires `OnCursorEnter()`, `OnCursorExit()`, `OnCursorHit(CursorController cursor)` on the interactable.
 
+The base class now also exposes `OnBotHit()` for bot-triggered hits (separate from cursor hits), and tracks `CurrentLevel` for stage-aware behavior.
+
 **Concrete implementations:**
-- `Interactable_Minable` — asteroids; `OnCursorHit` triggers a drop from its `ResourcePool` SO
-- `Interactable_Building` — structures; checks `BuildingData.CanAfford()` and calls `Construct()` on click
-- `Interactable_BuildingDroneSpawner` — extends Building with an internal Init→Locked→Unlocked→Spawning FSM
-- `Interactable_BuildingResourceContainer` — resource storage building
+- `Interactable_Minable` (`Interactable/Mineable/`) — asteroids; `OnCursorHit` triggers a drop from its `ResourcePool` SO
+- `Interactable_BaseStation` (`Interactable/BaseStation/`) — the main hub; `OnCursorHit` and `OnBotHit` spawn Energy resources; listens to `LevelAdvanced` to swap stage visuals; delegates bot management to its `BotSpawner`
+
+### Bot System
+
+`BotSpawner` (`Assets/Scripts/Bot/BotSpawner.cs`) sits on the Base Station and manages a rotating `botContainer`. `AddBot(int)` spawns pooled `BotController` instances parented to that container at random radii. Each `BotController` fires on a `fireRate` timer, spawning a pooled `BulletController` that lerps toward the interactable's collider surface and calls `OnBotHit()` on arrival.
+
+Bot count is driven by `GameData.BaseStationBots` (a `LeveledProperty`): when it levels up, `Interactable_BaseStation` computes the delta via `BotHitValue` and calls `BotSpawner.AddBot()`.
 
 ### Event System
 
-`EventManager` implements `IEvent` and provides game-wide pub/sub:
+`EventManager` implements `IEventManager` and provides game-wide pub/sub:
 
 ```csharp
-IEvent events = ServiceLocator.Current.Get<IEvent>();
+IEventManager events = ServiceLocator.Current.Get<IEventManager>();
 events.MiningStarted    += OnMiningStarted;
 events.InvokeMiningStarted();
 events.InvokeResourceChanged(resource, newAmount);
 events.InvokeBuildingConstructed(buildingData);
 ```
 
-Events: `MiningStarted`, `MiningStopped`, `ResourceChanged(ResourceData, float)`, `BuildingConstructed(BuildingData)`. `ObjectivesManager` listens to these to track objective progress.
+Events: `MiningStarted`, `MiningStopped`, `ResourceChanged(ResourceData, float)`, `BuildingConstructed(BuildingData)`, `LevelAdvanced(int)`. `ObjectivesManager` listens to these to track objective progress.
 
 ### Resource System
 
@@ -109,9 +115,9 @@ resourceMgr.Get(Resource.RefinedMetal.Steel);    // returns 0 if missing
 ```
 
 **Resource Tiers:**
-- **Raw Ore**: Carbon, Gold, Copper — mined from asteroids
-- **Refined Metal**: Steel, Bronze — produced by Refinery
-- **Constructed**: DroneCore — produced by Constructor
+- **Tier 1 (Raw)**: Energy (mined from Base Station), Carbon and others — mined from asteroids
+- **Tier 2 (Refined)**: Refined Carbon and other metals — produced by Refinery
+- **Tier 3 (Constructed)**: Constructed Cables and other elements — produced by Constructor
 
 `ResourcePool` (ScriptableObject) defines probabilistic loot: an array of `ResourceDrop { resource, chance, value }`. `Interactable_Minable` holds one and draws from it on each cursor hit.
 
@@ -130,7 +136,9 @@ OnLevelAdvanced(int newLevel)
 
 ### ScriptableObject Patterns
 
-**`GameData`** — root SO held by `GameManager`. Contains all `ResourceData` SO refs and `LeveledProperty` stats (energy capacity, energy cost per hit, hit rate, hit radius).
+**`GameData`** — root SO held by `GameManager`. Contains all `ResourceData` SO refs (as `rawResources`, `refinedResources`, `constructedResources` lists), an `InteractableData[]` array for all world interactables, and `LeveledProperty` stats: `HitRate`, `HitRadius`, `HitValue`, `BaseStationBots`, `BotHitValue`.
+
+**`InteractableData`** — per-interactable SO (name + list of `LeveledProperty`) referenced from both `GameData.allInteractables` and each `Interactable` component in the scene.
 
 **`LeveledProperty`** — upgradeable stat with exponential cost scaling:
 ```csharp
@@ -168,4 +176,13 @@ prop.Upgrade()       // increments CurrentLevel
 
 ## Game Design Reference
 
-Full design intent is in `GDD.md`. Key loop: hover-to-mine → collect resources → build structures → automate with drones → terraform asteroid. Three resource tiers: Raw Ore → Refined Metals → Constructed Elements. Core structures to implement: Generator, Drone Spawner, Resource Container, Refinery, Constructor.
+Full design intent is in `GDD.md`. Key loop: hover-to-mine → collect resources → build structures → automate with bots/drones → supply spaceship for next stage.
+
+**5 Progression Stages** (each unlocks new buildings and resources, camera zooms out on advance):
+1. Repair Base Station (Energy only)
+2. Upgrade hit value at Base Station (Energy only)
+3. Resource Container revealed (Energy + Carbon)
+4. Refinery revealed, hire Bots (Energy + Refined Carbon)
+5. Constructor revealed, hire Bots for construction (Energy + Constructed Cables)
+
+**Key structures:** Base Station (upgrades: Hit Value, Bots), Drone Spawner (auto-mines), Refinery (Raw → Refined), Constructor (Refined → Constructed), Resource Container (storage).

@@ -7,7 +7,7 @@ namespace Idler
     public class InteractableUI : MonoBehaviour
     {
         [SerializeField] private TMP_Text nameText;
-        [field: SerializeField] public UI_LeveledProperty LeveledPropertyPrefab;
+        [field: SerializeField] public UI_Property propertyPrefab;
         [field: SerializeField] public Transform LeveledPropertiesContainer;
         
         public RectTransform RectTransform { get; set; }
@@ -79,10 +79,10 @@ namespace Idler
 
         protected virtual void CreateProperties()
         {
-            foreach (var prop in Interactable.Properties)
+            foreach (var state in Interactable.Properties)
             {
-                var propUI = Instantiate(LeveledPropertyPrefab, LeveledPropertiesContainer);
-                propUI.Initialize(prop, Interactable);
+                var propUI = Instantiate(propertyPrefab, LeveledPropertiesContainer);
+                propUI.Initialize(state, Interactable);
             }
         }
 
