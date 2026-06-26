@@ -22,6 +22,7 @@ namespace Idler
             baseStationBots = new PropertyState(d.baseStationBots);
             botHitValue     = new PropertyState(d.botHitValue);
             Properties      = new[] { hitValue, baseStationBots, botHitValue };
+            WirePropertyPrerequisites();
         }
 
         protected override void OnEnable()
@@ -40,9 +41,14 @@ namespace Idler
 
         private void OnBotLevelChanged(int level)
         {
-            var oldBotCount = botHitValue.GetValue(level - 1);
-            var newBotCount = botHitValue.GetValue(level);
+            var oldBotCount = baseStationBots.GetValue(Mathf.Clamp(level - 1, 0, 9999999));
+            var newBotCount = baseStationBots.GetValue(level);
             botSpawner.AddBot((int)(newBotCount - oldBotCount));
+        }
+
+        public int GetNumberOfBots()
+        {
+            return (int)(baseStationBots.Value);
         }
 
         public override void Initialize()
@@ -52,9 +58,28 @@ namespace Idler
             foreach (var obj in allStages)
                 obj.SetActive(false);
 
-            allStages[ObjectivesCtrl.CurrentLevel].SetActive(true);
+            var stageIndex = Mathf.Clamp(ObjectivesCtrl.CurrentLevel, 0, allStages.Count - 1);
+            allStages[stageIndex]?.SetActive(true);
             CurrentLevel = ObjectivesCtrl.CurrentLevel;
+        }
+
+        public override void Load(SaveData data)
+        {
+            base.Load(data);
+            botSpawner.Initialize(this); // spawn saved bot count after properties are loaded
+        }
+
+        public override void Reset()
+        {
+            base.Reset();
             botSpawner.Initialize(this);
+        }
+
+        protected override void ShowUI()
+        {
+            if(ObjectivesCtrl.CurrentLevel > 0) 
+                if (InteractableUICtrl != null)
+                    InteractableUICtrl.Show(this);
         }
 
         private void OnLevelAdvanced(int level)
@@ -67,10 +92,6 @@ namespace Idler
         {
             base.OnCursorHit(cursor);
             SpawnResource(hitValue.Value);
-
-            transform.DOKill();
-            transform.localScale = Vector3.one * 1.2f;
-            transform.DOScale(Vector3.one, 0.2f);
         }
 
         public override void OnBotHit()

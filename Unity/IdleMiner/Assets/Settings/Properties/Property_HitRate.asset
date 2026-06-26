@@ -12,16 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13aee744fdfc7e44b7fed2f2f2d2438, type: 3}
   m_Name: Property_HitRate
   m_EditorClassIdentifier: Assembly-CSharp::Idler.PropertyDefinition
-  propertyName: 
+  propertyName: Hit Rate
   propertyInfo: 
   propertyIcon: {fileID: 0}
   costResource: {fileID: 0}
-  unlockAtLevel: 0
-  baseValue: 0
-  increment: 0
-  maxLevel: 0
+  unlocksAfter: {fileID: 0}
+  unlocksAfterLevel: 0
+  baseValue: 0.25
+  increment: -0.1
+  maxLevel: 2
   upgradeCostBase: 0
-  upgradeCostMultiplier: 0
+  upgradeCostMultiplier: 1
   upgradeCostCurve:
     serializedVersion: 2
     m_Curve:

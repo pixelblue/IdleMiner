@@ -38,6 +38,12 @@ namespace Idler
             if (imageEvents == null) return;
             imageEvents.PointerEntered -= OnPointerEnter;
             imageEvents.PointerExited -= OnPointerExit;
+
+            if (Interactable == null) return;
+            foreach (var propertyState in Interactable.Properties)
+            {
+                propertyState.LevelChanged -= OnPropertyLevelChanged;
+            }
         }
 
         private void Update()
@@ -68,21 +74,32 @@ namespace Idler
 
             nameText.text = data.interactableName;
 
+            UpdateProperties();
+
+        }
+        
+        private void OnPropertyLevelChanged(int level)
+        {
+            UpdateProperties();
+        }
+
+        private void UpdateProperties()
+        {
             foreach (Transform trans in LeveledPropertiesContainer)
             {
                 Destroy(trans.gameObject);
             }
 
             CreateProperties();
-
         }
 
         protected virtual void CreateProperties()
         {
-            foreach (var state in Interactable.Properties)
+            foreach (var propertyState in Interactable.Properties)
             {
                 var propUI = Instantiate(propertyPrefab, LeveledPropertiesContainer);
-                propUI.Initialize(state, Interactable);
+                propUI.Initialize(propertyState, Interactable);
+                propertyState.LevelChanged += OnPropertyLevelChanged;
             }
         }
 

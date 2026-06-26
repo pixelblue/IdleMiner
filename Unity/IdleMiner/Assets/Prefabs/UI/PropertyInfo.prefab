@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 16518341180050295}
   - component: {fileID: 8348696016834871698}
   m_Layer: 5
-  m_Name: LeveledPropertyInfo
+  m_Name: PropertyInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -5,6 +5,15 @@
         public override void OnActivate()
         {
             base.OnActivate();
+            if (ObjectivesCtrl.CurrentLevel >= Ctrl.CameraPositions.Length)
+            {
+                Ctrl.SetCameraPosition(Ctrl.FinalCameraPosition, true);
+                Fsm.ChangeState<State_Camera_Free>();
+            }
+            else
+            {
+                Fsm.ChangeState<State_Camera_Fixed>();
+            }
         }
 
         public override void OnDeactivate()

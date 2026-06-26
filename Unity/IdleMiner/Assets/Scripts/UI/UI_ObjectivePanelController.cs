@@ -59,6 +59,12 @@ namespace Idler
             
             if(objectivesCtrl.IsCurrentLevelComplete)
                 ActivateLevelUpButton(true);
+
+            if (objectivesCtrl.CurrentLevel >= objectivesCtrl.MaxLevel)
+            {
+                levelText.text = "MAX";
+                ActivateLevelUpButton(false);
+            }
         }
         
         private void OnLevelAdvanced(int level)

@@ -24,6 +24,13 @@ namespace Idler
         public void Initialize(Interactable interactable)
         {
             this.Interactable = interactable;
+
+            var baseStation = interactable as Interactable_BaseStation;
+            var botsToAdd = baseStation.GetNumberOfBots();
+            print("botsToAdd: " + botsToAdd);
+            AddBot(botsToAdd);
+
+
         }
 
         private void Update()

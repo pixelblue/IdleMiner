@@ -13,6 +13,7 @@ namespace Idler
         private IObjectives objectivesCtrl;
         private IResourceManager resourceCtrl;
         private IGame gameCtrl;
+        private IMap mapCtrl;
         private string SavePath => Path.Combine(Application.persistentDataPath, "save.json");
 
         private void Awake()
@@ -20,6 +21,7 @@ namespace Idler
             objectivesCtrl = ServiceLocator.Current.Get<IObjectives>();
             resourceCtrl   = ServiceLocator.Current.Get<IResourceManager>();
             gameCtrl       = ServiceLocator.Current.Get<IGame>();
+            mapCtrl        = ServiceLocator.Current.Get<IMap>();
         }
 
         private void OnApplicationFocus(bool hasFocus)
@@ -43,6 +45,7 @@ namespace Idler
             gameCtrl.Save(Data);
             resourceCtrl.Save(Data);
             objectivesCtrl.Save(Data);
+            mapCtrl.Save(Data);
             File.WriteAllText(SavePath, JsonUtility.ToJson(Data, prettyPrint: true));
             Debug.Log("Saved to " + SavePath);
         }
@@ -55,6 +58,7 @@ namespace Idler
                 gameCtrl.Reset();
                 resourceCtrl.Reset();
                 objectivesCtrl.Reset();
+                mapCtrl.Reset();
                 return;
             }
             Debug.Log("Loading from " + SavePath);
@@ -62,6 +66,7 @@ namespace Idler
             gameCtrl.Load(Data);
             resourceCtrl.Load(Data);
             objectivesCtrl.Load(Data);
+            mapCtrl.Load(Data);
         }
 
         public void ResetAll()
@@ -70,6 +75,7 @@ namespace Idler
             gameCtrl.Reset();
             resourceCtrl.Reset();
             objectivesCtrl.Reset();
+            mapCtrl.Reset();
             if (File.Exists(SavePath)) File.Delete(SavePath);
         }
     }

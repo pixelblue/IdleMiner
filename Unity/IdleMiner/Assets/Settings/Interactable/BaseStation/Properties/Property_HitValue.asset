@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13aee744fdfc7e44b7fed2f2f2d2438, type: 3}
   m_Name: Property_HitValue
   m_EditorClassIdentifier: Assembly-CSharp::Idler.PropertyDefinition
-  propertyName: HIt Value
+  propertyName: Hit Value
   propertyInfo: Increases the value of each Hit
   propertyIcon: {fileID: 0}
   costResource: {fileID: 11400000, guid: 5e11feb784b8b83479890b6527e86506, type: 2}
-  unlockAtLevel: 0
+  unlocksAfter: {fileID: 0}
+  unlocksAfterLevel: 0
   baseValue: 1
   increment: 1
   maxLevel: 20

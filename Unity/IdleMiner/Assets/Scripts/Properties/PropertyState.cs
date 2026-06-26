@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Idler
 {
+    [System.Serializable]
     public class PropertyState
     {
         public event Action<int> LevelChanged;
@@ -15,16 +16,23 @@ namespace Idler
         public int   MaxLevel        => Definition.maxLevel;
         public float NextUpgradeCost => Definition.GetUpgradeCost(CurrentLevel);
 
+        public PropertyState Prerequisite { get; private set; }
+        public bool IsUnlocked => Prerequisite == null || Prerequisite.CurrentLevel >= Definition.unlocksAfterLevel;
+
         // Pass-throughs so UI code stays concise
-        public string propertyName  => Definition.propertyName;
-        public string propertyInfo  => Definition.propertyInfo;
-        public Sprite propertyIcon  => Definition.propertyIcon;
+        public string propertyName       => Definition.propertyName;
+        public string propertyInfo       => Definition.propertyInfo;
+        public Sprite propertyIcon       => Definition.propertyIcon;
         public ResourceData costResource => Definition.costResource;
-        public int unlockAtLevel    => Definition.unlockAtLevel;
 
         public PropertyState(PropertyDefinition definition)
         {
             Definition = definition;
+        }
+
+        public void SetPrerequisite(PropertyState prereq)
+        {
+            Prerequisite = prereq;
         }
 
         public bool LevelUp()
@@ -41,13 +49,13 @@ namespace Idler
             Definition.costResource != null &&
             Definition.costResource.CurrentAmount >= NextUpgradeCost;
 
-        public void Save(LeveledPropertySaveEntry[] entries)
+        public void Save(PropertySaveEntry[] entries)
         {
             var entry = Array.Find(entries, e => e.propertyName == Definition.propertyName);
             if (entry != null) entry.level = CurrentLevel;
         }
 
-        public void Load(LeveledPropertySaveEntry[] entries)
+        public void Load(PropertySaveEntry[] entries)
         {
             var entry = Array.Find(entries, e => e.propertyName == Definition.propertyName);
             if (entry != null) CurrentLevel = Math.Clamp(entry.level, 0, Definition.maxLevel);

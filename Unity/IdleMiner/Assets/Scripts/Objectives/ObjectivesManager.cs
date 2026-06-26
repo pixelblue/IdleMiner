@@ -11,7 +11,8 @@ namespace Idler
         public int CurrentLevel { get; private set; }
         public ObjectiveLevelData CurrentLevelData => config.levels[CurrentLevel];
         public bool IsCurrentLevelComplete => ActiveObjectives().All(IsComplete);
-        
+        public int MaxLevel => config.levels.Length-1;
+
         private ObjectivesConfig config;
         private IEventManager eventManagerMgr;
 

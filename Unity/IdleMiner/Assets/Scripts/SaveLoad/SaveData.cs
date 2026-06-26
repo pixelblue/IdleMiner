@@ -9,7 +9,7 @@ namespace Idler
         public int currentLevel = 0;
         public ObjectiveSaveEntry[] objectives = Array.Empty<ObjectiveSaveEntry>();
         public ResourceSaveEntry[] resources = Array.Empty<ResourceSaveEntry>();
-        public LeveledPropertySaveEntry[] leveledProperties = Array.Empty<LeveledPropertySaveEntry>();
+        public PropertySaveEntry[] globalProperties = Array.Empty<PropertySaveEntry>();
         public InteractableSaveEntry[] interactables = Array.Empty<InteractableSaveEntry>();
     }
 
@@ -28,7 +28,7 @@ namespace Idler
     }
 
     [Serializable]
-    public class LeveledPropertySaveEntry
+    public class PropertySaveEntry
     {
         public string propertyName;
         public int level;
@@ -38,6 +38,6 @@ namespace Idler
     public class InteractableSaveEntry
     {
         public string interactableId;
-        public LeveledPropertySaveEntry[] properties = System.Array.Empty<LeveledPropertySaveEntry>();
+        public PropertySaveEntry[] properties = System.Array.Empty<PropertySaveEntry>();
     }
 }

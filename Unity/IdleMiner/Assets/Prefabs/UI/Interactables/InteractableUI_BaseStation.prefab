@@ -790,7 +790,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Idler.InteractableUI
   nameText: {fileID: 4377271342532753267}
-  LeveledPropertyPrefab: {fileID: 4477685779593034516, guid: 83ceee95a07e1204c8e2b4f47fdc10b3, type: 3}
+  propertyPrefab: {fileID: 4477685779593034516, guid: 83ceee95a07e1204c8e2b4f47fdc10b3, type: 3}
   LeveledPropertiesContainer: {fileID: 1885060401800066690}
 --- !u!1 &7826343684829025477
 GameObject:

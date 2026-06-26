@@ -8,13 +8,15 @@ namespace Idler.States
     {
         public CameraController Ctrl { get; private set; }
         public FSM_StateManager Fsm { get; private set; }
-        public IEventManager EventManagerCtrl { get; private set; }
+        public IEventManager EventCtrl { get; private set; }
+        public IObjectives ObjectivesCtrl { get; private set; }
         
         protected virtual void Awake()
         {
             Ctrl = GetComponentInParent<CameraController>();
             Fsm = Ctrl.Fsm;
-            EventManagerCtrl = ServiceLocator.Current.Get<IEventManager>();
+            EventCtrl = ServiceLocator.Current.Get<IEventManager>();
+            ObjectivesCtrl = ServiceLocator.Current.Get<IObjectives>();
         }
 
         public override void OnActivate()

@@ -13,12 +13,10 @@ MonoBehaviour:
   m_Name: GameData
   m_EditorClassIdentifier: Assembly-CSharp::Idler.GameData
   allInteractables:
-  - {fileID: 11400000, guid: 1f3015cb2059b654e964de215afbed72, type: 2}
-  HitRate: {fileID: 11400000, guid: 7fc3ea0b51d824b6a911e7432bcc8545, type: 2}
-  HitRadius: {fileID: 11400000, guid: 4fe4ff336b2234cf8b2e4de8782e79d5, type: 2}
-  HitValue: {fileID: 11400000, guid: 46c4225a932ed40dbbddb73dac531aa7, type: 2}
-  BaseStationBots: {fileID: 11400000, guid: a7c6f803e885e462789e6b950b9aed92, type: 2}
-  BotHitValue: {fileID: 11400000, guid: 1022c0711b0c9429ca763d69573a3261, type: 2}
+  - {fileID: 11400000, guid: 0c994489978086241871868ffa411e49, type: 2}
+  - {fileID: 11400000, guid: aa875575edafff044924a32120a20680, type: 2}
+  HitRate: {fileID: 11400000, guid: 5f0f2f5290081d34f969e73ddd4f7af2, type: 2}
+  HitRadius: {fileID: 11400000, guid: abbeecf495116c04c917d3ada9f65b69, type: 2}
   rawResources:
   - {fileID: 11400000, guid: 5e11feb784b8b83479890b6527e86506, type: 2}
   - {fileID: 11400000, guid: bf1cbd8635c6446cebe322811ffad02d, type: 2}

@@ -15,4 +15,4 @@ MonoBehaviour:
   description: Repair the Energy Generator
   type: 0
   targetResource: {fileID: 11400000, guid: 5e11feb784b8b83479890b6527e86506, type: 2}
-  targetAmount: 10
+  targetAmount: 30

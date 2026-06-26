@@ -547,7 +547,7 @@ GameObject:
   - component: {fileID: 6026969550568658014}
   - component: {fileID: 2294331272732809401}
   m_Layer: 5
-  m_Name: LeveledPropertyElement
+  m_Name: PropertyElement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

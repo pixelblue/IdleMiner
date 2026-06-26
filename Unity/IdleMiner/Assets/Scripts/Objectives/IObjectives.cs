@@ -10,6 +10,7 @@ namespace Idler
         float GetProgress(ObjectiveData objective);
         bool IsComplete(ObjectiveData objective);
         bool IsCurrentLevelComplete { get; }
+        int MaxLevel { get; }
         void AdvanceLevel();
     }
 }

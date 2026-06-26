@@ -1,20 +1,19 @@
 using ANS_Core.Utilities;
 using ANS.Common;
 using ANS.Common.ServiceLocator;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Idler
 {
-    public enum InteractableContext { Mining, Surface }
-
-    public class Interactable : MonoBehaviour
+    public class Interactable : MonoBehaviour, ISaveLoad
     {
         [field: SerializeField] public InteractableData Data { get; private set; }
         [field: SerializeField] public Collider Coll;
+        [field: SerializeField] public Transform HitContainer { get; private set; }
         [field: SerializeField] public Transform UiAttachPoint { get; private set; }
         [SerializeField] private InteractableUI uiPrefab;
-        [SerializeField] private string id; // unique per scene object, used for save/load
 
         
         public PropertyState[] Properties { get; protected set; }
@@ -71,10 +70,26 @@ namespace Idler
 
         public virtual void OnCursorHit(CursorController cursor)
         {
+            if (HitContainer == null) return;
+            HitContainer.DOKill();
+            HitContainer.localScale = Vector3.one * 1.2f;
+            HitContainer.DOScale(Vector3.one, 0.2f);
         }
         
         public virtual void OnBotHit()
         {
+        }
+
+        // Matches each PropertyState to its prerequisite based on PropertyDefinition.unlocksAfter.
+        // Call after Properties[] is fully assigned in the subclass Awake().
+        protected void WirePropertyPrerequisites()
+        {
+            foreach (var state in Properties)
+            {
+                if (state.Definition.unlocksAfter == null) continue;
+                var prereq = System.Array.Find(Properties, s => s.Definition == state.Definition.unlocksAfter);
+                if (prereq != null) state.SetPrerequisite(prereq);
+            }
         }
 
         protected void GetCollider()
@@ -86,6 +101,11 @@ namespace Idler
         {
             if (OutlineCtrl != null)
                 OutlineCtrl.Show();
+            ShowUI();
+        }
+
+        protected virtual void ShowUI()
+        {
             if (InteractableUICtrl != null)
                 InteractableUICtrl.Show(this);
         }
@@ -117,6 +137,28 @@ namespace Idler
         {
             if(isCursorHovering == false)
                 Deselect();
+        }
+
+        public virtual void Save(SaveData data)
+        {
+            if (Properties.Length == 0) return;
+            var entry = System.Array.Find(data.interactables, e => e.interactableId == Data.interactableName);
+            if (entry == null) return;
+            entry.properties = System.Array.ConvertAll(Properties, p => new PropertySaveEntry { propertyName = p.Definition.propertyName });
+            foreach (var prop in Properties) prop.Save(entry.properties);
+        }
+
+        public virtual void Load(SaveData data)
+        {
+            if (Properties.Length == 0) return;
+            var entry = System.Array.Find(data.interactables, e => e.interactableId == Data.interactableName);
+            if (entry == null) { Reset(); return; }
+            foreach (var prop in Properties) prop.Load(entry.properties);
+        }
+
+        public virtual void Reset()
+        {
+            foreach (var prop in Properties) prop.Reset();
         }
     }
 }

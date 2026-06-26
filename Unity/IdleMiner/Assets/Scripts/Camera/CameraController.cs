@@ -1,4 +1,5 @@
 using ANS_Core.FSM;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -13,6 +14,8 @@ namespace Idler
         [SerializeField] private float minZoom = 2f;
         [SerializeField] private float maxZoom = 20f;
         [SerializeField] private float inertiaDamping = 5f;
+        [field: SerializeField] public CameraPosition[] CameraPositions { get; private set; }
+        [field: SerializeField] public CameraPosition FinalCameraPosition { get; private set; }
 
         private PlayerInput playerInput;
         private Vector2 previousScreenPos;
@@ -34,15 +37,8 @@ namespace Idler
         {
             playerInput.Disable();
         }
-
-        private void Update()
-        {
-            bool overUI = EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
-            HandleDrag(overUI);
-            HandleZoom(overUI);
-        }
-
-        private void HandleDrag(bool overUI)
+        
+        public void HandleDrag(bool overUI)
         {
             var screenPos = playerInput.Player.ScreenPosition.ReadValue<Vector2>();
             bool pressing = playerInput.Player.Touch.IsPressed();
@@ -79,12 +75,26 @@ namespace Idler
             wasDragging = dragging;
         }
 
-        private void HandleZoom(bool overUI)
+        public void HandleZoom(bool overUI)
         {
             if (overUI) return;
             float scroll = Mouse.current?.scroll.ReadValue().y ?? 0f;
             if (scroll == 0f) return;
             Cam.orthographicSize = Mathf.Clamp(Cam.orthographicSize - scroll * zoomSpeed, minZoom, maxZoom);
+        }
+
+        public void SetCameraPosition(CameraPosition cameraPosition, bool instant = false)
+        {
+            if (instant)
+            {
+                Cam.transform.position = cameraPosition.position;
+                Cam.orthographicSize = cameraPosition.zoom;
+            }
+            else
+            {
+                Cam.transform.DOMove(cameraPosition.position, 0.5f).SetEase(Ease.InOutSine);
+                Cam.DOOrthoSize(cameraPosition.zoom, 0.5f).SetEase(Ease.InOutSine);
+            }
         }
     }
 }

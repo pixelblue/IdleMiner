@@ -7,6 +7,7 @@ namespace Idler
 {
     public class DebugController : MonoBehaviour, IDebug
     {
+        [field: SerializeField] public bool IsDebugModeActive { get; private set; }
         [SerializeField] private Button showDebugPanelButton;
         [SerializeField] private GameObject debugPanel;
         [SerializeField] private ResourceData carbonResource;

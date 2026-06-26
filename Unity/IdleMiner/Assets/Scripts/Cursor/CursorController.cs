@@ -53,7 +53,7 @@ namespace Idler
 
         public void Initialize()
         {
-            GlobalPropertyStats     = ServiceLocator.Current.Get<IGame>().Stats;
+            GlobalPropertyStats     = ServiceLocator.Current.Get<IGame>().GlobalPropertyStats;
         }
 
         private void Update()

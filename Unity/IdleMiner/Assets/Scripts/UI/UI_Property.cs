@@ -40,29 +40,31 @@ namespace Idler
         {
             buyButton.onClick.AddListener(OnBuyButtonPressed);
             eventCtrl.ResourceChanged += OnResourceChanged;
+            if (data?.Prerequisite != null) data.Prerequisite.LevelChanged += OnPrerequisiteLevelChanged;
         }
 
         private void OnDisable()
         {
             buyButton.onClick.RemoveListener(OnBuyButtonPressed);
             eventCtrl.ResourceChanged -= OnResourceChanged;
+            if (data?.Prerequisite != null) data.Prerequisite.LevelChanged -= OnPrerequisiteLevelChanged;
+            
+            HideInfoPopup();
         }
+
         public void Initialize(PropertyState propertyState, Interactable interactable)
         {
             this.data = propertyState;
             this.interactable = interactable;
-            
-            // Initialize the UI with the leveled property data
+            if (data.Prerequisite != null) data.Prerequisite.LevelChanged += OnPrerequisiteLevelChanged;
             UpdateInfo();
         }
 
         public void OnPointerEnter(PointerEventData eventData) => ShowInfoPopup();
         public void OnPointerExit(PointerEventData eventData)  => HideInfoPopup();
 
-        private void OnResourceChanged(ResourceData resource, float delta)
-        {
-            UpdateInfo();
-        }
+        private void OnResourceChanged(ResourceData resource, float delta) => UpdateInfo();
+        private void OnPrerequisiteLevelChanged(int _) => UpdateInfo();
 
         private void UpdateInfo()
         {
@@ -81,15 +83,7 @@ namespace Idler
             if (data.CurrentLevel >= data.MaxLevel) costText.text = "MAX";
             UpdateBuyButton();
             
-            if(interactable.CurrentLevel < data.unlockAtLevel)
-            {
-                this.gameObject.SetActive(false);
-                DisableBuyButton();
-            }
-            else
-            {
-                this.gameObject.SetActive(true);
-            }
+            this.gameObject.SetActive(data.IsUnlocked);
         }
 
         private void UpdateBuyButton()
@@ -127,17 +121,17 @@ namespace Idler
             resourceCtrl.Add(data.costResource, -data.NextUpgradeCost);
             data.LevelUp();
             UpdateInfo();
+            HideInfoPopup();
         }
-        
-        public void ShowInfoPopup()
+
+        private void ShowInfoPopup()
         {
             highlightObj.SetActive(true);
             infoPopup = Instantiate(infoPopupPrefab, uiCtrl.InteractablesContainer.transform);
             infoPopup.Show(data, rectTransform);
-            
         }
 
-        public void HideInfoPopup()
+        private void HideInfoPopup()
         {
             highlightObj.SetActive(false);
             if (infoPopup != null) Destroy(infoPopup.gameObject);
