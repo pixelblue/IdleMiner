@@ -2,6 +2,8 @@ using UnityEngine;
 
 namespace Idler
 {
+    public enum CostScalingMode { Linear, Exponential, Custom }
+
     [CreateAssetMenu(fileName = "Property_", menuName = "Idler/PropertyDefinition")]
     public class PropertyDefinition : ScriptableObject
     {
@@ -16,9 +18,9 @@ namespace Idler
         public int maxLevel;
         public float upgradeCostBase;
         public float upgradeCostMultiplier;
-        
-        public AnimationCurve upgradeCostCurve = AnimationCurve.Linear(0f, 1f, 1f, 1f);
-        
+        public CostScalingMode costScalingMode;
+        public AnimationCurve upgradeCostCurve = AnimationCurve.Linear(0, 1, 20, 5);
+
         public float MaxValue => GetValue(maxLevel);
 
         public float GetValue(int level) =>
@@ -26,8 +28,13 @@ namespace Idler
 
         public float GetUpgradeCost(int level)
         {
-            float normalized = maxLevel > 0 ? (float)level / maxLevel : 0f;
-            return upgradeCostBase * Mathf.Pow(upgradeCostMultiplier, level) * upgradeCostCurve.Evaluate(normalized);
+            return costScalingMode switch
+            {
+                CostScalingMode.Linear      => upgradeCostBase + level * upgradeCostMultiplier,
+                CostScalingMode.Exponential => upgradeCostBase * Mathf.Pow(upgradeCostMultiplier, level),
+                CostScalingMode.Custom      => upgradeCostBase * upgradeCostCurve.Evaluate(level),
+                _                           => upgradeCostBase
+            };
         }
     }
 }

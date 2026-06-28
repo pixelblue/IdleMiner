@@ -7,10 +7,10 @@ namespace Idler.Editor
 {
     public class GameDataEditor : EditorWindow
     {
-        // label | SO ref | output icon | cost res | cost icon | unlocks after (SO) | after level | base | incr | max lvl | cost base | cost mult | max val | ping
-        private static readonly float[] W = { 110, 195, 44, 165, 30, 150, 42, 55, 55, 50, 60, 60, 55, 22 };
+        // label | SO ref | output icon | cost res | cost icon | unlocks after (SO) | after level | base | incr | max lvl | cost base | cost mult | scaling | curve | max val | ping
+        private static readonly float[] W = { 110, 195, 44, 165, 30, 150, 42, 55, 55, 50, 60, 60, 80, 55, 55, 22 };
         private static readonly string[] Headers =
-            { "Property", "Definition", "Output Icon", "Cost Res", "Cost Icon", "Unlocks After", "Lvl", "Base", "Increment", "Max Lvl", "Cost Base", "Cost Mult", "Max Val" };
+            { "Property", "Definition", "Output Icon", "Cost Res", "Cost Icon", "Unlocks After", "Lvl", "Base", "Increment", "Max Lvl", "Cost Base", "Cost Mult", "Scaling", "Curve", "Max Val" };
 
         private GameData gameData;
         private SerializedObject gameDataSO;
@@ -357,11 +357,17 @@ namespace Idler.Editor
                 Field(defSO, "maxLevel",              W[9]);
                 Field(defSO, "upgradeCostBase",       W[10]);
                 Field(defSO, "upgradeCostMultiplier", W[11]);
+                Field(defSO, "costScalingMode",       W[12]);
+                var scalingProp = defSO.FindProperty("costScalingMode");
+                if (scalingProp != null && scalingProp.enumValueIndex == 2)
+                    Field(defSO, "upgradeCostCurve", W[13]);
+                else
+                    GUILayout.Space(W[13]);
                 EditorGUI.BeginDisabledGroup(true);
-                EditorGUILayout.FloatField(def.MaxValue, GUILayout.Width(W[12]));
+                EditorGUILayout.FloatField(def.MaxValue, GUILayout.Width(W[14]));
                 EditorGUI.EndDisabledGroup();
                 if (EditorGUI.EndChangeCheck()) defSO.ApplyModifiedProperties();
-                if (GUILayout.Button("↗", GUILayout.Width(W[13]))) EditorGUIUtility.PingObject(def);
+                if (GUILayout.Button("↗", GUILayout.Width(W[15]))) EditorGUIUtility.PingObject(def);
             }
 
             EditorGUILayout.EndHorizontal();
