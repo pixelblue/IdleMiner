@@ -6,6 +6,7 @@ namespace Idler
     public class BaseStationData : InteractableData
     {
         public PropertyDefinition hitValue;
+        public PropertyDefinition energyCrystals;
         public PropertyDefinition baseStationBots;
         public PropertyDefinition botHitValue;
     }

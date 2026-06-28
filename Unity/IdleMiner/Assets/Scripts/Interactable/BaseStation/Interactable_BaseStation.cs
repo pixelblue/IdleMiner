@@ -11,6 +11,7 @@ namespace Idler
         [SerializeField] private BotSpawner botSpawner;
 
         private PropertyState hitValue;
+        private PropertyState energyCrystals;
         private PropertyState baseStationBots;
         private PropertyState botHitValue;
 
@@ -19,9 +20,10 @@ namespace Idler
             base.Awake();
             var d       = (BaseStationData)Data;
             hitValue        = new PropertyState(d.hitValue);
+            energyCrystals  = new PropertyState(d.energyCrystals);
             baseStationBots = new PropertyState(d.baseStationBots);
             botHitValue     = new PropertyState(d.botHitValue);
-            Properties      = new[] { hitValue, baseStationBots, botHitValue };
+            Properties      = new[] { hitValue, energyCrystals, baseStationBots, botHitValue };
             WirePropertyPrerequisites();
         }
 
@@ -30,6 +32,7 @@ namespace Idler
             base.OnEnable();
             EventCtrl.LevelAdvanced += OnLevelAdvanced;
             if (baseStationBots != null) baseStationBots.LevelChanged += OnBotLevelChanged;
+            if (energyCrystals != null) energyCrystals.LevelChanged += OnEnergyCrystalsChanged;
         }
 
         protected override void OnDisable()
@@ -37,6 +40,14 @@ namespace Idler
             base.OnDisable();
             EventCtrl.LevelAdvanced -= OnLevelAdvanced;
             if (baseStationBots != null) baseStationBots.LevelChanged -= OnBotLevelChanged;
+            if (energyCrystals != null) energyCrystals.LevelChanged -= OnEnergyCrystalsChanged;
+        }
+
+        private void OnEnergyCrystalsChanged(int level)
+        {
+            var oldCrystalCount = energyCrystals.GetValue(Mathf.Clamp(level - 1, 0, 9999999));
+            var newCrystalCount = energyCrystals.GetValue(level);
+            ResourceCtrl.Add(baseStationBots.costResource, (int)(newCrystalCount - oldCrystalCount));
         }
 
         private void OnBotLevelChanged(int level)
@@ -91,19 +102,13 @@ namespace Idler
         public override void OnCursorHit(CursorController cursor)
         {
             base.OnCursorHit(cursor);
-            SpawnResource(hitValue.Value);
+            SpawnResource(hitValue.Value, resourceToDrop);
         }
 
         public override void OnBotHit()
         {
             base.OnBotHit();
-            SpawnResource(botHitValue.Value);
-        }
-
-        private void SpawnResource(float value)
-        {
-            var newResource = (ResourceController)PoolCtrl.Spawn(MapCtrl.ResourcePrefab.name, Vector3.zero);
-            newResource.Initialize(Coll, resourceToDrop, value);
+            SpawnResource(botHitValue.Value, resourceToDrop);
         }
     }
 }

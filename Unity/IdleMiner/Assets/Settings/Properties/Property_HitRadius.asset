@@ -15,8 +15,9 @@ MonoBehaviour:
   propertyName: Hit Radius
   propertyInfo: 
   propertyIcon: {fileID: 0}
-  costResource: {fileID: 11400000, guid: 5e11feb784b8b83479890b6527e86506, type: 2}
-  unlockAtLevel: 0
+  costResource: {fileID: 0}
+  unlocksAfter: {fileID: 0}
+  unlocksAfterLevel: 0
   baseValue: 40
   increment: 1
   maxLevel: 0

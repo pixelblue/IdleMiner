@@ -12,6 +12,7 @@ namespace Idler
         [field: SerializeField] public ResourceController ResourcePrefab { get; private set; }
 
         public List<Interactable> AllInteractables { get; private set; } = new List<Interactable>();
+        public Interactable SelectedInteractable { get; set; }
 
         private IGame gameCtrl;
         private IEventManager eventCtrl;

@@ -85,10 +85,11 @@ namespace Idler
 
         private void UpdateProperties()
         {
+            foreach (var propertyState in Interactable.Properties)
+                propertyState.LevelChanged -= OnPropertyLevelChanged;
+
             foreach (Transform trans in LeveledPropertiesContainer)
-            {
                 Destroy(trans.gameObject);
-            }
 
             CreateProperties();
         }

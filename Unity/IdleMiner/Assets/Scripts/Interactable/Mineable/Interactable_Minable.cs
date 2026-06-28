@@ -40,13 +40,11 @@ namespace Idler
 
         public override void OnCursorHit(CursorController cursor)
         {
+            base.OnCursorHit(cursor);
+            
             resourcePool.Drop((resource, amount) =>
             {
-                var newResource = (ResourceController)PoolCtrl.Spawn(MapCtrl.ResourcePrefab.name, Vector3.zero);
-                newResource.Initialize(Coll, resource, amount);
-                transform.DOKill();
-                transform.localScale = Vector3.one * 1.2f;
-                transform.DOScale(Vector3.one, 0.2f);
+                SpawnResource(hitValue.Value, resource);    
             });
         }
     }

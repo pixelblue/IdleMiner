@@ -15,7 +15,7 @@ MonoBehaviour:
   propertyName: Bot Hit Value
   propertyInfo: 
   propertyIcon: {fileID: 0}
-  costResource: {fileID: 11400000, guid: bf1cbd8635c6446cebe322811ffad02d, type: 2}
+  costResource: {fileID: 11400000, guid: 6026d647c552740deadf1a22782ce876, type: 2}
   unlocksAfter: {fileID: 11400000, guid: 2297fbc79913c8e438cb429a99220f8e, type: 2}
   unlocksAfterLevel: 2
   baseValue: 20

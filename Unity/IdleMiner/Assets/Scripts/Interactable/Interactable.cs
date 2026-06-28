@@ -24,6 +24,7 @@ namespace Idler
         protected IPool PoolCtrl;
         protected IMap MapCtrl;
         protected IMainUI MainUI;
+        protected IResourceManager ResourceCtrl;
         protected ICamera CamCtrl;
         protected IEventManager EventCtrl;
         protected IObjectives ObjectivesCtrl;
@@ -37,6 +38,7 @@ namespace Idler
             MapCtrl        = ServiceLocator.Current.Get<IMap>();
             MainUI         = ServiceLocator.Current.Get<IMainUI>();
             CamCtrl        = ServiceLocator.Current.Get<ICamera>();
+            ResourceCtrl   = ServiceLocator.Current.Get<IResourceManager>();
             ObjectivesCtrl = ServiceLocator.Current.Get<IObjectives>();
             EventCtrl      = ServiceLocator.Current.Get<IEventManager>();
             GameCtrl       = ServiceLocator.Current.Get<IGame>();
@@ -99,19 +101,23 @@ namespace Idler
 
         protected virtual void Select()
         {
-            if (OutlineCtrl != null)
-                OutlineCtrl.Show();
+            // don't select if another interactable is already selected
+            if (MapCtrl.SelectedInteractable != null) return;
+
+            MapCtrl.SelectedInteractable = this;
+            if (OutlineCtrl != null) OutlineCtrl.Show();
             ShowUI();
         }
 
         protected virtual void ShowUI()
         {
-            if (InteractableUICtrl != null)
-                InteractableUICtrl.Show(this);
+            if (InteractableUICtrl == null) return;
+            InteractableUICtrl.Show(this);
         }
 
         protected virtual void Deselect()
         {
+            MapCtrl.SelectedInteractable = null;
             if (OutlineCtrl != null)                
                 OutlineCtrl.Hide();
             if (InteractableUICtrl != null)
@@ -160,5 +166,12 @@ namespace Idler
         {
             foreach (var prop in Properties) prop.Reset();
         }
+        
+        protected void SpawnResource(float value, ResourceData resourceToDrop)
+        {
+            var newResource = (ResourceController)PoolCtrl.Spawn(MapCtrl.ResourcePrefab.name, Vector3.zero);
+            newResource.Initialize(Coll, resourceToDrop, value);
+        }
+
     }
 }
