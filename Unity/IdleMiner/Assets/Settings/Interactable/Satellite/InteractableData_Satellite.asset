@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d65722480b24245f8b353c9c87f5283d, type: 3}
+  m_Name: InteractableData_Satellite
+  m_EditorClassIdentifier: Assembly-CSharp::Idler.SatelliteData
+  interactableName: Satellite
+  slots: {fileID: 11400000, guid: a4ea45fbdb5404ea1a837b9c18da2915, type: 2}
+  slotSpeed: {fileID: 11400000, guid: af2be4fca7f514562a79ed59a4184432, type: 2}

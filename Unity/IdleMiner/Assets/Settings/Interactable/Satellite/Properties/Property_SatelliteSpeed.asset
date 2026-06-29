@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c13aee744fdfc7e44b7fed2f2f2d2438, type: 3}
-  m_Name: Property_EnergyCrystal
+  m_Name: Property_SatelliteSpeed
   m_EditorClassIdentifier: Assembly-CSharp::Idler.PropertyDefinition
-  propertyName: Energy Crystal
-  propertyInfo: You will needs this to power various bots, drones and more...
-  propertyIcon: {fileID: 21300000, guid: 11722cd3d82dbaf4f9171996069fa5ae, type: 3}
+  propertyName: Slot Speed
+  propertyInfo: 
+  propertyIcon: {fileID: 0}
   costResource: {fileID: 11400000, guid: 5e11feb784b8b83479890b6527e86506, type: 2}
-  unlocksAfter: {fileID: 11400000, guid: 3b1bd8e93c42f7648a588d19cad25c26, type: 2}
-  unlocksAfterLevel: 1
+  unlocksAfter: {fileID: 0}
+  unlocksAfterLevel: 0
   baseValue: 1
-  increment: 1
+  increment: -0.1
   maxLevel: 20
-  upgradeCostBase: 200
-  upgradeCostMultiplier: 1.01
-  costScalingMode: 2
+  upgradeCostBase: 80
+  upgradeCostMultiplier: 1.3
+  costScalingMode: 1
   upgradeCostCurve:
     serializedVersion: 2
     m_Curve:
