@@ -42,12 +42,16 @@ namespace Idler
         private void OnEnable()
         {
             playerInput = new PlayerInput();
+            playerInput.Player.Touch.started  += OnTouchStarted;
+            playerInput.Player.Touch.canceled += OnTouchCanceled;
             playerInput.Enable();
             TouchingInteractables.Clear();
         }
 
         private void OnDisable()
         {
+            playerInput.Player.Touch.started  -= OnTouchStarted;
+            playerInput.Player.Touch.canceled -= OnTouchCanceled;
             playerInput.Disable();
         }
 
@@ -95,6 +99,7 @@ namespace Idler
                 if (interactable != null && TouchingInteractables.Add(interactable))
                     interactable.OnCursorEnter(this);
             }
+            
         }
 
         private Vector2 GetScreenPosition()
@@ -149,6 +154,18 @@ namespace Idler
         {
             Cursor.visible = true;
             this.gameObject.SetActive(false);
+        }
+
+        private void OnTouchStarted(UnityEngine.InputSystem.InputAction.CallbackContext ctx)
+        {
+            foreach (var interactable in TouchingInteractables)
+                interactable.OnCursorPressed(this);
+        }
+
+        private void OnTouchCanceled(UnityEngine.InputSystem.InputAction.CallbackContext ctx)
+        {
+            foreach (var interactable in TouchingInteractables)
+                interactable.OnCursorReleased(this);
         }
 
         private void OnDrawGizmos()

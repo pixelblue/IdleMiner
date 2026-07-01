@@ -18,7 +18,7 @@ namespace Idler
         private ImageEvents imageEvents;
         private InteractableData data;
         
-        private void Awake()
+        protected virtual void Awake()
         {
             GameCtrl = ServiceLocator.Current.Get<IGame>();
             cameraCtrl = ServiceLocator.Current.Get<ICamera>();
@@ -75,7 +75,6 @@ namespace Idler
             nameText.text = data.interactableName;
 
             UpdateProperties();
-
         }
         
         private void OnPropertyLevelChanged(int level)

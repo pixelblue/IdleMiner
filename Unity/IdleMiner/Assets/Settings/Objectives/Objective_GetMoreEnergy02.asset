@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4aa9a0cbf80744b498bdc2d2bc58c03, type: 3}
-  m_Name: Objective_GetSomeCarbon
+  m_Name: Objective_GetMoreEnergy02
   m_EditorClassIdentifier: Assembly-CSharp::Idler.ObjectiveData
-  description: Gather more resources
+  description: More Energy
   type: 0
-  targetResource: {fileID: 11400000, guid: bf1cbd8635c6446cebe322811ffad02d, type: 2}
-  targetAmount: 40
+  targetResource: {fileID: 11400000, guid: 5e11feb784b8b83479890b6527e86506, type: 2}
+  targetAmount: 3000

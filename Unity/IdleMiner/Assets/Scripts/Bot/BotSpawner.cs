@@ -11,6 +11,7 @@ namespace Idler
         [SerializeField] private BotController botPrefab;
         [SerializeField] private Transform botContainer;
         [SerializeField] private float speed = 20.0f;
+        [SerializeField] private float maxSpeed = 30.0f;
         [SerializeField] private Vector2 randomRadius;
 
         private IPool poolCtrl;
@@ -27,7 +28,6 @@ namespace Idler
 
             var baseStation = interactable as Interactable_BaseStation;
             var botsToAdd = baseStation.GetNumberOfBots();
-            print("botsToAdd: " + botsToAdd);
             AddBot(botsToAdd);
 
 
@@ -35,7 +35,10 @@ namespace Idler
 
         private void Update()
         {
-            botContainer.transform.Rotate(Vector3.up, speed * Time.deltaTime);
+            var currentSpeed = speed;
+            if (Interactable.IsCursorPressed)
+                currentSpeed = maxSpeed;
+            botContainer.transform.Rotate(Vector3.up, currentSpeed * Time.deltaTime);
             
             if(Keyboard.current.bKey.wasPressedThisFrame) AddBot(1);
         }

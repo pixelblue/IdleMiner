@@ -18,8 +18,8 @@ MonoBehaviour:
   costResource: {fileID: 11400000, guid: 5e11feb784b8b83479890b6527e86506, type: 2}
   unlocksAfter: {fileID: 0}
   unlocksAfterLevel: 0
-  baseValue: 1
-  increment: -0.1
+  baseValue: 0.1
+  increment: 0.1
   maxLevel: 20
   upgradeCostBase: 80
   upgradeCostMultiplier: 1.3

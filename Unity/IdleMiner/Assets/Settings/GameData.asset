@@ -22,6 +22,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5e11feb784b8b83479890b6527e86506, type: 2}
   - {fileID: 11400000, guid: 1b2ac57f7019f473fa1c6991c581a88f, type: 2}
   - {fileID: 11400000, guid: bf1cbd8635c6446cebe322811ffad02d, type: 2}
+  - {fileID: 11400000, guid: 6026d647c552740deadf1a22782ce876, type: 2}
   refinedResources: []
   constructedResources: []
   objectives: {fileID: 11400000, guid: 3987910fbdf344ce5b92628bc1874a94, type: 2}

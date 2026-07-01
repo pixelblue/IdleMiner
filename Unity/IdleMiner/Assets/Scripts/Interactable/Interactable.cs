@@ -30,6 +30,8 @@ namespace Idler
         protected IObjectives ObjectivesCtrl;
         protected IGame GameCtrl;
         
+        public bool IsCursorPressed { get; private set; }
+        
         private bool isCursorHovering = false;
 
         protected virtual void Awake()
@@ -57,6 +59,16 @@ namespace Idler
             
         }
         
+        public virtual void OnCursorPressed(CursorController cursor)
+        {
+            IsCursorPressed = true;
+        }
+
+        public virtual void OnCursorReleased(CursorController cursor)
+        {
+            IsCursorPressed = false;
+        }
+
         public virtual void OnCursorEnter(CursorController cursor)
         {
             isCursorHovering = true;
@@ -66,18 +78,24 @@ namespace Idler
         public virtual void OnCursorExit(CursorController cursor)
         {
             isCursorHovering = false;
+            IsCursorPressed = false;
             bool overUI = EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
             if(overUI == false) Deselect();
         }
 
         public virtual void OnCursorHit(CursorController cursor)
         {
+            BumpHitContainer();
+        }
+
+        protected virtual void BumpHitContainer()
+        {
             if (HitContainer == null) return;
             HitContainer.DOKill();
             HitContainer.localScale = Vector3.one * 1.2f;
             HitContainer.DOScale(Vector3.one, 0.2f);
         }
-        
+
         public virtual void OnBotHit()
         {
         }

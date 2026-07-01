@@ -7,5 +7,7 @@ namespace Idler
     {
         public PropertyDefinition slots;
         public PropertyDefinition slotSpeed;
+        public ResourceData outputResource;
+        public float outputAmount = 1f;
     }
 }

@@ -8,7 +8,6 @@ namespace Idler
 {
     public class UI_ResourceElement : MonoBehaviour
     {
-        [SerializeField] private TMP_Text resourceNameText;
         [SerializeField] private TMP_Text resourceAmountText;
         [SerializeField] private Image resourceIcon;
 
@@ -38,7 +37,6 @@ namespace Idler
             resourceCtrl = ServiceLocator.Current.Get<IResourceManager>();
             
             resourceIcon.sprite = resourceData.icon;
-            resourceNameText.text = resourceData.resourceName;
             UpdateValues();
         }
 
