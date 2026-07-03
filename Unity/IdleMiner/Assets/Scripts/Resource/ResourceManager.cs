@@ -23,6 +23,8 @@ namespace Idler
 
         public void Add(ResourceData resource, float amount)
         {
+            if (!resource.IsDiscovered && amount > 0f)
+                resource.IsDiscovered = true;
             resource.CurrentAmount += amount;
             eventManagerCtrl.InvokeResourceChanged(resource, amount);
         }

@@ -47,6 +47,11 @@ namespace ANS.Common
 
         private IObjectPool CreateTypedPool(Component comp, string poolName, int initialSize)
         {
+            // Try DroneController
+            var droneObj = comp.GetComponent<DroneController>();
+            if (droneObj != null)
+                return new ObjectPool<DroneController>(droneObj, poolName, initialSize, this.transform);
+            
             // Try ResourceController
             var resourceObj = comp.GetComponent<ResourceController>();
             if (resourceObj != null)

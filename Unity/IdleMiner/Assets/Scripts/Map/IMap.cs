@@ -8,6 +8,7 @@ namespace Idler
         ResourceController ResourcePrefab { get; }
         Interactable SelectedInteractable { get; set; }
         List<Interactable> AllInteractables { get;}
+        Dictionary<ResourceData, List<MineableObject>> MineablesByResource { get; } 
 
         void Initialize();
 

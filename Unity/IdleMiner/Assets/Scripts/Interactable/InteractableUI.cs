@@ -12,6 +12,7 @@ namespace Idler
         
         public RectTransform RectTransform { get; set; }
         public IGame GameCtrl { get; private set; }
+        public IMap MapCtrl { get; private set; }
         public Interactable Interactable { get; private set; }
         
         private ICamera cameraCtrl;
@@ -21,6 +22,7 @@ namespace Idler
         protected virtual void Awake()
         {
             GameCtrl = ServiceLocator.Current.Get<IGame>();
+            MapCtrl = ServiceLocator.Current.Get<IMap>();
             cameraCtrl = ServiceLocator.Current.Get<ICamera>();
             RectTransform = GetComponent<RectTransform>();
             imageEvents = GetComponentInChildren<ImageEvents>();

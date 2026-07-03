@@ -5,6 +5,7 @@ namespace Idler
     public class Interactable_Satellite : Interactable
     {
         private PropertyState slots;
+        private PropertyState slotValue;
         private PropertyState slotSpeed;
         private InteractableUI_Satellite satelliteUI;
 
@@ -14,8 +15,9 @@ namespace Idler
             satelliteUI = InteractableUICtrl as InteractableUI_Satellite;
             var d      = (SatelliteData)Data;
             slots      = new PropertyState(d.slots);
+            slotValue  = new PropertyState(d.slotValue);
             slotSpeed  = new PropertyState(d.slotSpeed);
-            Properties = new[] { slots, slotSpeed };
+            Properties = new[] { slots, slotValue, slotSpeed };
             WirePropertyPrerequisites();
         }
 

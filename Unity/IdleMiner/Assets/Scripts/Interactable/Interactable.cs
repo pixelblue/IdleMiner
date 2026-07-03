@@ -10,6 +10,7 @@ namespace Idler
     public class Interactable : MonoBehaviour, ISaveLoad
     {
         [field: SerializeField] public InteractableData Data { get; private set; }
+        [field: SerializeField] public string SaveId { get; private set; }
         [field: SerializeField] public Collider Coll;
         [field: SerializeField] public Transform HitContainer { get; private set; }
         [field: SerializeField] public Transform UiAttachPoint { get; private set; }
@@ -166,7 +167,7 @@ namespace Idler
         public virtual void Save(SaveData data)
         {
             if (Properties.Length == 0) return;
-            var entry = System.Array.Find(data.interactables, e => e.interactableId == Data.interactableName);
+            var entry = System.Array.Find(data.interactables, e => e.interactableId == SaveId);
             if (entry == null) return;
             entry.properties = System.Array.ConvertAll(Properties, p => new PropertySaveEntry { propertyName = p.Definition.propertyName });
             foreach (var prop in Properties) prop.Save(entry.properties);
@@ -175,7 +176,7 @@ namespace Idler
         public virtual void Load(SaveData data)
         {
             if (Properties.Length == 0) return;
-            var entry = System.Array.Find(data.interactables, e => e.interactableId == Data.interactableName);
+            var entry = System.Array.Find(data.interactables, e => e.interactableId == SaveId);
             if (entry == null) { Reset(); return; }
             foreach (var prop in Properties) prop.Load(entry.properties);
         }

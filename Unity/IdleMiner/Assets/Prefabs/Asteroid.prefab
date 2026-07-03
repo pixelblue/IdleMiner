@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 873828123376229348}
-  - component: {fileID: 7408880621004578734}
+  - component: {fileID: 5767353199267753151}
   m_Layer: 3
   m_Name: Asteroid
   m_TagString: Untagged
@@ -34,7 +34,7 @@ Transform:
   - {fileID: 1998280929196875797}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7408880621004578734
+--- !u!114 &5767353199267753151
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,18 +43,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2002133315075146568}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d976cba6f2fa4f2caa6bb956013529ff, type: 3}
+  m_Script: {fileID: 11500000, guid: c0178e5091cb23a45b40f0d24f9ba9ba, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Idler.Interactable_Asteroid
-  uiPrefab: {fileID: 0}
-  boundsShape: 0
-  boundsCenter: {x: 0, y: 0, z: 0}
-  boundsRadius: 2
-  boundsSize: {x: 1, y: 1, z: 1}
-  resourcePool: {fileID: 11400000, guid: 4793ab4a0a9ed4b6ea775a41ee6b995d, type: 2}
-  geoTrans: {fileID: 8397877772210403094}
-  rotationSpeed: 30
-  orbitTransform: {fileID: 1998280929196875797}
+  m_EditorClassIdentifier: Assembly-CSharp::Idler.MineableObject
+  resourceOutput: {fileID: 11400000, guid: bf1cbd8635c6446cebe322811ffad02d, type: 2}
 --- !u!1 &2461680297888418489
 GameObject:
   m_ObjectHideFlags: 0

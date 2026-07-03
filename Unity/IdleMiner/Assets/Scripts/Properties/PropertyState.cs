@@ -22,6 +22,7 @@ namespace Idler
         // Pass-throughs so UI code stays concise
         public string propertyName       => Definition.propertyName;
         public string propertyInfo       => Definition.propertyInfo;
+        public bool   showInUI           => Definition.showInUI;
         public Sprite propertyIcon       => Definition.propertyIcon;
         public ResourceData costResource => Definition.costResource;
 

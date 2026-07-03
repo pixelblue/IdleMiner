@@ -7,10 +7,10 @@ namespace Idler.Editor
 {
     public class GameDataEditor : EditorWindow
     {
-        // label | SO ref | output icon | cost res | cost icon | unlocks after (SO) | after level | base | incr | max lvl | cost base | cost mult | scaling | curve | max val | ping
-        private static readonly float[] W = { 110, 195, 44, 165, 30, 150, 42, 55, 55, 50, 60, 60, 80, 55, 55, 22 };
+        // label | SO ref | output icon | cost res | cost icon | unlocks after (SO) | after level | base | incr | max lvl | cost base | cost mult | scaling | curve | max val | show ui | ping
+        private static readonly float[] W = { 110, 195, 44, 165, 30, 150, 42, 55, 55, 50, 60, 60, 80, 55, 55, 38, 22 };
         private static readonly string[] Headers =
-            { "Property", "Definition", "Output Icon", "Cost Res", "Cost Icon", "Unlocks After", "Lvl", "Base", "Increment", "Max Lvl", "Cost Base", "Cost Mult", "Scaling", "Curve", "Max Val" };
+            { "Property", "Definition", "Output Icon", "Cost Res", "Cost Icon", "Unlocks After", "Lvl", "Base", "Increment", "Max Lvl", "Cost Base", "Cost Mult", "Scaling", "Curve", "Max Val", "Show UI" };
 
         private GameData gameData;
         private SerializedObject gameDataSO;
@@ -366,8 +366,9 @@ namespace Idler.Editor
                 EditorGUI.BeginDisabledGroup(true);
                 EditorGUILayout.FloatField(def.MaxValue, GUILayout.Width(W[14]));
                 EditorGUI.EndDisabledGroup();
+                Field(defSO, "showInUI", W[15]);
                 if (EditorGUI.EndChangeCheck()) defSO.ApplyModifiedProperties();
-                if (GUILayout.Button("↗", GUILayout.Width(W[15]))) EditorGUIUtility.PingObject(def);
+                if (GUILayout.Button("↗", GUILayout.Width(W[16]))) EditorGUIUtility.PingObject(def);
             }
 
             EditorGUILayout.EndHorizontal();

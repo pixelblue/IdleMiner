@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Idler.GameData
   allInteractables:
   - {fileID: 11400000, guid: 0c994489978086241871868ffa411e49, type: 2}
-  - {fileID: 11400000, guid: aa875575edafff044924a32120a20680, type: 2}
   - {fileID: 11400000, guid: 170aa6372a6f64be0a72af99fbeb805a, type: 2}
+  - {fileID: 11400000, guid: 8da5ac014c0c88c43b24c6b46bebfe6b, type: 2}
   HitRate: {fileID: 11400000, guid: 5f0f2f5290081d34f969e73ddd4f7af2, type: 2}
   HitRadius: {fileID: 11400000, guid: abbeecf495116c04c917d3ada9f65b69, type: 2}
   rawResources:

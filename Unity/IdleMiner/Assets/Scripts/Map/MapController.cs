@@ -12,15 +12,15 @@ namespace Idler
         [field: SerializeField] public ResourceController ResourcePrefab { get; private set; }
 
         public List<Interactable> AllInteractables { get; private set; } = new List<Interactable>();
+        public List<MineableObject> AllMineableObjects { get; private set; } = new List<MineableObject>();
+        public Dictionary<ResourceData, List<MineableObject>> MineablesByResource { get; private set; } = new();
         public Interactable SelectedInteractable { get; set; }
 
-        private IGame gameCtrl;
         private IEventManager eventCtrl;
         private IObjectives objectivesCtrl;
 
         private void Awake()
         {
-            gameCtrl = ServiceLocator.Current.Get<IGame>();
             eventCtrl = ServiceLocator.Current.Get<IEventManager>();
             objectivesCtrl = ServiceLocator.Current.Get<IObjectives>();
         }
@@ -38,6 +38,11 @@ namespace Idler
         public void Initialize()
         {
             AllInteractables = GetComponentsInChildren<Interactable>().ToList();
+            AllMineableObjects = GetComponentsInChildren<MineableObject>().ToList();
+            MineablesByResource = AllMineableObjects
+                .Where(m => m.Resource != null)
+                .GroupBy(m => m.Resource)
+                .ToDictionary(g => g.Key, g => g.ToList());
             foreach (var interactable in AllInteractables)
                 interactable.Initialize();
         }
@@ -60,10 +65,9 @@ namespace Idler
 
         public void Save(SaveData data)
         {
-            var defs = gameCtrl.Data.allInteractables;
-            data.interactables = new InteractableSaveEntry[defs.Length];
-            for (int i = 0; i < defs.Length; i++)
-                data.interactables[i] = new InteractableSaveEntry { interactableId = defs[i].interactableName };
+            data.interactables = new InteractableSaveEntry[AllInteractables.Count];
+            for (int i = 0; i < AllInteractables.Count; i++)
+                data.interactables[i] = new InteractableSaveEntry { interactableId = AllInteractables[i].SaveId };
             foreach (var interactable in AllInteractables)
                 interactable.Save(data);
         }

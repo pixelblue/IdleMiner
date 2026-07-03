@@ -40,7 +40,7 @@ namespace Idler
                 currentSpeed = maxSpeed;
             botContainer.transform.Rotate(Vector3.up, currentSpeed * Time.deltaTime);
             
-            if(Keyboard.current.bKey.wasPressedThisFrame) AddBot(1);
+            if(Application.isEditor) if(Keyboard.current.bKey.wasPressedThisFrame) AddBot(1);
         }
 
         public void AddBot(int botsToAdd)

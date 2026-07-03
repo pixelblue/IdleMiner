@@ -25,6 +25,7 @@ namespace Idler
     {
         public string resourceName;
         public float currentAmount;
+        public bool isDiscovered;
     }
 
     [Serializable]
@@ -39,5 +40,6 @@ namespace Idler
     {
         public string interactableId;
         public PropertySaveEntry[] properties = System.Array.Empty<PropertySaveEntry>();
+        public string selectedResourceName;
     }
 }

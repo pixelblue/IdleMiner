@@ -9,6 +9,7 @@ namespace Idler
     {
         public string propertyName;
         [Multiline] public string propertyInfo;
+        public bool showInUI = true;
         public Sprite propertyIcon;
         public ResourceData costResource;
         public PropertyDefinition unlocksAfter;  // null = always unlocked
