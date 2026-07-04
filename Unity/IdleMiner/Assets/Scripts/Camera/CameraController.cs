@@ -46,7 +46,6 @@ namespace Idler
 
             if (dragging && wasDragging)
             {
-                print("handling drag now");
                 var screenDelta = screenPos - previousScreenPos;
                 float pixelsToWorld = Cam.orthographicSize * 2f / UnityEngine.Screen.height;
 
