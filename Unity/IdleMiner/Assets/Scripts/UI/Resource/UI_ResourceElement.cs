@@ -1,5 +1,6 @@
 using System;
 using ANS.Common.ServiceLocator;
+using ANS_Core.Utilities;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -42,7 +43,7 @@ namespace Idler
 
         private void UpdateValues()
         {
-            resourceAmountText.text = Mathf.Ceil(resourceCtrl.Get(ResourceData)).ToString();
+            resourceAmountText.text = Util.FormatNumber(resourceCtrl.Get(ResourceData));
         }
 
         private void OnResourceChanged(ResourceData resourceData, float amount)

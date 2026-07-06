@@ -29,8 +29,6 @@ namespace Idler
             var baseStation = interactable as Interactable_BaseStation;
             var botsToAdd = baseStation.GetNumberOfBots();
             AddBot(botsToAdd);
-
-
         }
 
         private void Update()

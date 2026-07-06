@@ -189,7 +189,7 @@ namespace Idler
         protected void SpawnResource(float value, ResourceData resourceToDrop)
         {
             var newResource = (ResourceController)PoolCtrl.Spawn(MapCtrl.ResourcePrefab.name, Vector3.zero);
-            newResource.Initialize(Coll, resourceToDrop, value);
+            newResource.Initialize(this.transform, resourceToDrop, value);
         }
 
     }

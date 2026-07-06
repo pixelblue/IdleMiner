@@ -4,6 +4,7 @@ namespace Idler
 {
     public class Interactable_Satellite : Interactable
     {
+        [SerializeField] private float cursorPressedSpeedMultiplier = 1.5f;
         private PropertyState slots;
         private PropertyState slotValue;
         private PropertyState slotSpeed;
@@ -33,7 +34,14 @@ namespace Idler
 
         private void Update()
         {
-            satelliteUI?.TickModules(Time.deltaTime, slotSpeed.Value);
+            if (IsCursorPressed)
+            {
+                satelliteUI?.TickModules(Time.deltaTime * cursorPressedSpeedMultiplier, slotSpeed.Value);
+            }
+            else
+            {
+                satelliteUI?.TickModules(Time.deltaTime, slotSpeed.Value);
+            }
         }
 
         private void OnSlotLevelsChanges(int level)

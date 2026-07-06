@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using ANS_Core.Utilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,11 +14,14 @@ namespace Idler.DroneSpawner
         [SerializeField] private DroneController dronePrefab;
         
         private PropertyState drones;
+        private PropertyState dronesSpawnrate;
         private PropertyState dronesCapacity;
         private PropertyState dronesSpeed;
         private InteractableUI_DroneSpawner droneUI;
+        private float timer;
 
         public ResourceData SelectedResource { get; private set; }
+        public List<DroneController> FlyingDrones { get; private set; } = new List<DroneController>();
 
         protected override void Awake()
         {
@@ -24,14 +29,38 @@ namespace Idler.DroneSpawner
             droneUI         = InteractableUICtrl as InteractableUI_DroneSpawner;
             var d           = (DroneSpawnerData)Data;
             drones          = new PropertyState(d.drones);
+            dronesSpawnrate = new PropertyState(d.dronesSpawnRate);
             dronesCapacity  = new PropertyState(d.dronesCapacity);
             dronesSpeed     = new PropertyState(d.dronesSpeed);
-            Properties      = new[] { drones, dronesCapacity, dronesSpeed };
+            Properties      = new[] { drones, dronesSpawnrate, dronesCapacity, dronesSpeed };
             WirePropertyPrerequisites();
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+        }
+        
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+        }
+        
+        public override void Initialize()
+        {
+            base.Initialize();
+            SelectedResource = MapCtrl.MineablesByResource.Keys.First();
+            timer = 0.0f;
         }
 
         private void Update()
         {
+            timer += Time.deltaTime;
+            if (timer >= dronesSpawnrate.Value && FlyingDrones.Count < drones.Value)
+            {
+                AddDrone(1);
+                timer = 0.0f;
+            }
             if(Application.isEditor) 
                 if(Keyboard.current.dKey.wasPressedThisFrame) AddDrone(1);
         }
@@ -41,6 +70,7 @@ namespace Idler.DroneSpawner
             var newDrone = PoolCtrl.Spawn(dronePrefab.name, droneStartPos.position) as DroneController;
             var randomMinableObject = MapCtrl.MineablesByResource[SelectedResource][UnityEngine.Random.Range(0, MapCtrl.MineablesByResource[SelectedResource].Count)];
             newDrone.Initialize(this, randomMinableObject);
+            FlyingDrones.Add(newDrone);
         }
 
         public void AssignResource(ResourceData resource)
@@ -63,12 +93,6 @@ namespace Idler.DroneSpawner
             SelectedResource = FindResourceByName(entry.selectedResourceName);
         }
 
-        public override void Initialize()
-        {
-            base.Initialize();
-            SelectedResource = MapCtrl.MineablesByResource.Keys.First();
-        }
-
         public override void Reset()
         {
             base.Reset();
@@ -86,9 +110,16 @@ namespace Idler.DroneSpawner
 
         public float GetLoadCapacity() => dronesCapacity.Value;
 
-        public void DroneReturned(float amount)
+        public void DroneReturned(DroneController drone, float amount)
         {
             SpawnResource(amount, SelectedResource);
+            PoolCtrl.Release(Util.GetNameWithoutClone(drone.gameObject.name), drone);
+            FlyingDrones.Remove(drone);
+        }
+
+        public float GetDroneSpeed()
+        {
+            return dronesSpeed.Value;
         }
     }
 }

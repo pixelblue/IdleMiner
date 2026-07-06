@@ -6,6 +6,7 @@ namespace Idler.DroneSpawner
     public class DroneSpawnerData : InteractableData
     {
         public PropertyDefinition drones;
+        public PropertyDefinition dronesSpawnRate;
         public PropertyDefinition dronesCapacity;
         public PropertyDefinition dronesSpeed;
     }

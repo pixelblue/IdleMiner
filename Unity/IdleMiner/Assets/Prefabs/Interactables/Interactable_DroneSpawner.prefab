@@ -285,6 +285,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1770503063874725549}
   - component: {fileID: 8605609831252024934}
+  - component: {fileID: 8965025007913882593}
   m_Layer: 3
   m_Name: Interactable_DroneSpawner
   m_TagString: Untagged
@@ -333,6 +334,18 @@ MonoBehaviour:
   droneStartPos: {fileID: 208270321372401130}
   drone2ndStartPos: {fileID: 4509842265714143296}
   dronePrefab: {fileID: 4336328845601643246, guid: 40cde1246de2e154fa9bd32d8e4da724, type: 3}
+--- !u!114 &8965025007913882593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6921051266354046944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9608e8a6b5144fca59d2dbd06dab333, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Idler.OutlineController
 --- !u!1 &7306326890400284672
 GameObject:
   m_ObjectHideFlags: 0

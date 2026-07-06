@@ -9,6 +9,7 @@ namespace Idler
     {
         [SerializeField] private BulletController bulletPrefab;
         [SerializeField] private float fireRate = 1.0f;
+        [SerializeField] private float fireRateMax = 0.5f;
 
         private float timer;
         private IPool poolCtrl;
@@ -32,7 +33,8 @@ namespace Idler
             {
                 var bulletCtrl = poolCtrl.Spawn(bulletPrefab.name, transform.position) as BulletController;
                 bulletCtrl.Initialize(this);
-                timer = fireRate;
+
+                timer = BotSpawner.Interactable.IsCursorPressed ? fireRateMax : fireRate;
             }
         }
     }

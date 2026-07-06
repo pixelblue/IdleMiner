@@ -44,8 +44,7 @@ namespace Idler
                 float loaded = droneSpawner.GetLoadCapacity();
                 FlyTo(new[] { pathPoints[2], pathPoints[1], pathPoints[0] }, () =>
                 {
-                    droneSpawner.DroneReturned(loaded);
-                    poolCtrl.Release(Util.GetNameWithoutClone(gameObject.name), this);
+                    droneSpawner.DroneReturned(this, loaded);
                 });
             });
         }
@@ -53,7 +52,7 @@ namespace Idler
         private void FlyTo(Vector3[] waypoints, Action onComplete)
         {
             var path = new Path(PathType.CatmullRom, waypoints, 10, Color.yellow);
-            transform.DOPath(path, 3.0f)
+            transform.DOPath(path, droneSpawner.GetDroneSpeed())
                      .SetLookAt(0.01f, Vector3.forward)
                      .SetEase(Ease.OutCubic)
                      .OnComplete(() => onComplete());
