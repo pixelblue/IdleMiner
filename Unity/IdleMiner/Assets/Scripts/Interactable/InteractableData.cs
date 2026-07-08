@@ -6,5 +6,8 @@ namespace Idler
     public class InteractableData : ScriptableObject
     {
         public string interactableName;
+        public bool isBuildable = true;
+        public Interactable prefab;
+        public PropertyDefinition main;
     }
 }

@@ -5,8 +5,10 @@ namespace Idler
             public override void OnActivate()
             {
                 base.OnActivate();
+                Ctrl.CursorCtrl.Initialize();
                 Ctrl.ResourcePanel.Initialize();
                 Ctrl.ObjectivePanel.Initialize();
+                Ctrl.BuildingsPanel.Initialize();
             }
 
             public override void OnDeactivate()

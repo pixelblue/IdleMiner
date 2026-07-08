@@ -10,6 +10,7 @@ namespace Idler
         [field: SerializeField] public CursorController CursorCtrl { get; private set; }
         [field: SerializeField] public UI_ResourcePanel ResourcePanel { get; private set; }
         [field: SerializeField] public UI_ObjectivePanelController ObjectivePanel { get; private set; }
+        [field: SerializeField] public UI_BuildingsPanel BuildingsPanel { get; private set; }
         [field: SerializeField] public Transform InteractablesContainer { get; private set; }
         [field: SerializeField] public Transform ResourcesContainer { get; private set; }
         
@@ -25,7 +26,6 @@ namespace Idler
 
         public void Initialize()
         {
-            CursorCtrl.Initialize();
             Fsm.enabled = true;
         }
     }

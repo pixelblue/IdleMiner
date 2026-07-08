@@ -51,6 +51,7 @@ namespace Idler
         private void Update()
         {
             if (this.gameObject.activeInHierarchy == false) return;
+            if (Interactable == null) return;
 
             var attachPoint = cameraCtrl.Cam.WorldToScreenPoint(Interactable.UiAttachPoint.position);
             attachPoint.z = 0f;

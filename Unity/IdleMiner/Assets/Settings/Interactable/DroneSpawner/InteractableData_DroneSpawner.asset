@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5a627f73bc784771b9d6a5fd7d6d4fd1, type: 3}
-  m_Name: Interactable_DroneSpawner
+  m_Name: InteractableData_DroneSpawner
   m_EditorClassIdentifier: Assembly-CSharp::Idler.DroneSpawner.DroneSpawnerData
   interactableName: Drone Spawner
+  isBuildable: 1
+  main: {fileID: 11400000, guid: 07f8bc7c294d04d5abb33ca925566f61, type: 2}
   drones: {fileID: 11400000, guid: dea46885003f71342b7e60f2da4d1d74, type: 2}
   dronesSpawnRate: {fileID: 11400000, guid: 68e6de2a4c39f4995899a32dc9142b5f, type: 2}
   dronesCapacity: {fileID: 11400000, guid: 0065b89b6086e4948b93b1cf0d16a330, type: 2}

@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: InteractableData_Satellite
   m_EditorClassIdentifier: Assembly-CSharp::Idler.SatelliteData
   interactableName: Satellite
+  isBuildable: 1
+  main: {fileID: 11400000, guid: d3bc766c379194264b7d7a160d13ffd5, type: 2}
   slots: {fileID: 11400000, guid: a4ea45fbdb5404ea1a837b9c18da2915, type: 2}
   slotValue: {fileID: 11400000, guid: af2be4fca7f514562a79ed59a4184432, type: 2}
   slotSpeed: {fileID: 11400000, guid: 88019f55cb4fd5640aae39d50f7304cf, type: 2}

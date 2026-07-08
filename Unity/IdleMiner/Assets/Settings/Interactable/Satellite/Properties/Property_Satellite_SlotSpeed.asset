@@ -10,19 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c13aee744fdfc7e44b7fed2f2f2d2438, type: 3}
-  m_Name: Property_BotHitValue
+  m_Name: Property_Satellite_SlotSpeed
   m_EditorClassIdentifier: Assembly-CSharp::Idler.PropertyDefinition
-  propertyName: Bot Hit Value
-  propertyInfo: 
+  propertyName: Slot Speed
+  propertyInfo: Increases the Output of each Slot by x amount
+  showInUI: 0
   propertyIcon: {fileID: 0}
   costResource: {fileID: 11400000, guid: 6026d647c552740deadf1a22782ce876, type: 2}
-  unlocksAfter: {fileID: 11400000, guid: 2297fbc79913c8e438cb429a99220f8e, type: 2}
-  unlocksAfterLevel: 2
-  baseValue: 20
-  increment: 34
+  unlocksAfter: {fileID: 0}
+  unlocksAfterLevel: 0
+  baseValue: 0.1
+  increment: 0
   maxLevel: 20
-  upgradeCostBase: 20
-  upgradeCostMultiplier: 1.5
+  upgradeCostBase: 200
+  upgradeCostMultiplier: 2
+  costScalingMode: 0
   upgradeCostCurve:
     serializedVersion: 2
     m_Curve:
@@ -30,15 +32,15 @@ MonoBehaviour:
       time: 0
       value: 1
       inSlope: 0
-      outSlope: 0
+      outSlope: 0.2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
+      time: 20
+      value: 5
+      inSlope: 0.2
       outSlope: 0
       tangentMode: 0
       weightedMode: 0

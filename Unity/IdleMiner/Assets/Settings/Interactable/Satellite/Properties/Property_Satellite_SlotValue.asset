@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c13aee744fdfc7e44b7fed2f2f2d2438, type: 3}
-  m_Name: Property_DroneSpeed
+  m_Name: Property_Satellite_SlotValue
   m_EditorClassIdentifier: Assembly-CSharp::Idler.PropertyDefinition
-  propertyName: Drone Speed
-  propertyInfo: How fast the drones fly
+  propertyName: Slot Value
+  propertyInfo: Increases the Output of each Slot by x amount
   showInUI: 1
   propertyIcon: {fileID: 0}
   costResource: {fileID: 11400000, guid: 6026d647c552740deadf1a22782ce876, type: 2}
   unlocksAfter: {fileID: 0}
   unlocksAfterLevel: 0
-  baseValue: 3
-  increment: -0.2
-  maxLevel: 12
+  baseValue: 8
+  increment: 2
+  maxLevel: 20
   upgradeCostBase: 200
-  upgradeCostMultiplier: 1.1
-  costScalingMode: 1
+  upgradeCostMultiplier: 2
+  costScalingMode: 0
   upgradeCostCurve:
     serializedVersion: 2
     m_Curve:

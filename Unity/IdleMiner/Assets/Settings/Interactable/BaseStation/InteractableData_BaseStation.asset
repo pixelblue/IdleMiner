@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: InteractableData_BaseStation
   m_EditorClassIdentifier: Assembly-CSharp::Idler.BaseStationData
   interactableName: Base Station
+  isBuildable: 0
   hitValue: {fileID: 11400000, guid: 3b1bd8e93c42f7648a588d19cad25c26, type: 2}
-  baseStationBots: {fileID: 11400000, guid: 2297fbc79913c8e438cb429a99220f8e, type: 2}
   energyCrystals: {fileID: 11400000, guid: 049036897da444e249f5f2a848853eeb, type: 2}
+  baseStationBots: {fileID: 11400000, guid: 2297fbc79913c8e438cb429a99220f8e, type: 2}
   botHitValue: {fileID: 11400000, guid: 61eac5437583232499a64e6f0bc0ca8e, type: 2}

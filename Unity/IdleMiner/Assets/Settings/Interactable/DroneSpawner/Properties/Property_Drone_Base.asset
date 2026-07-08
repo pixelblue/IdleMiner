@@ -10,19 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c13aee744fdfc7e44b7fed2f2f2d2438, type: 3}
-  m_Name: Property_HitValue
+  m_Name: Property_Drone_Base
   m_EditorClassIdentifier: Assembly-CSharp::Idler.PropertyDefinition
-  propertyName: Hit Value
-  propertyInfo: Increases the value of each Hit
+  propertyName: Base
+  propertyInfo: Controls how many drones you have
+  showInUI: 0
   propertyIcon: {fileID: 0}
-  costResource: {fileID: 11400000, guid: 5e11feb784b8b83479890b6527e86506, type: 2}
+  costResource: {fileID: 11400000, guid: 1b2ac57f7019f473fa1c6991c581a88f, type: 2}
   unlocksAfter: {fileID: 0}
   unlocksAfterLevel: 0
   baseValue: 1
   increment: 1
   maxLevel: 20
-  upgradeCostBase: 25
-  upgradeCostMultiplier: 2
+  upgradeCostBase: 1
+  upgradeCostMultiplier: 1.5
+  costScalingMode: 0
   upgradeCostCurve:
     serializedVersion: 2
     m_Curve:
@@ -30,15 +32,15 @@ MonoBehaviour:
       time: 0
       value: 1
       inSlope: 0
-      outSlope: 0
+      outSlope: 0.2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
+      time: 20
+      value: 5
+      inSlope: 0.2
       outSlope: 0
       tangentMode: 0
       weightedMode: 0

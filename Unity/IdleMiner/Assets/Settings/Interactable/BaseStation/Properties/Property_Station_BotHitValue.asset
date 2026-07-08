@@ -10,20 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c13aee744fdfc7e44b7fed2f2f2d2438, type: 3}
-  m_Name: Property_SatelliteSlots
+  m_Name: Property_Station_BotHitValue
   m_EditorClassIdentifier: Assembly-CSharp::Idler.PropertyDefinition
-  propertyName: Slots
+  propertyName: Bot Hit Value
   propertyInfo: 
   propertyIcon: {fileID: 0}
-  costResource: {fileID: 11400000, guid: 1b2ac57f7019f473fa1c6991c581a88f, type: 2}
-  unlocksAfter: {fileID: 0}
-  unlocksAfterLevel: 0
-  baseValue: 0
-  increment: 1
+  costResource: {fileID: 11400000, guid: 6026d647c552740deadf1a22782ce876, type: 2}
+  unlocksAfter: {fileID: 11400000, guid: 2297fbc79913c8e438cb429a99220f8e, type: 2}
+  unlocksAfterLevel: 2
+  baseValue: 20
+  increment: 34
   maxLevel: 20
-  upgradeCostBase: 1
-  upgradeCostMultiplier: 1
-  costScalingMode: 2
+  upgradeCostBase: 20
+  upgradeCostMultiplier: 1.5
   upgradeCostCurve:
     serializedVersion: 2
     m_Curve:
@@ -32,7 +31,7 @@ MonoBehaviour:
       value: 1
       inSlope: 0
       outSlope: 0
-      tangentMode: 34
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
@@ -41,7 +40,7 @@ MonoBehaviour:
       value: 1
       inSlope: 0
       outSlope: 0
-      tangentMode: 34
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
