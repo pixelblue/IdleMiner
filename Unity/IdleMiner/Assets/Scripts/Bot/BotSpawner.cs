@@ -33,12 +33,11 @@ namespace Idler
 
         private void Update()
         {
+            if (Interactable == null) return;
             var currentSpeed = speed;
             if (Interactable.IsCursorPressed)
                 currentSpeed = maxSpeed;
             botContainer.transform.Rotate(Vector3.up, currentSpeed * Time.deltaTime);
-            
-            if(Application.isEditor) if(Keyboard.current.bKey.wasPressedThisFrame) AddBot(1);
         }
 
         public void AddBot(int botsToAdd)

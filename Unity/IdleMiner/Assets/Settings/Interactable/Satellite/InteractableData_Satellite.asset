@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d65722480b24245f8b353c9c87f5283d, type: 3}
   m_Name: InteractableData_Satellite
   m_EditorClassIdentifier: Assembly-CSharp::Idler.SatelliteData
+  icon: {fileID: 21300000, guid: 851e95ce92638b54baf72380dbdedd52, type: 3}
   interactableName: Satellite
   isBuildable: 1
+  prefab: {fileID: 0}
   main: {fileID: 11400000, guid: d3bc766c379194264b7d7a160d13ffd5, type: 2}
   slots: {fileID: 11400000, guid: a4ea45fbdb5404ea1a837b9c18da2915, type: 2}
   slotValue: {fileID: 11400000, guid: af2be4fca7f514562a79ed59a4184432, type: 2}

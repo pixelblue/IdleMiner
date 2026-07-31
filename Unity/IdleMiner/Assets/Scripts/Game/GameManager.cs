@@ -31,18 +31,28 @@ namespace Idler
                 data.globalProperties[i] = new PropertySaveEntry { propertyName = states[i].Definition.propertyName };
             foreach (var state in states)
                 state.Save(data.globalProperties);
+
+            data.interactableTypes = new InteractableTypeSaveEntry[Data.allInteractables.Length];
+            for (int i = 0; i < Data.allInteractables.Length; i++)
+                data.interactableTypes[i] = new InteractableTypeSaveEntry { interactableName = Data.allInteractables[i].name };
+            foreach (var interactableData in Data.allInteractables)
+                interactableData.Save(data);
         }
 
         public void Load(SaveData data)
         {
             foreach (var state in GlobalPropertyStats.All())
                 state.Load(data.globalProperties);
+            foreach (var interactableData in Data.allInteractables)
+                interactableData.Load(data);
         }
 
         public void Reset()
         {
             foreach (var state in GlobalPropertyStats.All())
                 state.Reset();
+            foreach (var interactableData in Data.allInteractables)
+                interactableData.Reset();
         }
     }
     

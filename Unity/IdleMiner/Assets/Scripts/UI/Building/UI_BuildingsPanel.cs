@@ -6,7 +6,7 @@ namespace Idler
 {
     public class UI_BuildingsPanel : MonoBehaviour
     {
-        [SerializeField] private BuildingElement buildingElementPrefab;
+        [SerializeField] private UI_BuildingElement uiBuildingElementPrefab;
         [SerializeField] private Transform buildingElementsContainer;
 
         private IGame gameCtrl;
@@ -26,7 +26,7 @@ namespace Idler
             {
                 if (!data.isBuildable) continue;
 
-                var element = Instantiate(buildingElementPrefab, buildingElementsContainer);
+                var element = Instantiate(uiBuildingElementPrefab, buildingElementsContainer);
                 element.Initialize(data);
             }
         }

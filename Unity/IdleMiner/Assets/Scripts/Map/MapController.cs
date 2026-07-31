@@ -8,7 +8,6 @@ namespace Idler
 {
     public class MapController : MonoBehaviour, IMap, ISaveLoad
     {
-        [field: SerializeField] public GameObject[] allStageContainers;
         [field: SerializeField] public ResourceController ResourcePrefab { get; private set; }
 
         public List<Interactable> AllInteractables { get; private set; } = new List<Interactable>();
@@ -25,19 +24,9 @@ namespace Idler
             objectivesCtrl = ServiceLocator.Current.Get<IObjectives>();
         }
 
-        private void OnEnable()
-        {
-            eventCtrl.LevelAdvanced += OnLevelAdvanced;
-        }
-
-        private void OnDisable()
-        {
-            eventCtrl.LevelAdvanced -= OnLevelAdvanced;
-        }
-
         public void Initialize()
         {
-            AllInteractables = GetComponentsInChildren<Interactable>().ToList();
+            AllInteractables = GetComponentsInChildren<Interactable>(true).ToList();
             AllMineableObjects = GetComponentsInChildren<MineableObject>().ToList();
             MineablesByResource = AllMineableObjects
                 .Where(m => m.Resource != null)
@@ -45,22 +34,6 @@ namespace Idler
                 .ToDictionary(g => g.Key, g => g.ToList());
             foreach (var interactable in AllInteractables)
                 interactable.Initialize();
-        }
-
-        private void OnLevelAdvanced(int newLevel)
-        {
-            UpdateStagesInstantly();
-        }
-        
-        private void UpdateStagesInstantly()
-        {
-            for (int i = 0; i < allStageContainers.Length; i++)
-            {
-                if(objectivesCtrl.CurrentLevel >= i)
-                    allStageContainers[i].SetActive(true);
-                else
-                    allStageContainers[i].SetActive(false);
-            }
         }
 
         public void Save(SaveData data)
@@ -76,17 +49,12 @@ namespace Idler
         {
             foreach (var interactable in AllInteractables)
                 interactable.Load(data);
-
-            UpdateStagesInstantly();
-            
         }
 
         public void Reset()
         {
             foreach (var interactable in AllInteractables)
                 interactable.Reset();
-            
-            UpdateStagesInstantly();
         }
     }
 }

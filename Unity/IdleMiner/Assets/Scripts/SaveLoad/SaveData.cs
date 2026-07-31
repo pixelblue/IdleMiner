@@ -11,6 +11,7 @@ namespace Idler
         public ResourceSaveEntry[] resources = Array.Empty<ResourceSaveEntry>();
         public PropertySaveEntry[] globalProperties = Array.Empty<PropertySaveEntry>();
         public InteractableSaveEntry[] interactables = Array.Empty<InteractableSaveEntry>();
+        public InteractableTypeSaveEntry[] interactableTypes = Array.Empty<InteractableTypeSaveEntry>();
     }
 
     [Serializable]
@@ -41,5 +42,12 @@ namespace Idler
         public string interactableId;
         public PropertySaveEntry[] properties = System.Array.Empty<PropertySaveEntry>();
         public string selectedResourceName;
+    }
+
+    [Serializable]
+    public class InteractableTypeSaveEntry
+    {
+        public string interactableName;
+        public int level;
     }
 }
