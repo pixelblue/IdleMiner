@@ -11,7 +11,6 @@ namespace Idler
 
         [Header("Global Properties")]
         public PropertyDefinition HitRate;
-        public PropertyDefinition HitRadius;
 
         [Header("Resources")]
         public List<ResourceData> rawResources;

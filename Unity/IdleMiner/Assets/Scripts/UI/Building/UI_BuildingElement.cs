@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using ANS.Common.ServiceLocator;
 using TMPro;
 using UnityEngine;
@@ -20,11 +21,13 @@ namespace Idler
         private InteractableData interactableData;
         private IEventManager eventCtrl;
         private IResourceManager resourceCtrl;
+        private IMap mapCtrl;
 
         private void Awake()
         {
             resourceCtrl = ServiceLocator.Current.Get<IResourceManager>();
             eventCtrl    = ServiceLocator.Current.Get<IEventManager>();
+            mapCtrl      = ServiceLocator.Current.Get<IMap>();
         }
 
         private void OnEnable()
@@ -52,13 +55,40 @@ namespace Idler
             costText.text   = interactableData.NextUpgradeCost.ToString();
             costIcon.sprite = interactableData.CostResource.icon;
 
+            var currentLevel = interactableData.CurrentLevel;
+            var objectsInScene = GetInteractableObjectsInScene();
+
+            if (IsMaxed())
+            {
+                costIcon.gameObject.SetActive(false);
+                costText.text = "MAX";
+                buyButton.interactable = false;
+            }
+            
+            owningText.text = currentLevel + " / " + objectsInScene;
             UpdateBuyButton();
+        }
+
+        private bool IsMaxed()
+        {
+            var currentLevel = interactableData.CurrentLevel;
+            var objectsInScene = GetInteractableObjectsInScene();
+            
+            return currentLevel >= objectsInScene;
+        }
+
+        private int GetInteractableObjectsInScene()
+        {
+            return mapCtrl.AllInteractables.Count(interactable => interactable.Data == interactableData);
         }
 
         private void UpdateBuyButton()
         {
             bool canAfford = interactableData.HasEnoughResources();
-            buyButton.interactable = canAfford;
+            if (canAfford)
+            {
+                if(IsMaxed() == false) buyButton.interactable = true;
+            }
             buyButtonBgImage.color = canAfford ? canBuyColor : cantBuyColor;
         }
 

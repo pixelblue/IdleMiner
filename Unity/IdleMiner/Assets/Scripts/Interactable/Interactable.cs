@@ -7,10 +7,12 @@ using UnityEngine.EventSystems;
 
 namespace Idler
 {
-    public class Interactable : MonoBehaviour, ISaveLoad
+    public partial class Interactable : MonoBehaviour, ISaveLoad
     {
         [field: SerializeField] public InteractableData Data { get; private set; }
-        [field: SerializeField] public string SaveId { get; private set; }
+        [SerializeField, HideInInspector] private string saveId;
+        public string SaveId => saveId;
+        [field: SerializeField] public int UnlockAtLevel { get; private set; }
         [field: SerializeField] public Collider Coll;
         [field: SerializeField] public Transform HitContainer { get; private set; }
         [field: SerializeField] public Transform UiAttachPoint { get; private set; }
@@ -57,9 +59,24 @@ namespace Idler
         
         public virtual void Initialize()
         {
-            
+            if (Data == null) return;
+            TryUnlock();
         }
-        
+
+        public void TryUnlock()
+        {
+            print("tryUnlock on interactable " + this.gameObject.name + " with data " + Data.name + " and unlock level " + UnlockAtLevel + " and current level " + Data.CurrentLevel);
+            if (Data.isBuildable == false) return;
+            if (Data.CurrentLevel >= UnlockAtLevel)
+            {
+                gameObject.SetActive(true);
+            }
+            else
+            {
+                gameObject.SetActive(false);
+            }
+        }
+
         public virtual void OnCursorPressed(CursorController cursor)
         {
             IsCursorPressed = true;

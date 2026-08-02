@@ -17,6 +17,7 @@ MonoBehaviour:
   isBuildable: 1
   prefab: {fileID: 0}
   main: {fileID: 11400000, guid: 07f8bc7c294d04d5abb33ca925566f61, type: 2}
+  unlockAtLevel: 3
   drones: {fileID: 11400000, guid: dea46885003f71342b7e60f2da4d1d74, type: 2}
   dronesSpawnRate: {fileID: 11400000, guid: 68e6de2a4c39f4995899a32dc9142b5f, type: 2}
   dronesCapacity: {fileID: 11400000, guid: 0065b89b6086e4948b93b1cf0d16a330, type: 2}

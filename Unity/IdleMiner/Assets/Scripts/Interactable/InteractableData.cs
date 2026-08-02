@@ -10,6 +10,7 @@ namespace Idler
         public bool isBuildable = true;
         public Interactable prefab;
         public PropertyDefinition main;
+        public int unlockAtObjectivesLevel;
 
         public int CurrentLevel { get; private set; }
 

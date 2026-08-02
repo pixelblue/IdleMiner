@@ -24,6 +24,16 @@ namespace Idler
             objectivesCtrl = ServiceLocator.Current.Get<IObjectives>();
         }
 
+        private void OnEnable()
+        {
+            eventCtrl.InteractablePurchased += OnInteractablePurchased;
+        }
+
+        private void OnDisable()
+        {
+            eventCtrl.InteractablePurchased -= OnInteractablePurchased;
+        }
+
         public void Initialize()
         {
             AllInteractables = GetComponentsInChildren<Interactable>(true).ToList();
@@ -34,6 +44,16 @@ namespace Idler
                 .ToDictionary(g => g.Key, g => g.ToList());
             foreach (var interactable in AllInteractables)
                 interactable.Initialize();
+        }
+
+        private void OnInteractablePurchased(InteractableData interactableData)
+        {
+            print("Interactable Purchased is " + interactableData.name);
+            foreach (var interactable in AllInteractables)
+            {
+                print("checking interactable " + interactable.Data.name);
+                if (interactable.Data == interactableData) interactable.Initialize();
+            }
         }
 
         public void Save(SaveData data)

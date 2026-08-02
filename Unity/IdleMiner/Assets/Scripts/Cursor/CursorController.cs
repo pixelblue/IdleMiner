@@ -20,8 +20,6 @@ namespace Idler
         private ICamera camCtrl;
         private PlayerInput playerInput;
         private RectTransform rectTransform;
-        private Canvas canvas;
-        private float worldHitRadius;
         private Ray gizmoRay;
         private int interactableLayer;
         private readonly List<Interactable> toRemove = new();
@@ -33,10 +31,8 @@ namespace Idler
         {
             camCtrl       = ServiceLocator.Current.Get<ICamera>();
             rectTransform = GetComponent<RectTransform>();
-            canvas        = GetComponentInParent<Canvas>();
             interactableLayer = 1 << LayerMask.NameToLayer(Constants.Layers.Interactable);
             uiPointerData = new PointerEventData(EventSystem.current);
-            //UpdateSize();
         }
 
         private void OnEnable()
@@ -63,18 +59,17 @@ namespace Idler
         private void Update()
         {
             var screenPos = GetScreenPosition();
-            UpdateSize();
             UpdatePosition(screenPos);
             UpdateCast();
             UpdateImageVisibility(screenPos);
         }
-        
+
         private void UpdateCast()
         {
             var ray = camCtrl.Cam.ScreenPointToRay(playerInput.Player.ScreenPosition.ReadValue<Vector2>());
             gizmoRay = ray;
 
-            int hitCount = Physics.SphereCastNonAlloc(ray, worldHitRadius, HitBuffer, float.MaxValue, interactableLayer);
+            int hitCount = Physics.RaycastNonAlloc(ray, HitBuffer, float.MaxValue, interactableLayer);
 
             // exits — collect first to avoid modifying the set while iterating
             toRemove.Clear();
@@ -135,15 +130,6 @@ namespace Idler
             image.enabled = !overOtherUI;
         }
 
-        private void UpdateSize()
-        {
-            if (rectTransform == null || camCtrl?.Cam == null) return;
-            rectTransform.sizeDelta = Vector2.one * (GlobalPropertyStats.HitRadius.Value * 2f);
-            // Convert canvas-unit radius to world-unit radius so raycasting matches the visual
-            var canvasUnitsPerWorldUnit = UnityEngine.Screen.height / (2f * camCtrl.Cam.orthographicSize * canvas.scaleFactor);
-            worldHitRadius = GlobalPropertyStats.HitRadius.Value / canvasUnitsPerWorldUnit;
-        }
-
         public void Activate()
         {
             Cursor.visible = false;
@@ -173,20 +159,8 @@ namespace Idler
             if (!showGizmos) return;
             if (gizmoRay.direction == Vector3.zero) return;
 
-            // Build two axes perpendicular to the ray to place the ring of rays
-            var right = Vector3.Cross(gizmoRay.direction, Vector3.up).normalized;
-            if (right.sqrMagnitude < 0.001f)
-                right = Vector3.Cross(gizmoRay.direction, Vector3.right).normalized;
-            var up = Vector3.Cross(gizmoRay.direction, right);
-
             Gizmos.color = new Color(0f, 1f, 0.4f, 0.8f);
-            const int rayCount = 12;
-            for (int i = 0; i < rayCount; i++)
-            {
-                float angle = i * (360f / rayCount) * Mathf.Deg2Rad;
-                var offset = (right * Mathf.Cos(angle) + up * Mathf.Sin(angle)) * worldHitRadius;
-                Gizmos.DrawRay(gizmoRay.origin + offset, gizmoRay.direction * 100f);
-            }
+            Gizmos.DrawRay(gizmoRay.origin, gizmoRay.direction * 100f);
         }
     }
 }

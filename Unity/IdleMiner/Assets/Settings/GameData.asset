@@ -17,7 +17,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 170aa6372a6f64be0a72af99fbeb805a, type: 2}
   - {fileID: 11400000, guid: 8da5ac014c0c88c43b24c6b46bebfe6b, type: 2}
   HitRate: {fileID: 11400000, guid: 5f0f2f5290081d34f969e73ddd4f7af2, type: 2}
-  HitRadius: {fileID: 11400000, guid: abbeecf495116c04c917d3ada9f65b69, type: 2}
   rawResources:
   - {fileID: 11400000, guid: 5e11feb784b8b83479890b6527e86506, type: 2}
   - {fileID: 11400000, guid: 1b2ac57f7019f473fa1c6991c581a88f, type: 2}

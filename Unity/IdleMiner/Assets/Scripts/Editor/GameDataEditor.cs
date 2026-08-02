@@ -169,8 +169,7 @@ namespace Idler.Editor
 
             gameDataSO.Update();
             PropTableHeader();
-            PropRow("Hit Rate",   gameDataSO.FindProperty("HitRate"));
-            PropRow("Hit Radius", gameDataSO.FindProperty("HitRadius"));
+            PropRow("Hit Rate", gameDataSO.FindProperty("HitRate"));
             gameDataSO.ApplyModifiedProperties();
             EditorGUILayout.Space(4);
         }
