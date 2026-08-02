@@ -24,7 +24,7 @@ MonoBehaviour:
   maxLevel: 20
   upgradeCostBase: 200
   upgradeCostMultiplier: 1.5
-  costScalingMode: 2
+  costScalingMode: 1
   upgradeCostCurve:
     serializedVersion: 2
     m_Curve:

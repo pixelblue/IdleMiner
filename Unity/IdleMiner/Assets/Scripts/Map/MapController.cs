@@ -22,6 +22,14 @@ namespace Idler
         {
             eventCtrl = ServiceLocator.Current.Get<IEventManager>();
             objectivesCtrl = ServiceLocator.Current.Get<IObjectives>();
+
+            // Gather in Awake so save data can be loaded before Initialize() applies unlock state
+            AllInteractables = GetComponentsInChildren<Interactable>(true).ToList();
+            AllMineableObjects = GetComponentsInChildren<MineableObject>().ToList();
+            MineablesByResource = AllMineableObjects
+                .Where(m => m.Resource != null)
+                .GroupBy(m => m.Resource)
+                .ToDictionary(g => g.Key, g => g.ToList());
         }
 
         private void OnEnable()
@@ -36,12 +44,6 @@ namespace Idler
 
         public void Initialize()
         {
-            AllInteractables = GetComponentsInChildren<Interactable>(true).ToList();
-            AllMineableObjects = GetComponentsInChildren<MineableObject>().ToList();
-            MineablesByResource = AllMineableObjects
-                .Where(m => m.Resource != null)
-                .GroupBy(m => m.Resource)
-                .ToDictionary(g => g.Key, g => g.ToList());
             foreach (var interactable in AllInteractables)
                 interactable.Initialize();
         }

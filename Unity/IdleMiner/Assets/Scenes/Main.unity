@@ -124,6 +124,71 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 873828123376229348, guid: 6e6f9c346264541d9a31b4137339f1fc, type: 3}
   m_PrefabInstance: {fileID: 257979883}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &139692569
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2092861181}
+    m_Modifications:
+    - target: {fileID: 1282330386576470676, guid: 5e8af95822ae642b7b801df8c7962ee9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 1282330386576470676, guid: 5e8af95822ae642b7b801df8c7962ee9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1282330386576470676, guid: 5e8af95822ae642b7b801df8c7962ee9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1282330386576470676, guid: 5e8af95822ae642b7b801df8c7962ee9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1282330386576470676, guid: 5e8af95822ae642b7b801df8c7962ee9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1282330386576470676, guid: 5e8af95822ae642b7b801df8c7962ee9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1282330386576470676, guid: 5e8af95822ae642b7b801df8c7962ee9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1282330386576470676, guid: 5e8af95822ae642b7b801df8c7962ee9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1282330386576470676, guid: 5e8af95822ae642b7b801df8c7962ee9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1282330386576470676, guid: 5e8af95822ae642b7b801df8c7962ee9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5361021578630699074, guid: 5e8af95822ae642b7b801df8c7962ee9, type: 3}
+      propertyPath: saveId
+      value: 998b466742b24c7fbe883629a886e9a6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5361021578630699074, guid: 5e8af95822ae642b7b801df8c7962ee9, type: 3}
+      propertyPath: <UnlockAtLevel>k__BackingField
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7029115825578550928, guid: 5e8af95822ae642b7b801df8c7962ee9, type: 3}
+      propertyPath: m_Name
+      value: Interactable_Satellite (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5e8af95822ae642b7b801df8c7962ee9, type: 3}
 --- !u!1 &162324694
 GameObject:
   m_ObjectHideFlags: 0
@@ -3430,6 +3495,11 @@ MonoBehaviour:
   showStateChange: 0
   currentState: {fileID: 0}
   initialState: {fileID: 385063609}
+--- !u!4 &1329127991 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1282330386576470676, guid: 5e8af95822ae642b7b801df8c7962ee9, type: 3}
+  m_PrefabInstance: {fileID: 139692569}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1340467397
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4030,7 +4100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4067,7 +4137,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccd1e01ee72c412cae7c9aa048756878, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Idler.CursorHitController
-  hitEffectImage: {fileID: 2100260750}
 --- !u!4 &1581577181 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 622596225381592261, guid: 795ccdc860c5a481d87eb9c0d92b9ba7, type: 3}
@@ -5369,6 +5438,7 @@ Transform:
   m_Children:
   - {fileID: 1675619249}
   - {fileID: 1041518483}
+  - {fileID: 1329127991}
   - {fileID: 995805015}
   m_Father: {fileID: 420162793}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5624,6 +5694,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5361021578630699074, guid: 5e8af95822ae642b7b801df8c7962ee9, type: 3}
+      propertyPath: saveId
+      value: bb9aacc4ceb5406881e407ca0107ee4e
+      objectReference: {fileID: 0}
+    - target: {fileID: 5361021578630699074, guid: 5e8af95822ae642b7b801df8c7962ee9, type: 3}
+      propertyPath: <UnlockAtLevel>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7029115825578550928, guid: 5e8af95822ae642b7b801df8c7962ee9, type: 3}
       propertyPath: m_Name
       value: Interactable_Satellite
@@ -5778,6 +5856,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2092861181}
     m_Modifications:
+    - target: {fileID: 1839521375664318355, guid: d703050d0132e4556881f4261f6e609e, type: 3}
+      propertyPath: saveId
+      value: 52b09e0739944833b85cefc401c8e63f
+      objectReference: {fileID: 0}
     - target: {fileID: 2279301595348451424, guid: d703050d0132e4556881f4261f6e609e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5878,6 +5960,14 @@ PrefabInstance:
     - target: {fileID: 6921051266354046944, guid: 7b6389aaab19fee42ab413992eb8c85d, type: 3}
       propertyPath: m_Name
       value: Interactable_DroneSpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 8605609831252024934, guid: 7b6389aaab19fee42ab413992eb8c85d, type: 3}
+      propertyPath: saveId
+      value: 76b02b995fc846a99958bbfcfa0a06c7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8605609831252024934, guid: 7b6389aaab19fee42ab413992eb8c85d, type: 3}
+      propertyPath: <UnlockAtLevel>k__BackingField
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

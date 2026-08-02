@@ -11,8 +11,9 @@ namespace Idler
 
             ServiceLocator.Current.Get<IPool>().CreatePools();
             ServiceLocator.Current.Get<IGame>().InitializeStats();
-            ServiceLocator.Current.Get<IMap>().Initialize();
+            
             ServiceLocator.Current.Get<ISaveLoadManager>().LoadAll();
+            ServiceLocator.Current.Get<IMap>().Initialize();
             ServiceLocator.Current.Get<ICamera>().Initialize();
             ServiceLocator.Current.Get<IMainUI>().Initialize();
 

@@ -49,7 +49,8 @@ namespace Idler.DroneSpawner
         public override void Initialize()
         {
             base.Initialize();
-            SelectedResource = MapCtrl.MineablesByResource.Keys.First();
+            // only fall back to a default when Load()/Reset() didn't already pick one
+            SelectedResource ??= MapCtrl.MineablesByResource.Keys.First();
             timer = 0.0f;
         }
 
