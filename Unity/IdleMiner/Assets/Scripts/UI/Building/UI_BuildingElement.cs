@@ -15,18 +15,18 @@ namespace Idler
         [SerializeField] private TMP_Text costText;
         [SerializeField] private TMP_Text owningText;
         [SerializeField] private Button buyButton;
-        [SerializeField] private Color canBuyColor = Color.green;
-        [SerializeField] private Color cantBuyColor = Color.red;
 
         private InteractableData interactableData;
         private IEventManager eventCtrl;
         private IResourceManager resourceCtrl;
         private IMap mapCtrl;
+        private IGame gameCtrl;
 
         private void Awake()
         {
             resourceCtrl = ServiceLocator.Current.Get<IResourceManager>();
             eventCtrl    = ServiceLocator.Current.Get<IEventManager>();
+            gameCtrl     = ServiceLocator.Current.Get<IGame>();
             mapCtrl      = ServiceLocator.Current.Get<IMap>();
         }
 
@@ -89,7 +89,7 @@ namespace Idler
             {
                 if(IsMaxed() == false) buyButton.interactable = true;
             }
-            buyButtonBgImage.color = canAfford ? canBuyColor : cantBuyColor;
+            buyButtonBgImage.color = canAfford ? gameCtrl.Data.hasEnoughResourcesButtonColor : gameCtrl.Data.missingResourceAmountButtonColor;
         }
 
         private void OnResourceChanged(ResourceData resource, float value)

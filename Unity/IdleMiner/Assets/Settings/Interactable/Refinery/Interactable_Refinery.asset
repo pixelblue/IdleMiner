@@ -9,8 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0a973f9ee3249f1b1411b3794008d74, type: 3}
+  m_Script: {fileID: 11500000, guid: 6976546ba0b9431299b8f6a144daf577, type: 3}
   m_Name: Interactable_Refinery
-  m_EditorClassIdentifier: Assembly-CSharp::Idler.InteractableData
-  interactableName: 
-  propertyDefinitions: []
+  m_EditorClassIdentifier: Assembly-CSharp::Idler.RefineryData
+  icon: {fileID: 21300000, guid: dd0d78abdc36a4e1d97121c1b01625c3, type: 3}
+  interactableName: Refinery
+  isBuildable: 1
+  unlockAtObjectivesLevel: 3
+  main: {fileID: 11400000, guid: 059bde5da6c96485e8e1fc559a7c22e9, type: 2}
+  slots: {fileID: 11400000, guid: 7061b1aaff38549f9b706120455a2b9f, type: 2}
+  slotValue: {fileID: 11400000, guid: 840ce8d26b7324afeb913b9f0b74cf96, type: 2}
+  slotSpeed: {fileID: 11400000, guid: 3030e64dff8264a7c8808c763a4a419e, type: 2}

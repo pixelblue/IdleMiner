@@ -242,7 +242,7 @@ namespace Idler.Editor
             EditorGUILayout.Space(4);
         }
 
-        private void DrawResourceTier(string label, System.Collections.Generic.List<ResourceData> resources, ref bool expanded)
+        private void DrawResourceTier(string label, System.Collections.Generic.IEnumerable<ResourceData> resources, ref bool expanded)
         {
             expanded = EditorGUILayout.Foldout(expanded, label, true, EditorStyles.foldoutHeader);
             if (!expanded || resources == null) return;

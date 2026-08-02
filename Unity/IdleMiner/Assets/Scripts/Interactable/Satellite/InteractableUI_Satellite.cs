@@ -1,15 +1,17 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Idler
 {
+    // Pure view — destroyed and recreated on every deselect/reselect. Owns no state of its
+    // own; just spawns slot visuals matching whatever modules the (persistent) Interactable hands it.
     public class InteractableUI_Satellite : InteractableUI
     {
         [field: SerializeField] public Transform SlotContainer { get; private set; }
         [SerializeField] private UI_ProductionModule productionModuleUIPrefab;
 
-        private readonly List<ProductionModule> activeModules = new();
+        private readonly List<UI_ProductionModule> slotUIs = new();
+        private List<ProductionModule> boundModules;
 
         protected override void Awake()
         {
@@ -20,24 +22,22 @@ namespace Idler
             }
         }
 
-        // Adds modules up to targetCount. Safe to call multiple times — only creates the delta.
-        public void SyncModules(int targetCount, SatelliteData data, Action<float, ResourceData> onCharged)
+        public void BindModules(List<ProductionModule> modules)
         {
-            int toAdd = targetCount - activeModules.Count;
-            for (int i = 0; i < toAdd; i++)
+            boundModules = modules;
+            for (int i = slotUIs.Count; i < modules.Count; i++)
             {
                 var slotUI = Instantiate(productionModuleUIPrefab, SlotContainer);
                 slotUI.Initialize();
-                var module = new ProductionModule(data.outputResource, data.outputAmount, slotUI, UnityEngine.Random.value);
-                module.OnCharged += () => onCharged(module.OutputAmount, module.OutputResource);
-                activeModules.Add(module);
+                slotUIs.Add(slotUI);
             }
         }
 
-        public void TickModules(float deltaTime, float chargeRate)
+        private void Update()
         {
-            foreach (var module in activeModules)
-                module.Tick(deltaTime, chargeRate);
+            if (boundModules == null) return;
+            for (int i = 0; i < slotUIs.Count; i++)
+                slotUIs[i].SetProgress(boundModules[i].Progress);
         }
     }
 }

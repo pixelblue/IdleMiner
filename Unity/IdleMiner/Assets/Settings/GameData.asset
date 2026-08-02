@@ -16,12 +16,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0c994489978086241871868ffa411e49, type: 2}
   - {fileID: 11400000, guid: 170aa6372a6f64be0a72af99fbeb805a, type: 2}
   - {fileID: 11400000, guid: 8da5ac014c0c88c43b24c6b46bebfe6b, type: 2}
+  - {fileID: 11400000, guid: 522d54ddf8553a64f8a9e2d1f2f9aa0e, type: 2}
+  cursorPressedSpeedMultiplier: 1.5
   HitRate: {fileID: 11400000, guid: 5f0f2f5290081d34f969e73ddd4f7af2, type: 2}
   rawResources:
   - {fileID: 11400000, guid: 5e11feb784b8b83479890b6527e86506, type: 2}
   - {fileID: 11400000, guid: 1b2ac57f7019f473fa1c6991c581a88f, type: 2}
   - {fileID: 11400000, guid: bf1cbd8635c6446cebe322811ffad02d, type: 2}
   - {fileID: 11400000, guid: 6026d647c552740deadf1a22782ce876, type: 2}
-  refinedResources: []
+  refinedResources:
+  - {fileID: 11400000, guid: c8eefe54791904fbf9837dd4b7d5d35d, type: 2}
   constructedResources: []
   objectives: {fileID: 11400000, guid: 3987910fbdf344ce5b92628bc1874a94, type: 2}
+  missingResourceAmountButtonColor: {r: 0.6901961, g: 0.07843138, b: 0.5070954, a: 1}
+  hasEnoughResourcesButtonColor: {r: 0.078431375, g: 0.48235294, b: 0.6901961, a: 1}

@@ -8,9 +8,8 @@ namespace Idler
         public Sprite icon;
         public string interactableName;
         public bool isBuildable = true;
-        public Interactable prefab;
-        public PropertyDefinition main;
         public int unlockAtObjectivesLevel;
+        public PropertyDefinition main;
 
         public int CurrentLevel { get; private set; }
 

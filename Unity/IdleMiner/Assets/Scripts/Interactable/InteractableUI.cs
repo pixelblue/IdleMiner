@@ -52,13 +52,18 @@ namespace Idler
         {
             if (this.gameObject.activeInHierarchy == false) return;
             if (Interactable == null) return;
+            
+            AttachUIElement();
+        }
 
+        private void AttachUIElement()
+        {
             var attachPoint = cameraCtrl.Cam.WorldToScreenPoint(Interactable.UiAttachPoint.position);
             attachPoint.z = 0f;
             this.transform.position = attachPoint;
         }
-        
-        
+
+
         private void OnPointerEnter()
         {
             
@@ -78,6 +83,7 @@ namespace Idler
             nameText.text = data.interactableName;
 
             UpdateProperties();
+            AttachUIElement();
         }
         
         private void OnPropertyLevelChanged(int level)

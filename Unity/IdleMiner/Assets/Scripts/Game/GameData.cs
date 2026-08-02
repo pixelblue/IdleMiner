@@ -10,14 +10,19 @@ namespace Idler
         public InteractableData[] allInteractables;
 
         [Header("Global Properties")]
+        public float cursorPressedSpeedMultiplier = 1.5f;
         public PropertyDefinition HitRate;
 
         [Header("Resources")]
         public List<ResourceData> rawResources;
-        public List<ResourceData> refinedResources;
+        public List<ResourceData_Refined> refinedResources;
         public List<ResourceData> constructedResources;
 
         [Header("Objectives")]
         public ObjectivesConfig objectives;
+
+        [Header("Colors")] 
+        public Color missingResourceAmountButtonColor;
+        public Color hasEnoughResourcesButtonColor;
     }
 }

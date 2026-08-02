@@ -1,4 +1,4 @@
 namespace Idler
 {
-    public enum ObjectiveType { CollectResource, BuildStructure }
+    public enum ObjectiveType { CollectResource, RefineResource, BuildStructure }
 }

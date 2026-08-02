@@ -50,7 +50,6 @@ namespace Idler
 
             Properties  = System.Array.Empty<PropertyState>();
             OutlineCtrl = GetComponent<OutlineController>();
-            SpawnUIElement();
         }
 
         protected virtual void OnEnable() { }
@@ -65,7 +64,6 @@ namespace Idler
 
         public void TryUnlock()
         {
-            print("tryUnlock on interactable " + this.gameObject.name + " with data " + Data.name + " and unlock level " + UnlockAtLevel + " and current level " + Data.CurrentLevel);
             if (Data.isBuildable == false) return;
             if (Data.CurrentLevel >= UnlockAtLevel)
             {
@@ -147,6 +145,7 @@ namespace Idler
 
         protected virtual void ShowUI()
         {
+            SpawnUIElement();
             if (InteractableUICtrl == null) return;
             InteractableUICtrl.Show(this);
         }
@@ -157,7 +156,7 @@ namespace Idler
             if (OutlineCtrl != null)                
                 OutlineCtrl.Hide();
             if (InteractableUICtrl != null)
-                InteractableUICtrl.Hide();
+                Destroy(InteractableUICtrl.gameObject);
         }
         
         public InteractableUI SpawnUIElement()

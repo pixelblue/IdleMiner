@@ -88,6 +88,7 @@ namespace Idler
 
         protected override void ShowUI()
         {
+            SpawnUIElement();
             if(ObjectivesCtrl.CurrentLevel > 0) 
                 if (InteractableUICtrl != null)
                     InteractableUICtrl.Show(this);

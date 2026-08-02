@@ -42,6 +42,7 @@ namespace Idler
         public string interactableId;
         public PropertySaveEntry[] properties = System.Array.Empty<PropertySaveEntry>();
         public string selectedResourceName;
+        public string[] refinerySlotResourceNames = System.Array.Empty<string>();
     }
 
     [Serializable]
