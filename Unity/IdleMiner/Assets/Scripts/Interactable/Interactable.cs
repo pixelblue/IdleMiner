@@ -36,6 +36,7 @@ namespace Idler
         public bool IsCursorPressed { get; private set; }
         
         private bool isCursorHovering = false;
+        private HitController hitController;
 
         protected virtual void Awake()
         {
@@ -50,6 +51,7 @@ namespace Idler
 
             Properties  = System.Array.Empty<PropertyState>();
             OutlineCtrl = GetComponent<OutlineController>();
+            hitController = GetComponentInChildren<HitController>(true);
         }
 
         protected virtual void OnEnable() { }
@@ -106,10 +108,7 @@ namespace Idler
 
         protected virtual void BumpHitContainer()
         {
-            if (HitContainer == null) return;
-            HitContainer.DOKill();
-            HitContainer.localScale = Vector3.one * 1.2f;
-            HitContainer.DOScale(Vector3.one, 0.2f);
+            if (hitController != null) hitController.ApplyHit();
         }
 
         public virtual void OnBotHit()

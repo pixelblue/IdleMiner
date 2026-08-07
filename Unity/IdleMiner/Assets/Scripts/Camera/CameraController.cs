@@ -1,5 +1,6 @@
 using ANS_Core.FSM;
 using DG.Tweening;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -36,6 +37,24 @@ namespace Idler
         private void OnDisable()
         {
             playerInput.Disable();
+        }
+
+        [Button]
+        private void SetCameraPosition0()
+        {
+            SetCameraPosition(CameraPositions[0], true);
+        }
+        
+        [Button]
+        private void SetCameraPosition1()
+        {
+            SetCameraPosition(CameraPositions[1], true);
+        }
+        
+        [Button]
+        private void SetCameraPositionFinal()
+        {
+            SetCameraPosition(FinalCameraPosition, true);
         }
         
         public void HandleDrag(bool overUI)

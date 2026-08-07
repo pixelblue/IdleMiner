@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: EffectsVolume Profile
   m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.VolumeProfile
   components:
-  - {fileID: 1580217027701490624}
   - {fileID: 2431020995838251336}
+  - {fileID: 1580217027701490624}
 --- !u!114 &1580217027701490624
 MonoBehaviour:
   m_ObjectHideFlags: 3

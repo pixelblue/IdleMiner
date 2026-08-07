@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67fa42c8932c444987f987ea1e2f4fcb, type: 3}
   m_Name: Edge Detection Settings
   m_EditorClassIdentifier: Linework::Linework.EdgeDetection.EdgeDetectionSettings
-  injectionPoint: 450
+  injectionPoint: 550
   showInSceneView: 1
   debugView: 0
   debugSectionsChannels: 7
   debugPerceptualSections: 0
-  discontinuityInput: 3
+  discontinuityInput: 8
   depthSensitivity: 1
   depthDistanceModulation: 0.477
   grazingAngleMaskPower: 0.326
@@ -33,7 +33,7 @@ MonoBehaviour:
   vertexColorChannel: 0
   sectionMapPrecision: 1
   sectionMapClearValue: 1
-  sectionRenderQueue: 0
+  sectionRenderQueue: 2
   additionalSectionPasses: []
   SectionRenderingLayer:
     serializedVersion: 0
@@ -42,7 +42,7 @@ MonoBehaviour:
     serializedVersion: 0
     m_Bits: 0
   maskInfluence: 7
-  kernel: 0
+  kernel: 1
   outlineThickness: 1
   circularKernelSamples: 10
   scaleWithDistance: 0
@@ -66,7 +66,7 @@ MonoBehaviour:
   overrideColorInShadow: 0
   outlineColorShadow: {r: 1, g: 1, b: 1, a: 1}
   fill: 0
-  fillColor: {r: 0, g: 0, b: 0, a: 1}
+  fillColor: {r: 1, g: 0, b: 0, a: 1}
   fadeByDistance: 0
   distanceFadeColor: {r: 0, g: 0, b: 0, a: 0}
   distanceFadeStart: 100

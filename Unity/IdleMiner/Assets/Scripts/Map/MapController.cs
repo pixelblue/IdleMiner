@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using ANS.Common.ServiceLocator;
+using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Playables;
 
 namespace Idler
 {
     public class MapController : MonoBehaviour, IMap, ISaveLoad
     {
+        [SerializeField] private PlayableDirector director;
         [field: SerializeField] public ResourceController ResourcePrefab { get; private set; }
+        [field: SerializeField] public List<PlayableAsset> AllStageTransitions { get; private set; }
+        [SerializeField] private List<GameObject> allStageContainers;
 
         public List<Interactable> AllInteractables { get; private set; } = new List<Interactable>();
         public List<MineableObject> AllMineableObjects { get; private set; } = new List<MineableObject>();
@@ -35,11 +40,35 @@ namespace Idler
         private void OnEnable()
         {
             eventCtrl.InteractablePurchased += OnInteractablePurchased;
+            eventCtrl.LevelAdvanced += OnLevelAdvanced;
         }
 
         private void OnDisable()
         {
             eventCtrl.InteractablePurchased -= OnInteractablePurchased;
+            eventCtrl.LevelAdvanced -= OnLevelAdvanced;
+        }
+
+        private void OnLevelAdvanced(int level)
+        {
+            AddRigidbodyForce(level);
+            
+            director.Play(AllStageTransitions[level-1]);
+        }
+
+        [Button]
+        private void DebugAddForce()
+        {
+            AddRigidbodyForce(1);
+        }
+        private void AddRigidbodyForce(int level)
+        {
+            var allRbs = this.gameObject.GetComponentsInChildren<Rigidbody>(true);
+            foreach (var rb in allRbs)
+            {
+                rb.isKinematic = false;
+                rb.AddExplosionForce(5000f, Vector3.zero, 20.0f);
+            }
         }
 
         public void Initialize()
@@ -50,12 +79,8 @@ namespace Idler
 
         private void OnInteractablePurchased(InteractableData interactableData)
         {
-            print("Interactable Purchased is " + interactableData.name);
             foreach (var interactable in AllInteractables)
-            {
-                print("checking interactable " + interactable.Data.name);
                 if (interactable.Data == interactableData) interactable.Initialize();
-            }
         }
 
         public void Save(SaveData data)
