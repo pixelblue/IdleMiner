@@ -6,7 +6,6 @@ namespace Idler
 {
     public class Interactable_BaseStation : Interactable
     {
-        [SerializeField] private List<GameObject> allStages;
         [SerializeField] private ResourceData resourceToDrop;
         [SerializeField] private BotSpawner botSpawner;
 
@@ -65,12 +64,6 @@ namespace Idler
         public override void Initialize()
         {
             base.Initialize();
-
-            foreach (var obj in allStages)
-                obj.SetActive(false);
-
-            var stageIndex = Mathf.Clamp(ObjectivesCtrl.CurrentLevel, 0, allStages.Count - 1);
-            allStages[stageIndex]?.SetActive(true);
             CurrentLevel = ObjectivesCtrl.CurrentLevel;
         }
 

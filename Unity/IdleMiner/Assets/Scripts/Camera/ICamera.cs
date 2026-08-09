@@ -7,5 +7,6 @@ namespace Idler
     {
         Camera Cam { get; }
         void Initialize();
+        void SetCameraPosition(CameraPosition cameraPosition, bool instant = false);
     }
 }

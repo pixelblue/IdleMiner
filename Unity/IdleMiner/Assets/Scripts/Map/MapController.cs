@@ -11,9 +11,12 @@ namespace Idler
     public class MapController : MonoBehaviour, IMap, ISaveLoad
     {
         [SerializeField] private PlayableDirector director;
+        [field: SerializeField] public Light MainLight { get; private set; }
         [field: SerializeField] public ResourceController ResourcePrefab { get; private set; }
         [field: SerializeField] public List<PlayableAsset> AllStageTransitions { get; private set; }
         [SerializeField] private List<GameObject> allStageContainers;
+        [SerializeField] private GameObject dynamicRocksContainer;
+        [SerializeField] private List<StageSettings> stageSettings;
 
         public List<Interactable> AllInteractables { get; private set; } = new List<Interactable>();
         public List<MineableObject> AllMineableObjects { get; private set; } = new List<MineableObject>();
@@ -56,14 +59,16 @@ namespace Idler
             director.Play(AllStageTransitions[level-1]);
         }
 
+        [SerializeField] private int debugStage = 0;
         [Button]
-        private void DebugAddForce()
+        public void DebugStage()
         {
-            AddRigidbodyForce(1);
+            stageSettings[debugStage].ActivateStage();
         }
+        
         private void AddRigidbodyForce(int level)
         {
-            var allRbs = this.gameObject.GetComponentsInChildren<Rigidbody>(true);
+            var allRbs = dynamicRocksContainer.GetComponentsInChildren<Rigidbody>(true);
             foreach (var rb in allRbs)
             {
                 rb.isKinematic = false;
