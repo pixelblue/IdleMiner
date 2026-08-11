@@ -7,17 +7,21 @@
 - Idle/incremental game with an isometric top-down view
 - Use "Tower Wizard" as a inspiration
 - No player character — player controls only the mouse cursor
-- Mine resources like rocks, asteroids, satellites and space debris
-- Use bots and drones to speed up mining
-- Gameplay is split in stages. Each stage reveals new buildings and new resources to mine
-- Goal: Provide your spaceship with resources to fly to the next stage
+- Upgrade a small crystal which gives energy
+- Get more and more energy
+- Use bots and drones to speed up energy creation
+- Use Refinery and constructors to build new resources. Dronespawners for minging raw resources
+- Gameplay is split in stages. Each stage reveals new ui elements and stage elements
+- Goal: Generate enough energy and build a spaceship to fly to the next stage
 
 ## Core Features
 
-- Mining of interactable Objects
-- Hire bots / drones to mine resources automatically
-- Camera needs to be panable and zoomable on a isometric plane
-- Mouse hover with a radius does Mining or resource deployment
+- Create Energy by tapping on Crystal
+- Hire bots to create more Energy automatically
+- Build a dronespawner to mine raw resources
+- Build a refinery to refine raw resources
+- Build Constructors to construct spaceship panels, cables and etc. 
+- Camera needs to be panable and zoomable on an isometric plane
 - Mouse can also speed up mining by holding down the left mouse button
 
 ## Major Progression Stages for the Base
@@ -27,51 +31,60 @@
 #### Required Resources:
 
 - Energy
-- Repair the Base (tapping on it)
-- Base repaired (cam zoom out)
+- Tap the crystal to dig it out
+- Crystal glows and starts floating (cam zoom out)
 
 ### Stage 2:
 
 #### Required Resources:
 
 - Energy
-- Tap Base more to purchase more hit value with energy resource
+- Tap Crystal more to get more energy
 - Purchases a bunch of hit value upgrades
-- Mine until enough energy to go to next stage
-- Base grows again (cam zoom out)
+- Tap until enough energy to go to next stage
+- Crystal grows again (cam zoom out)
 
 ### Stage 3:
 
 #### Required Resources:
 
-- Energy
-- Carbon
-- A Resource Container building is revealed
-- Base Grows again (cam zoom out)
+- Energy and Wisdom
+- First bots can be hired to speed up energy creation
+- A satellite can be build through the UI <- costs energy
+- Base Grows again (cam zoom out and unlocks (can be dragged now))
 
 ### Stage 4:
 
 #### Required Resources:
 
 - Energy
-- Refined Carbon
-- A Refinery building is revealed
-- Hire Bots using energy
-- Base Grows again (cam zoom out)
+- Raw Carbon
+- A Dronwspawner can be purchased using energy
+- Hire Bots using energy crystals
+- Base Grows again
 
 ### Stage 5:
 
 #### Required Resources:
 
 - Energy
-- Constructed Cables
-- A Constructor building is revealed
+- Refined Carbon
+- A Refinery building can be purchased
 - Hire bots to speed up construction
-- Base Grows again (cam zoom out)
+- Base Grows again
+
+### Stage 6:
+
+#### Required Resources:
+
+- Energy
+- Constructed Metal Plates
+- A Constructor building can be purchased
+- Base grows again
 
 ## Key Structures (Interactable Objects)
 
-### Base Station (single bigggest structure)
+### Base Station (single bigggest structure) <- This is a crystal at the beginning
 
 The Base Station is the main building of the player's base.
 It holds the main objectives for the player which resources to collect for the next stage. Player can upgrad here.
@@ -88,7 +101,8 @@ It holds the main objectives for the player which resources to collect for the n
 
 ### Satellite -> Multiple
 
-Takes carbon resources and refines them into knowledge.
+Purchased through UI
+Creates wisdom over time.
 Outputs knowledge which is needed for other properties to upgrade
 
 | Upgrades | Cost   |
@@ -100,8 +114,20 @@ Outputs knowledge which is needed for other properties to upgrade
 
 - Wisdom Resource
 
+
+### Drone Spawner -> Multiple
+
+Purchased through UI
+Creates Drones which can mine resources automatically
+
+- #### Upgrades:
+
+  - Drone Amount
+  - Drone Speed
+
 #### Refinery -> Multiple
 
+Purchased through UI
 Takes mined resources and refines them into more valuable materials.
 Outputs refined metals which need to be put into a constructor
 
@@ -112,29 +138,13 @@ Outputs refined metals which need to be put into a constructor
 
 ### Constructor -> Multiple
 
+Purchased through UI
 Takes refined metals and constructs buildings and other things like vehicles
 
 - #### Upgrades:
 
   - Construction speed
   - Construction slots
-
-### Drone Spawner -> Multiple
-
-Creates Drones which can mine resources automatically
-
-- #### Upgrades:
-
-  - Drone Amount
-  - Drone Speed
-
-### Mineable Object -> Multiple
-
-Those can be multiple different types of objects, like rocks, asteroids, satellites and so on
-
-- #### Upgrades:
-
-  - Resource slots
 
 ## Resource Tiers
 
