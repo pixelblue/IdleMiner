@@ -34,6 +34,12 @@ namespace Idler
             origScale = transform.localScale;
             origRotation = transform.localEulerAngles;
         }
+        
+        public void ApplyHit(HitType inputHitType)
+        {
+            hitType = inputHitType;
+            ApplyHit();
+        }
 
         public void ApplyHit()
         {

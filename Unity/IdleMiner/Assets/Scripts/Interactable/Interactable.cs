@@ -1,7 +1,6 @@
 using ANS_Core.Utilities;
 using ANS.Common;
 using ANS.Common.ServiceLocator;
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -16,6 +15,7 @@ namespace Idler
         [field: SerializeField] public Collider Coll;
         [field: SerializeField] public Transform HitContainer { get; private set; }
         [field: SerializeField] public Transform UiAttachPoint { get; private set; }
+        [field:SerializeField] public HitController HitController { get; private set; }
         [SerializeField] private InteractableUI uiPrefab;
 
         
@@ -36,7 +36,6 @@ namespace Idler
         public bool IsCursorPressed { get; private set; }
         
         private bool isCursorHovering = false;
-        private HitController hitController;
 
         protected virtual void Awake()
         {
@@ -51,7 +50,6 @@ namespace Idler
 
             Properties  = System.Array.Empty<PropertyState>();
             OutlineCtrl = GetComponent<OutlineController>();
-            hitController = GetComponentInChildren<HitController>(true);
         }
 
         protected virtual void OnEnable() { }
@@ -108,8 +106,7 @@ namespace Idler
 
         protected virtual void BumpHitContainer()
         {
-            if (hitController != null) hitController.ApplyHit();
-        }
+             if (HitController != null) HitController.ApplyHit();        }
 
         public virtual void OnBotHit()
         {

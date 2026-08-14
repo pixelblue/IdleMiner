@@ -8,6 +8,7 @@ namespace Idler
     {
         [SerializeField] private ResourceData resourceToDrop;
         [SerializeField] private BotSpawner botSpawner;
+        [SerializeField] private Animation hoverAnimation;
 
         private PropertyState hitValue;
         private PropertyState energyCrystals;
@@ -41,6 +42,14 @@ namespace Idler
             if (baseStationBots != null) baseStationBots.LevelChanged -= OnBotLevelChanged;
             if (energyCrystals != null) energyCrystals.LevelChanged -= OnEnergyCrystalsChanged;
         }
+        
+        public override void Initialize()
+        {
+            base.Initialize();
+            CurrentLevel = ObjectivesCtrl.CurrentLevel;
+
+            if (CurrentLevel == 1) hoverAnimation.Play();
+        }
 
         private void OnEnergyCrystalsChanged(int level)
         {
@@ -56,20 +65,42 @@ namespace Idler
             botSpawner.AddBot((int)(newBotCount - oldBotCount));
         }
 
+        protected override void BumpHitContainer()
+        {
+            switch (ObjectivesCtrl.CurrentLevel)
+            {
+                case 0:
+                    HitController.ApplyHit(HitType.Vertical);
+                    break;
+                default:
+                    HitController.ApplyHit(HitType.Vertical);
+                    break;
+            }
+        }
+
         public int GetNumberOfBots()
         {
             return (int)(baseStationBots.Value);
         }
-
-        public override void Initialize()
+        
+        public override void Save(SaveData data)
         {
-            base.Initialize();
-            CurrentLevel = ObjectivesCtrl.CurrentLevel;
+            base.Save(data);
+            var entry = System.Array.Find(data.baseStations, e => e.interactableId == SaveId);
+            if (entry == null)
+            {
+                entry = new BaseStationSaveEntry { interactableId = SaveId };
+                var entries = data.baseStations;
+                System.Array.Resize(ref entries, entries.Length + 1);
+                entries[^1] = entry;
+                data.baseStations = entries;
+            }
         }
 
         public override void Load(SaveData data)
         {
             base.Load(data);
+            var entry = System.Array.Find(data.baseStations, e => e.interactableId == SaveId);
             botSpawner.Initialize(this); // spawn saved bot count after properties are loaded
         }
 

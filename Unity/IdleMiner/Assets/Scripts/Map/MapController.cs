@@ -80,6 +80,8 @@ namespace Idler
         {
             foreach (var interactable in AllInteractables)
                 interactable.Initialize();
+            
+            stageSettings[objectivesCtrl.CurrentLevel].ActivateStage();
         }
 
         private void OnInteractablePurchased(InteractableData interactableData)

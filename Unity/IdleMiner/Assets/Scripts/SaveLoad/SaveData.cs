@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace Idler
 {
@@ -12,6 +13,7 @@ namespace Idler
         public PropertySaveEntry[] globalProperties = Array.Empty<PropertySaveEntry>();
         public InteractableSaveEntry[] interactables = Array.Empty<InteractableSaveEntry>();
         public InteractableTypeSaveEntry[] interactableTypes = Array.Empty<InteractableTypeSaveEntry>();
+        public BaseStationSaveEntry[] baseStations = Array.Empty<BaseStationSaveEntry>();
     }
 
     [Serializable]
@@ -50,5 +52,14 @@ namespace Idler
     {
         public string interactableName;
         public int level;
+    }
+
+    [Serializable]
+    public class BaseStationSaveEntry
+    {
+        public string interactableId;
+        public Vector3 rbCrystalPosition;
+        public Quaternion rbCrystalRotation = Quaternion.identity;
+        public bool rbCrystalIsKinematic;
     }
 }
