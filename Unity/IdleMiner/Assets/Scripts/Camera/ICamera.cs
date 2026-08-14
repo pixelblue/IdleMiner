@@ -1,4 +1,5 @@
 using ANS.Common.ServiceLocator;
+using Unity.Cinemachine;
 using UnityEngine;
 
 namespace Idler
@@ -7,6 +8,5 @@ namespace Idler
     {
         Camera Cam { get; }
         void Initialize();
-        void SetCameraPosition(CameraPosition cameraPosition, bool instant = false);
     }
 }

@@ -8,7 +8,6 @@ namespace Idler.States
         public override void OnActivate()
         {
             base.OnActivate();
-            Ctrl.SetCameraPosition(Ctrl.CameraPositions[ObjectivesCtrl.CurrentLevel], true);
         }
 
         public override void OnDeactivate()
@@ -30,15 +29,9 @@ namespace Idler.States
 
         private void OnLevelAdvanced(int newLevel)
         {
-            print("currentLevel is " + ObjectivesCtrl.CurrentLevel + " and cameraPositions length is " + Ctrl.CameraPositions.Length);
-            if (ObjectivesCtrl.CurrentLevel == Ctrl.CameraPositions.Length)
+            if (ObjectivesCtrl.CurrentLevel == 2)
             {
-                Ctrl.SetCameraPosition(Ctrl.FinalCameraPosition, false);
                 StartCoroutine(ChangeStateAfter());
-            }
-            else
-            {
-                Ctrl.SetCameraPosition(Ctrl.CameraPositions[ObjectivesCtrl.CurrentLevel], false);
             }
         }
 

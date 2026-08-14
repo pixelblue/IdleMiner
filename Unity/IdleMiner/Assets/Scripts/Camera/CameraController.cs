@@ -1,8 +1,6 @@
 using ANS_Core.FSM;
-using DG.Tweening;
-using NaughtyAttributes;
+using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 namespace Idler
@@ -11,12 +9,11 @@ namespace Idler
     {
         [field: SerializeField] public FSM_StateManager Fsm { get; set; }
         [field: SerializeField] public Camera Cam { get; private set; }
+        [SerializeField] private CinemachineCamera draggableCamera;
         [SerializeField] private float zoomSpeed = 0.05f;
         [SerializeField] private float minZoom = 2f;
         [SerializeField] private float maxZoom = 20f;
         [SerializeField] private float inertiaDamping = 5f;
-        [field: SerializeField] public CameraPosition[] CameraPositions { get; private set; }
-        [field: SerializeField] public CameraPosition FinalCameraPosition { get; private set; }
 
         private PlayerInput playerInput;
         private Vector2 previousScreenPos;
@@ -38,24 +35,6 @@ namespace Idler
         {
             playerInput.Disable();
         }
-
-        [Button]
-        private void SetCameraPosition0()
-        {
-            SetCameraPosition(CameraPositions[0], true);
-        }
-        
-        [Button]
-        private void SetCameraPosition1()
-        {
-            SetCameraPosition(CameraPositions[1], true);
-        }
-        
-        [Button]
-        private void SetCameraPositionFinal()
-        {
-            SetCameraPosition(FinalCameraPosition, true);
-        }
         
         public void HandleDrag(bool overUI)
         {
@@ -66,21 +45,21 @@ namespace Idler
             if (dragging && wasDragging)
             {
                 var screenDelta = screenPos - previousScreenPos;
-                float pixelsToWorld = Cam.orthographicSize * 2f / UnityEngine.Screen.height;
+                float pixelsToWorld = draggableCamera.Lens.OrthographicSize * 2f / UnityEngine.Screen.height;
 
                 // Project camera axes onto XZ so drag feels 1:1 with screen space at any angle
-                var right   = Cam.transform.right;   right.y   = 0f; right.Normalize();
-                var forward = Cam.transform.up;       forward.y = 0f; forward.Normalize();
+                var right   = draggableCamera.transform.right;   right.y   = 0f; right.Normalize();
+                var forward = draggableCamera.transform.up;       forward.y = 0f; forward.Normalize();
                 var worldDelta = (-right * screenDelta.x - forward * screenDelta.y) * pixelsToWorld;
 
-                Cam.transform.position += worldDelta;
+                draggableCamera.transform.position += worldDelta;
                 // smooth velocity to avoid spikes from single fast frames
                 dragVelocity = Vector3.Lerp(dragVelocity, worldDelta / Time.deltaTime, 15f * Time.deltaTime);
             }
             else if (!pressing)
             {
                 // coast with inertia and exponentially decay to zero
-                Cam.transform.position += dragVelocity * Time.deltaTime;
+                draggableCamera.transform.position += dragVelocity * Time.deltaTime;
                 dragVelocity = Vector3.Lerp(dragVelocity, Vector3.zero, inertiaDamping * Time.deltaTime);
                 if (dragVelocity.sqrMagnitude < 0.0001f) dragVelocity = Vector3.zero;
             }
@@ -99,21 +78,7 @@ namespace Idler
             if (overUI) return;
             float scroll = Mouse.current?.scroll.ReadValue().y ?? 0f;
             if (scroll == 0f) return;
-            Cam.orthographicSize = Mathf.Clamp(Cam.orthographicSize - scroll * zoomSpeed, minZoom, maxZoom);
-        }
-
-        public void SetCameraPosition(CameraPosition cameraPosition, bool instant = false)
-        {
-            if (instant)
-            {
-                Cam.transform.position = cameraPosition.position;
-                Cam.orthographicSize = cameraPosition.zoom;
-            }
-            else
-            {
-                Cam.transform.DOMove(cameraPosition.position, 0.5f).SetEase(Ease.InOutSine);
-                Cam.DOOrthoSize(cameraPosition.zoom, 0.5f).SetEase(Ease.InOutSine);
-            }
+            draggableCamera.Lens.OrthographicSize = Mathf.Clamp(draggableCamera.Lens.OrthographicSize - scroll * zoomSpeed, minZoom, maxZoom);
         }
     }
 }

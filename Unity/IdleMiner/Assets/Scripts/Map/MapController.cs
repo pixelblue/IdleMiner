@@ -10,13 +10,11 @@ namespace Idler
 {
     public class MapController : MonoBehaviour, IMap, ISaveLoad
     {
-        [SerializeField] private PlayableDirector director;
         [field: SerializeField] public Light MainLight { get; private set; }
         [field: SerializeField] public ResourceController ResourcePrefab { get; private set; }
-        [field: SerializeField] public List<PlayableAsset> AllStageTransitions { get; private set; }
+        [field: SerializeField] public List<PlayableDirector> AllPlayables { get; private set; }
         [SerializeField] private List<GameObject> allStageContainers;
         [SerializeField] private GameObject dynamicRocksContainer;
-        [SerializeField] private List<StageSettings> stageSettings;
 
         public List<Interactable> AllInteractables { get; private set; } = new List<Interactable>();
         public List<MineableObject> AllMineableObjects { get; private set; } = new List<MineableObject>();
@@ -25,11 +23,13 @@ namespace Idler
 
         private IEventManager eventCtrl;
         private IObjectives objectivesCtrl;
+        private ICamera camCtrl;
 
         private void Awake()
         {
             eventCtrl = ServiceLocator.Current.Get<IEventManager>();
             objectivesCtrl = ServiceLocator.Current.Get<IObjectives>();
+            camCtrl = ServiceLocator.Current.Get<ICamera>();
 
             // Gather in Awake so save data can be loaded before Initialize() applies unlock state
             AllInteractables = GetComponentsInChildren<Interactable>(true).ToList();
@@ -52,21 +52,34 @@ namespace Idler
             eventCtrl.LevelAdvanced -= OnLevelAdvanced;
         }
 
+        public void Initialize()
+        {
+            foreach (var interactable in AllInteractables)
+                interactable.Initialize();
+
+            SetStage(objectivesCtrl.CurrentLevel);
+        }
+
+        private void SetStage(int stageIndex)
+        {
+            AllPlayables[stageIndex].time = 0.0f;
+            AllPlayables[stageIndex].Evaluate();
+        }
+
         private void OnLevelAdvanced(int level)
         {
-            AddRigidbodyForce(level);
-            
-            director.Play(AllStageTransitions[level-1]);
+            AddRigidbodyForce();
+            AllPlayables[level-1].Play();
         }
 
         [SerializeField] private int debugStage = 0;
         [Button]
         public void DebugStage()
         {
-            stageSettings[debugStage].ActivateStage();
+            SetStage(debugStage);
         }
         
-        private void AddRigidbodyForce(int level)
+        private void AddRigidbodyForce()
         {
             var allRbs = dynamicRocksContainer.GetComponentsInChildren<Rigidbody>(true);
             foreach (var rb in allRbs)
@@ -74,14 +87,6 @@ namespace Idler
                 rb.isKinematic = false;
                 rb.AddExplosionForce(5000f, Vector3.zero, 20.0f);
             }
-        }
-
-        public void Initialize()
-        {
-            foreach (var interactable in AllInteractables)
-                interactable.Initialize();
-            
-            stageSettings[objectivesCtrl.CurrentLevel].ActivateStage();
         }
 
         private void OnInteractablePurchased(InteractableData interactableData)

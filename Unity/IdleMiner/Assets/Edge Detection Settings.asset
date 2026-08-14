@@ -37,7 +37,7 @@ MonoBehaviour:
   additionalSectionPasses: []
   SectionRenderingLayer:
     serializedVersion: 0
-    m_Bits: 1
+    m_Bits: 383
   SectionMaskRenderingLayer:
     serializedVersion: 0
     m_Bits: 0

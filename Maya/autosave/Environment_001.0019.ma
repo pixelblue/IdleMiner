@@ -1,6 +1,6 @@
 //Maya ASCII 2026 scene
-//Name: Environment_001.ma
-//Last modified: Fri, Aug 14, 2026 03:31:35 PM
+//Name: Environment_001.0019.ma
+//Last modified: Fri, Aug 14, 2026 01:50:27 PM
 //Codeset: 1252
 file -rdi 1 -ns "Rock_001" -rfn "Rock_001RN" -op "v=0;" -typ "mayaAscii" "C:/Projects/Repositories/IdleMiner/Maya//assets/Rock_001.ma";
 file -rdi 1 -ns "Rock_002" -rfn "Rock_002RN" -op "v=0;" -typ "mayaAscii" "C:/Projects/Repositories/IdleMiner/Maya//assets/Rock_002.ma";
@@ -17,7 +17,8 @@ fileInfo "product" "Maya 2026";
 fileInfo "version" "2026";
 fileInfo "cutIdentifier" "202510291147-60ec9eda33";
 fileInfo "osv" "Windows 11 Home v2009 (Build: 26200)";
-fileInfo "UUID" "2F060A7F-4A2F-D8E6-93DE-A18B0FF72CD6";
+fileInfo "UUID" "0F1A6F1A-4170-047C-4495-70B6A3A9CA53";
+fileInfo "exportedFrom" "C:/Projects/Repositories/IdleMiner/Maya/scenes/Environment_001.ma";
 createNode transform -s -n "persp";
 	rename -uid "8A1C0BF6-439D-DB89-079C-3A972C2B0F05";
 	setAttr ".v" no;
@@ -6729,61 +6730,6 @@ createNode shadingEngine -n "lambert4SG";
 	setAttr ".ro" yes;
 createNode materialInfo -n "materialInfo4";
 	rename -uid "2840B351-4FD3-885D-890E-678F8502CE2A";
-createNode reference -n "Rock_001RN";
-	rename -uid "F81B8217-4568-C0B5-9D0D-65A818513238";
-	setAttr ".ed" -type "dataReferenceEdits" 
-		"Rock_001RN"
-		"Rock_001RN" 0
-		"Rock_001RN" 4
-		0 "|Rock_001:Rock_001" "|Ground|Inner_001_RbRocks" "-s -r "
-		2 "|Ground|Inner_001_RbRocks|Rock_001:Rock_001" "translate" " -type \"double3\" 0.27862288139843316 0.15130447991662666 -0.65051947339927452"
-		
-		2 "|Ground|Inner_001_RbRocks|Rock_001:Rock_001" "scale" " -type \"double3\" 2.06917402718242771 2.06917402718242771 2.06917402718242771"
-		
-		3 "|Ground|Inner_001_RbRocks|Rock_001:Rock_001|Rock_001:Rock_Shape1.instObjGroups" 
-		"Rock_001:lambert4SG.dagSetMembers" "-na";
-	setAttr ".ptag" -type "string" "";
-lockNode -l 1 ;
-createNode reference -n "Rock_002RN";
-	rename -uid "946D3302-4537-1019-6988-31B814984978";
-	setAttr -s 2 ".phl";
-	setAttr ".phl[1]" 0;
-	setAttr ".phl[2]" 0;
-	setAttr ".ed" -type "dataReferenceEdits" 
-		"Rock_002RN"
-		"Rock_002RN" 0
-		"Rock_002RN" 5
-		0 "|Rock_002:Rock_002" "|Ground|Inner_001_RbRocks" "-s -r "
-		2 "|Ground|Inner_001_RbRocks|Rock_002:Rock_002" "translate" " -type \"double3\" 0.48212578744480866 0.15130447991662666 -0.49697050080687127"
-		
-		2 "|Ground|Inner_001_RbRocks|Rock_002:Rock_002" "scale" " -type \"double3\" 1.34783110061681022 1.34783110061681022 1.34783110061681022"
-		
-		5 4 "Rock_002RN" "Rock_002:lambert4SG.dagSetMembers" "Rock_002RN.placeHolderList[1]" 
-		""
-		5 4 "Rock_002RN" "Rock_002:lambert4SG.dagSetMembers" "Rock_002RN.placeHolderList[2]" 
-		"";
-	setAttr ".ptag" -type "string" "";
-lockNode -l 1 ;
-createNode reference -n "Rock_003RN";
-	rename -uid "7B33F612-4793-33AF-7C1F-CD878C305F61";
-	setAttr -s 2 ".phl";
-	setAttr ".phl[1]" 0;
-	setAttr ".phl[2]" 0;
-	setAttr ".ed" -type "dataReferenceEdits" 
-		"Rock_003RN"
-		"Rock_003RN" 0
-		"Rock_003RN" 5
-		0 "|Rock_003:Rock_003" "|Ground|Inner_001_RbRocks" "-s -r "
-		2 "|Ground|Inner_001_RbRocks|Rock_003:Rock_003" "translate" " -type \"double3\" -0.46960753103571007 0.15130447991662635 -0.61400429760297903"
-		
-		2 "|Ground|Inner_001_RbRocks|Rock_003:Rock_003" "scale" " -type \"double3\" 2.83488402476107559 2.83488402476107559 2.83488402476107559"
-		
-		5 4 "Rock_003RN" "Rock_003:lambert4SG.dagSetMembers" "Rock_003RN.placeHolderList[1]" 
-		""
-		5 4 "Rock_003RN" "Rock_003:lambert4SG.dagSetMembers" "Rock_003RN.placeHolderList[2]" 
-		"";
-	setAttr ".ptag" -type "string" "";
-lockNode -l 1 ;
 createNode aiCurvature -n "aiCurvature1";
 	rename -uid "18D4967C-4CA4-7C99-F78A-94A6EA02CB99";
 	setAttr ".samples" 10;
@@ -7237,6 +7183,61 @@ createNode polyBevel3 -n "polyBevel4";
 	setAttr ".mv" yes;
 	setAttr ".mvt" 0.0001;
 	setAttr ".sa" 30;
+createNode reference -n "Rock_001RN";
+	rename -uid "F81B8217-4568-C0B5-9D0D-65A818513238";
+	setAttr ".ed" -type "dataReferenceEdits" 
+		"Rock_001RN"
+		"Rock_001RN" 0
+		"Rock_001RN" 4
+		0 "|Rock_001:Rock_001" "|Ground|Inner_001_RbRocks" "-s -r "
+		2 "|Ground|Inner_001_RbRocks|Rock_001:Rock_001" "translate" " -type \"double3\" 0.27862288139843316 0.15130447991662666 -0.65051947339927452"
+		
+		2 "|Ground|Inner_001_RbRocks|Rock_001:Rock_001" "scale" " -type \"double3\" 2.06917402718242771 2.06917402718242771 2.06917402718242771"
+		
+		3 "|Ground|Inner_001_RbRocks|Rock_001:Rock_001|Rock_001:Rock_Shape1.instObjGroups" 
+		"Rock_001:lambert4SG.dagSetMembers" "-na";
+	setAttr ".ptag" -type "string" "";
+lockNode -l 1 ;
+createNode reference -n "Rock_002RN";
+	rename -uid "946D3302-4537-1019-6988-31B814984978";
+	setAttr -s 2 ".phl";
+	setAttr ".phl[1]" 0;
+	setAttr ".phl[2]" 0;
+	setAttr ".ed" -type "dataReferenceEdits" 
+		"Rock_002RN"
+		"Rock_002RN" 0
+		"Rock_002RN" 5
+		0 "|Rock_002:Rock_002" "|Ground|Inner_001_RbRocks" "-s -r "
+		2 "|Ground|Inner_001_RbRocks|Rock_002:Rock_002" "translate" " -type \"double3\" 0.48212578744480866 0.15130447991662666 -0.49697050080687127"
+		
+		2 "|Ground|Inner_001_RbRocks|Rock_002:Rock_002" "scale" " -type \"double3\" 1.34783110061681022 1.34783110061681022 1.34783110061681022"
+		
+		5 4 "Rock_002RN" "Rock_002:lambert4SG.dagSetMembers" "Rock_002RN.placeHolderList[1]" 
+		""
+		5 4 "Rock_002RN" "Rock_002:lambert4SG.dagSetMembers" "Rock_002RN.placeHolderList[2]" 
+		"";
+	setAttr ".ptag" -type "string" "";
+lockNode -l 1 ;
+createNode reference -n "Rock_003RN";
+	rename -uid "7B33F612-4793-33AF-7C1F-CD878C305F61";
+	setAttr -s 2 ".phl";
+	setAttr ".phl[1]" 0;
+	setAttr ".phl[2]" 0;
+	setAttr ".ed" -type "dataReferenceEdits" 
+		"Rock_003RN"
+		"Rock_003RN" 0
+		"Rock_003RN" 5
+		0 "|Rock_003:Rock_003" "|Ground|Inner_001_RbRocks" "-s -r "
+		2 "|Ground|Inner_001_RbRocks|Rock_003:Rock_003" "translate" " -type \"double3\" -0.46960753103571007 0.15130447991662635 -0.61400429760297903"
+		
+		2 "|Ground|Inner_001_RbRocks|Rock_003:Rock_003" "scale" " -type \"double3\" 2.83488402476107559 2.83488402476107559 2.83488402476107559"
+		
+		5 4 "Rock_003RN" "Rock_003:lambert4SG.dagSetMembers" "Rock_003RN.placeHolderList[1]" 
+		""
+		5 4 "Rock_003RN" "Rock_003:lambert4SG.dagSetMembers" "Rock_003RN.placeHolderList[2]" 
+		"";
+	setAttr ".ptag" -type "string" "";
+lockNode -l 1 ;
 select -ne :time1;
 	setAttr ".o" 20;
 	setAttr ".unw" 20;
@@ -7367,10 +7368,6 @@ connectAttr "lambert4SG.msg" "materialInfo4.sg";
 connectAttr "mat_Rock.msg" "materialInfo4.m";
 connectAttr ":defaultArnoldDenoiser.msg" ":defaultArnoldRenderOptions.imagers" -na
 		;
-connectAttr ":defaultArnoldDisplayDriver.msg" ":defaultArnoldRenderOptions.drivers"
-		 -na;
-connectAttr ":defaultArnoldFilter.msg" ":defaultArnoldRenderOptions.filt";
-connectAttr ":defaultArnoldDriver.msg" ":defaultArnoldRenderOptions.drvr";
 connectAttr "lambert2SG.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[0].dn"
 		;
 connectAttr "aiCurvature1.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[1].dn"
@@ -7542,4 +7539,4 @@ connectAttr "|SpaceShip|group13|pCylinder2|pCylinderShape2.iog" ":initialShading
 connectAttr "|SpaceShip|group14|pCylinder2|pCylinderShape2.iog" ":initialShadingGroup.dsm"
 		 -na;
 connectAttr "pCubeShape2.iog" ":initialShadingGroup.dsm" -na;
-// End of Environment_001.ma
+// End of Environment_001.0019.ma
