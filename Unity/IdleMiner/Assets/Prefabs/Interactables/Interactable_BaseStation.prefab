@@ -62,6 +62,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 489386718765474742}
+  - {fileID: 8263378625540069426}
   m_Father: {fileID: 2279301595348451424}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &6434576503686163916
@@ -190,7 +191,7 @@ MonoBehaviour:
   hitType: 2
   scaleValue: 1.2
   scaleDuration: 0.2
-  minMaxVerticalOffset: {x: 0.1, y: 0.15}
+  minMaxVerticalOffset: {x: 0.02, y: 0.08}
   minRotation: {x: 0, y: 0, z: 0}
   maxRotation: {x: 0, y: 0, z: 0}
   verticalDuration: 0.2
@@ -277,7 +278,6 @@ Transform:
   m_Children:
   - {fileID: 3547270709726679806}
   - {fileID: 1393913441371174445}
-  - {fileID: 8263378625540069426}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1839521375664318355
@@ -340,13 +340,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7125526361531245787}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4209157024452070393}
-  m_Father: {fileID: 2279301595348451424}
+  m_Father: {fileID: 3547270709726679806}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6227177618059174310
 MonoBehaviour:
@@ -364,7 +364,7 @@ MonoBehaviour:
   botContainer: {fileID: 4209157024452070393}
   speed: 100
   maxSpeed: 200
-  randomRadius: {x: 2, y: 2.5}
+  randomRadius: {x: 3, y: 3}
 --- !u!1 &7800799481175706366
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,6 +462,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 31b666aca984dcd46b7512f36e69f9f3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4308911558290398336}
+    - targetCorrespondingSourceObject: {fileID: 4552351200361804781, guid: 31b666aca984dcd46b7512f36e69f9f3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 201098904964049176}
   m_SourcePrefab: {fileID: 100100000, guid: 31b666aca984dcd46b7512f36e69f9f3, type: 3}
 --- !u!4 &236947077102515650 stripped
 Transform:
@@ -503,13 +506,40 @@ MonoBehaviour:
   ParameterName: _EdgeGlowPower
   meshRenderers:
   - {fileID: 4310040499996335809}
-  speed: 2
+  speed: 0.5
   maxValue: 0.5
 --- !u!23 &4310040499996335809 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -4678358621960385304, guid: 31b666aca984dcd46b7512f36e69f9f3, type: 3}
   m_PrefabInstance: {fileID: 343249255239930409}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4318464053188829636 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4552351200361804781, guid: 31b666aca984dcd46b7512f36e69f9f3, type: 3}
+  m_PrefabInstance: {fileID: 343249255239930409}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &201098904964049176
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4318464053188829636}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1996036415462846335, guid: 31b666aca984dcd46b7512f36e69f9f3, type: 3}
 --- !u!1001 &7508281699739738452
 PrefabInstance:
   m_ObjectHideFlags: 0

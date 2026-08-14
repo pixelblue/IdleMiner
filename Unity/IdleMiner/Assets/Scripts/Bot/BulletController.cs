@@ -20,6 +20,16 @@ namespace Idler
         {
             poolCtrl = ServiceLocator.Current.Get<IPool>();
         }
+        
+        public void Initialize(BotController botCtrl)
+        {
+            interactable = botCtrl.BotSpawner.Interactable;
+            startPos = transform.position;
+            var direction = (botCtrl.BotSpawner.transform.position - transform.position).normalized;
+            Physics.Raycast(startPos, direction, out RaycastHit hit, 100f);
+            targetPos = botCtrl.BotSpawner.transform.position;
+            lerp = 0.0f;   
+        }
 
         private void Update()
         {
@@ -32,14 +42,5 @@ namespace Idler
             }
         }
 
-        public void Initialize(BotController botCtrl)
-        {
-            interactable = botCtrl.BotSpawner.Interactable;
-            startPos = transform.position;
-            var direction = (botCtrl.BotSpawner.transform.position - transform.position).normalized;
-            Physics.Raycast(startPos, direction, out RaycastHit hit, 100f);
-            targetPos = hit.point;
-            lerp = 0.0f;   
-        }
     }
 }

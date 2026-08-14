@@ -49,6 +49,7 @@ namespace Idler
             CurrentLevel = ObjectivesCtrl.CurrentLevel;
 
             if (CurrentLevel == 1) hoverAnimation.Play();
+            GetCollider();
         }
 
         private void OnEnergyCrystalsChanged(int level)

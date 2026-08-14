@@ -47,6 +47,10 @@ namespace ANS.Common
 
         private IObjectPool CreateTypedPool(Component comp, string poolName, int initialSize)
         {
+            // Try LightnigController
+            var lightningObj = comp.GetComponent<LightningController>();
+            if (lightningObj != null)
+                return new ObjectPool<LightningController>(lightningObj, poolName, initialSize, this.transform);
             // Try DroneController
             var droneObj = comp.GetComponent<DroneController>();
             if (droneObj != null)
